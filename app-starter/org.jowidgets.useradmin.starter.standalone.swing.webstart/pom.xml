@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>org.jowidgets.useradmin.starter.standalone.swing.webstart</artifactId>
+	
+	<parent>
+		<groupId>org.jowidgets.useradmin</groupId>
+		<artifactId>org.jowidgets.useradmin.starter.parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../parent/pom.xml</relativePath>
+	</parent>
+	
+	<dependencies>
+	    <dependency>
+			<groupId>org.jowidgets.useradmin</groupId>
+			<artifactId>org.jowidgets.useradmin.starter.standalone.swing</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo.webstart</groupId>
+				<artifactId>webstart-maven-plugin</artifactId>
+				<version>1.0-beta-1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jnlp-inline</goal>
+						</goals>
+						<phase>package</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<sign>
+                        <keystore>${basedir}/keystore</keystore>
+                        <keypass>keystore</keypass>
+                        <storepass>keystore</storepass>
+                        <alias>key</alias>
+
+                        <verify>true</verify> 
+
+                        <keystoreConfig>
+                            <delete>false</delete> 
+                            <gen>false</gen>       
+                        </keystoreConfig>
+                    </sign>
+					<jnlp>
+						<outputFile>useradmin_standalone_swing.jnlp</outputFile>
+						<mainClass>org.jowidgets.useradmin.starter.standalone.swing.UserAdminStarterStandaloneSwing</mainClass>
+					</jnlp>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+</project>
