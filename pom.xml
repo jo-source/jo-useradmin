@@ -1,11 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jowidgets.useradmin</groupId>
 	<artifactId>org.jowidgets.useradmin.parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.6</java.version>
@@ -22,9 +23,39 @@
 	</scm>
 
 	<modules>
-	    <module>app/parent/</module>
+		<module>app/parent/</module>
 		<module>app-starter/parent/</module>
 	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>4.0.2.GA</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-jcl</artifactId>
+				<version>1.5.6</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.eclipse</groupId>
+				<artifactId>swt-win32-win32-x86</artifactId>
+				<version>3.6.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.eclipse</groupId>
+				<artifactId>swt-gtk-linux-x86_64</artifactId>
+				<version>3.6.2</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
 
 	<distributionManagement>
 		<repository>
@@ -63,7 +94,7 @@
 				<version>1.0-beta-6</version>
 			</extension>
 		</extensions>
-		
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -72,8 +103,8 @@
 				<configuration>
 					<configLocation>org/jowidgets/checkstyle/checkstyle-checker.xml</configLocation>
 					<suppressionsLocation>org/jowidgets/checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
-					<!-- checkstyle suppressions won't work inside eclipse, so do this workaround to 
-					omit generated classes from checking inside eclipse -->
+					<!-- checkstyle suppressions won't work inside eclipse, so do this workaround 
+						to omit generated classes from checking inside eclipse -->
 					<excludes>**/*Messages.java</excludes>
 				</configuration>
 				<executions>
@@ -106,11 +137,11 @@
 				<configuration>
 					<downloadSources>true</downloadSources>
 					<downloadJavadocs>true</downloadJavadocs>
-					
+
 					<additionalBuildcommands>
 						<buildcommand>net.sf.eclipsecs.core.CheckstyleBuilder</buildcommand>
 					</additionalBuildcommands>
-					
+
 					<additionalProjectnatures>
 						<projectnature>net.sf.eclipsecs.core.CheckstyleNature</projectnature>
 					</additionalProjectnatures>

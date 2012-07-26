@@ -11,16 +11,18 @@
 	</parent>
 
 	<dependencies>
+	
 	    <dependency>
 			<groupId>org.jowidgets.useradmin</groupId>
 			<artifactId>org.jowidgets.useradmin.starter.client.swt.common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
 		<dependency>
             <groupId>org.eclipse</groupId>
             <artifactId>swt-gtk-linux-x86_64</artifactId>
-            <version>3.6.2</version>
         </dependency>
+        
 	</dependencies>
 	
 </project>
