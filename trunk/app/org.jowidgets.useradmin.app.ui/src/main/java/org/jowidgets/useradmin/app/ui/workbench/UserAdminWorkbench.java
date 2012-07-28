@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, grossmann
+ * Copyright (c) 2012, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -28,39 +28,32 @@
 
 package org.jowidgets.useradmin.app.ui.workbench;
 
-import org.jowidgets.cap.ui.api.login.LoginService;
-import org.jowidgets.common.types.Dimension;
-import org.jowidgets.common.types.IVetoable;
-import org.jowidgets.workbench.api.ILoginCallback;
+import org.jowidgets.cap.ui.tools.workbench.CapWorkbenchModelBuilder;
+import org.jowidgets.useradmin.app.ui.application.UserAdminApplicationFactory;
 import org.jowidgets.workbench.api.IWorkbench;
+import org.jowidgets.workbench.api.IWorkbenchContext;
 import org.jowidgets.workbench.api.IWorkbenchFactory;
+import org.jowidgets.workbench.toolkit.api.IWorkbenchInitializeCallback;
 import org.jowidgets.workbench.toolkit.api.IWorkbenchModel;
 import org.jowidgets.workbench.toolkit.api.IWorkbenchModelBuilder;
-import org.jowidgets.workbench.toolkit.api.WorkbenchToolkit;
-import org.jowidgets.workbench.tools.WorkbenchModelBuilder;
+import org.jowidgets.workbench.toolkit.api.WorkbenchPartFactory;
 
 public class UserAdminWorkbench implements IWorkbenchFactory {
 
 	@Override
 	public IWorkbench create() {
 
-		final IWorkbenchModelBuilder builder = new WorkbenchModelBuilder();
-		builder.setInitialDimension(new Dimension(1024, 768));
-		builder.setInitialSplitWeight(0.2);
+		final IWorkbenchModelBuilder builder = new CapWorkbenchModelBuilder();
+
 		builder.setLabel("UserAdmin");
-		builder.setLoginCallback(new ILoginCallback() {
+
+		builder.addInitializeCallback(new IWorkbenchInitializeCallback() {
 			@Override
-			public void onLogin(final IVetoable vetoable) {
-				final boolean doLogin = LoginService.doLogin();
-				if (!doLogin) {
-					vetoable.veto();
-				}
+			public void onContextInitialize(final IWorkbenchModel model, final IWorkbenchContext context) {
+				model.addApplication(UserAdminApplicationFactory.create());
 			}
 		});
 
-		final IWorkbenchModel model = builder.build();
-
-		return WorkbenchToolkit.getWorkbenchPartFactory().workbench(model);
+		return WorkbenchPartFactory.workbench(builder.build());
 	}
-
 }
