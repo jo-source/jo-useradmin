@@ -28,11 +28,11 @@
 
 package org.jowidgets.useradmin.app.service;
 
+import org.jowidgets.service.tools.ServiceProviderBuilder;
 import org.jowidgets.useradmin.app.common.service.security.AuthorizationProviderServiceId;
 import org.jowidgets.useradmin.app.service.security.AuthorizationProviderServiceImpl;
-import org.jowidgets.service.tools.ServiceProviderBuilder;
 
-public class SampleServiceProviderBuilder extends ServiceProviderBuilder {
+public final class SampleServiceProviderBuilder extends ServiceProviderBuilder {
 
 	public SampleServiceProviderBuilder() {
 		super();
