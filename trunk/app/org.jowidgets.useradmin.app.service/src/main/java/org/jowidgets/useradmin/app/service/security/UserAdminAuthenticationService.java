@@ -33,7 +33,7 @@ import org.jowidgets.security.tools.DefaultCredentials;
 import org.jowidgets.security.tools.DefaultPrincipal;
 import org.jowidgets.util.EmptyCheck;
 
-public class SampleAuthenticationService implements IAuthenticationService<DefaultPrincipal, DefaultCredentials> {
+public class UserAdminAuthenticationService implements IAuthenticationService<DefaultPrincipal, DefaultCredentials> {
 
 	@Override
 	public DefaultPrincipal authenticate(final DefaultCredentials credentials) {
