@@ -27,6 +27,8 @@
  */
 package org.jowidgets.useradmin.service.persistence.bean;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -51,6 +53,8 @@ import org.hibernate.annotations.Index;
 import org.jowidgets.cap.service.jpa.api.query.QueryPath;
 import org.jowidgets.cap.service.jpa.tools.entity.EntityManagerProvider;
 import org.jowidgets.useradmin.app.common.bean.IPerson;
+import org.jowidgets.util.Assert;
+import org.jowidgets.util.EmptyCheck;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"loginName"}))
@@ -160,4 +164,53 @@ public class Person extends Bean implements IPerson {
 		personRoleLinks = newPersonRoleLinks;
 	}
 
+	public void setPassword(final String password) {
+		if (!EmptyCheck.isEmpty(password)) {
+			setPasswordHash(encodePassword(password));
+		}
+		else {
+			setPasswordHash(null);
+		}
+	}
+
+	public boolean isAuthenticated(final String password) {
+
+		String currentPasswordHash = getPasswordHash();
+		if (currentPasswordHash == null) {
+			currentPasswordHash = encodePassword(getLoginName());
+		}
+		if (encodePassword(password).equals(currentPasswordHash)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+
+	}
+
+	private static String encodePassword(final String password) {
+		Assert.paramNotNull(password, "password");
+
+		try {
+			final MessageDigest md5 = MessageDigest.getInstance("MD5");
+			final StringBuffer strBuf = new StringBuffer();
+			md5.update(password.getBytes());
+
+			for (final byte b : md5.digest()) {
+				strBuf.append(byteToHexString(b));
+			}
+
+			return strBuf.toString();
+		}
+		catch (final NoSuchAlgorithmException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private static String byteToHexString(final byte b) {
+		final int value = (b & 0x7F) + (b < 0 ? 128 : 0);
+		String ret = value < 16 ? "0" : "";
+		ret = ret + Integer.toHexString(value).toLowerCase();
+		return ret;
+	}
 }
