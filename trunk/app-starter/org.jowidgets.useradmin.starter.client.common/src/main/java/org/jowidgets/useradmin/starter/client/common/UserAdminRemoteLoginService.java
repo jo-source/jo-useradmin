@@ -29,7 +29,7 @@
 package org.jowidgets.useradmin.starter.client.common;
 
 import org.jowidgets.cap.common.api.service.IAuthorizationProviderService;
-import org.jowidgets.useradmin.app.common.security.AuthorizationProviderServiceId;
+import org.jowidgets.useradmin.common.security.AuthorizationProviderServiceId;
 import org.jowidgets.cap.tools.starter.client.AbstractRemoteLoginService;
 import org.jowidgets.service.api.IServiceId;
 

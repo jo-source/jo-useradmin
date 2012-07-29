@@ -31,7 +31,7 @@ package org.jowidgets.useradmin.app.service.descriptor;
 import org.jowidgets.cap.common.api.bean.IBean;
 import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;
 import org.jowidgets.cap.common.tools.bean.BeanDtoDescriptorBuilder;
-import org.jowidgets.useradmin.app.common.bean.IRole;
+import org.jowidgets.useradmin.common.bean.IRole;
 
 public class RoleDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
 

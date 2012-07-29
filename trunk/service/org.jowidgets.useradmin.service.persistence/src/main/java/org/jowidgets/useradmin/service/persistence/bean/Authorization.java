@@ -40,7 +40,7 @@ import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Index;
 import org.jowidgets.cap.service.jpa.tools.entity.EntityManagerProvider;
-import org.jowidgets.useradmin.app.common.bean.IAuthorization;
+import org.jowidgets.useradmin.common.bean.IAuthorization;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"key"}))

@@ -2,11 +2,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>org.jowidgets.useradmin.app.common</artifactId>
+	<artifactId>org.jowidgets.useradmin.common</artifactId>
 
 	<parent>
 		<groupId>org.jowidgets.useradmin</groupId>
-		<artifactId>org.jowidgets.useradmin.app.parent</artifactId>
+		<artifactId>org.jowidgets.useradmin.common.parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
@@ -42,8 +42,6 @@
 			<artifactId>slf4j-jcl</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
-
 
 	</dependencies>
 

@@ -4,7 +4,7 @@
  * Creation Date: 21.01.2012
  */
 
-package org.jowidgets.useradmin.app.common.lookup;
+package org.jowidgets.useradmin.common.lookup;
 
 public enum LookUpIds {
 

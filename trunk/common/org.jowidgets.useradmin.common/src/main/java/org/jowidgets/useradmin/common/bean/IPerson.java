@@ -25,7 +25,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
-package org.jowidgets.useradmin.app.common.bean;
+package org.jowidgets.useradmin.common.bean;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -38,7 +38,7 @@ import org.jowidgets.cap.security.common.api.annotation.CreateAuthorization;
 import org.jowidgets.cap.security.common.api.annotation.DeleteAuthorization;
 import org.jowidgets.cap.security.common.api.annotation.ReadAuthorization;
 import org.jowidgets.cap.security.common.api.annotation.UpdateAuthorization;
-import org.jowidgets.useradmin.app.common.security.AuthKeys;
+import org.jowidgets.useradmin.common.security.AuthKeys;
 
 @CreateAuthorization(AuthKeys.CREATE_PERSON)
 @ReadAuthorization(AuthKeys.READ_PERSON)

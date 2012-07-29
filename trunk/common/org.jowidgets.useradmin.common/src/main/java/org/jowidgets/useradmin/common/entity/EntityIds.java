@@ -26,7 +26,7 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.app.common.entity;
+package org.jowidgets.useradmin.common.entity;
 
 public enum EntityIds {
 

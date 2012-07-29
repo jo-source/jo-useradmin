@@ -36,11 +36,11 @@ import org.jowidgets.cap.service.jpa.api.IJpaServicesDecoratorProviderBuilder;
 import org.jowidgets.cap.service.jpa.api.JpaServiceToolkit;
 import org.jowidgets.cap.service.tools.CapServiceProviderBuilder;
 import org.jowidgets.service.api.IServicesDecoratorProvider;
-import org.jowidgets.useradmin.app.common.lookup.LookUpIds;
-import org.jowidgets.useradmin.app.common.security.AuthorizationProviderServiceId;
 import org.jowidgets.useradmin.app.service.entity.UserAdminEntityServiceBuilder;
 import org.jowidgets.useradmin.app.service.lookup.RolesLookUpService;
 import org.jowidgets.useradmin.app.service.security.AuthorizationProviderServiceImpl;
+import org.jowidgets.useradmin.common.lookup.LookUpIds;
+import org.jowidgets.useradmin.common.security.AuthorizationProviderServiceId;
 
 public final class UserAdminServiceProviderBuilder extends CapServiceProviderBuilder {
 
