@@ -29,10 +29,12 @@ package org.jowidgets.useradmin.service.persistence.bean;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -138,6 +140,28 @@ public class Person extends Bean implements IPerson {
 		else {
 			setPasswordHash(null);
 		}
+	}
+
+	public Set<String> getAuthorizations() {
+		final Set<String> result = new HashSet<String>();
+		final Map<Long, PersonRoleLink> personRoleLinksMap = getPersonRoleLinks();
+		if (personRoleLinksMap != null) {
+			for (final PersonRoleLink personRoleLink : personRoleLinksMap.values()) {
+				result.addAll(getAuthorizations(personRoleLink.getRole()));
+			}
+		}
+		return result;
+	}
+
+	private static Set<String> getAuthorizations(final Role role) {
+		final Set<String> result = new HashSet<String>();
+		if (role != null) {
+			for (final RoleAuthorizationLink roleAuthorizationLink : role.getRoleAuthorizationLinks()) {
+				final Authorization authorization = roleAuthorizationLink.getAuthorization();
+				result.add(authorization.getKey());
+			}
+		}
+		return result;
 	}
 
 	public boolean isAuthenticated(final String password) {

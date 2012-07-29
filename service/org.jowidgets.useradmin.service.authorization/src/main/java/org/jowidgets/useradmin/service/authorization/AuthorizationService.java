@@ -28,7 +28,7 @@
 
 package org.jowidgets.useradmin.service.authorization;
 
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -39,11 +39,7 @@ import org.jowidgets.security.api.IAuthorizationService;
 import org.jowidgets.security.api.IPrincipal;
 import org.jowidgets.security.tools.DefaultPrincipal;
 import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
-import org.jowidgets.useradmin.service.persistence.bean.Authorization;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
-import org.jowidgets.useradmin.service.persistence.bean.PersonRoleLink;
-import org.jowidgets.useradmin.service.persistence.bean.Role;
-import org.jowidgets.useradmin.service.persistence.bean.RoleAuthorizationLink;
 import org.jowidgets.useradmin.service.persistence.dao.PersonDAO;
 
 public final class AuthorizationService implements IAuthorizationService<IPrincipal<String>> {
@@ -65,8 +61,10 @@ public final class AuthorizationService implements IAuthorizationService<IPrinci
 		if (username != null) {
 			try {
 				em = entityManagerFactory.createEntityManager();
-				return getAuthorizations(PersonDAO.findPersonByLogin(em, username, true));
-
+				final Person person = PersonDAO.findPersonByLogin(em, username, true);
+				if (person != null) {
+					return person.getAuthorizations();
+				}
 			}
 			catch (final Exception e) {
 				//TODO log exception
@@ -84,27 +82,7 @@ public final class AuthorizationService implements IAuthorizationService<IPrinci
 				}
 			}
 		}
-		return null;
+		return Collections.emptySet();
 	}
 
-	private Set<String> getAuthorizations(final Person person) {
-		final Set<String> result = new HashSet<String>();
-		if (person != null) {
-			for (final PersonRoleLink personRoleLink : person.getPersonRoleLinks().values()) {
-				result.addAll(getAuthorizations(personRoleLink.getRole()));
-			}
-		}
-		return result;
-	}
-
-	private Set<String> getAuthorizations(final Role role) {
-		final Set<String> result = new HashSet<String>();
-		if (role != null) {
-			for (final RoleAuthorizationLink roleAuthorizationLink : role.getRoleAuthorizationLinks()) {
-				final Authorization authorization = roleAuthorizationLink.getAuthorization();
-				result.add(authorization.getKey());
-			}
-		}
-		return result;
-	}
 }

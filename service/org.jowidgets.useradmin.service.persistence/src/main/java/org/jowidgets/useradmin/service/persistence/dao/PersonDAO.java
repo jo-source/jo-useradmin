@@ -53,7 +53,7 @@ public final class PersonDAO {
 		try {
 			final CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 			final CriteriaQuery<Person> query = criteriaBuilder.createQuery(Person.class);
-			final Root<?> root = query.from(Person.class);
+			final Root<Person> root = query.from(Person.class);
 			final Path<String> loginPath = root.get(IPerson.LOGIN_NAME_PROPERTY);
 			final String usernameUpper = loginName != null ? loginName.toUpperCase() : null;
 			final Predicate loginPredicate = criteriaBuilder.like(criteriaBuilder.upper(loginPath), usernameUpper);
