@@ -34,6 +34,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import org.jowidgets.useradmin.common.security.AuthKeys;
+import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Authorization;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
 import org.jowidgets.useradmin.service.persistence.bean.PersonRoleLink;
@@ -104,7 +105,7 @@ public final class DataGenerator {
 	}
 
 	public static void main(final String[] args) {
-		new DataGenerator().dropAndCreateData(Persistence.createEntityManagerFactory("userAdminPersistenceUnit"));
+		new DataGenerator().dropAndCreateData(Persistence.createEntityManagerFactory(PersistenceUnitNames.USER_ADMIN));
 	}
 
 }

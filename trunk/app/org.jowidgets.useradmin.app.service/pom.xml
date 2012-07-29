@@ -60,6 +60,12 @@
 			<artifactId>org.jowidgets.cap.service.hibernate</artifactId>
 			<version>${jocap.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.jowidgets</groupId>
+			<artifactId>org.jowidgets.cap.service.hibernate.oracle</artifactId>
+			<version>${jocap.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -71,11 +77,11 @@
 			<artifactId>hibernate-c3p0</artifactId>
 		</dependency>
 
-		<!--  dependency>
+		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc14</artifactId>
 			<scope>runtime</scope>
-		</dependency-->
+		</dependency>
 
 	</dependencies>
 
