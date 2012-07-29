@@ -26,34 +26,14 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.app.ui.workbench;
+package org.jowidgets.useradmin.ui.plugins;
 
-import org.jowidgets.cap.ui.tools.workbench.CapWorkbenchModelBuilder;
-import org.jowidgets.useradmin.ui.application.UserAdminApplicationFactory;
-import org.jowidgets.workbench.api.IWorkbench;
-import org.jowidgets.workbench.api.IWorkbenchContext;
-import org.jowidgets.workbench.api.IWorkbenchFactory;
-import org.jowidgets.workbench.toolkit.api.IWorkbenchInitializeCallback;
-import org.jowidgets.workbench.toolkit.api.IWorkbenchModel;
-import org.jowidgets.workbench.toolkit.api.IWorkbenchModelBuilder;
-import org.jowidgets.workbench.toolkit.api.WorkbenchPartFactory;
+import org.jowidgets.plugin.tools.PluginProviderHolder;
 
-public class UserAdminWorkbench implements IWorkbenchFactory {
+public class UserAdminPluginProviderHolder extends PluginProviderHolder {
 
-	@Override
-	public IWorkbench create() {
-
-		final IWorkbenchModelBuilder builder = new CapWorkbenchModelBuilder();
-
-		builder.setLabel("UserAdmin");
-
-		builder.addInitializeCallback(new IWorkbenchInitializeCallback() {
-			@Override
-			public void onContextInitialize(final IWorkbenchModel model, final IWorkbenchContext context) {
-				model.addApplication(UserAdminApplicationFactory.create());
-			}
-		});
-
-		return WorkbenchPartFactory.workbench(builder.build());
+	public UserAdminPluginProviderHolder() {
+		super(new UserAdminPluginProviderBuilder(), 2);
 	}
+
 }
