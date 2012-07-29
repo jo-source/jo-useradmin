@@ -33,7 +33,7 @@ import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;
 import org.jowidgets.cap.common.tools.bean.BeanDtoDescriptorBuilder;
 import org.jowidgets.useradmin.common.bean.IAuthorization;
 
-public class AuthorizationDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
+public final class AuthorizationDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
 
 	public AuthorizationDtoDescriptorBuilder() {
 		super(IAuthorization.class);

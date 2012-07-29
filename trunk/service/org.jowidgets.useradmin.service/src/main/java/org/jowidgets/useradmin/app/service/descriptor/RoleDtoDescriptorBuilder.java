@@ -33,7 +33,7 @@ import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;
 import org.jowidgets.cap.common.tools.bean.BeanDtoDescriptorBuilder;
 import org.jowidgets.useradmin.common.bean.IRole;
 
-public class RoleDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
+public final class RoleDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
 
 	public RoleDtoDescriptorBuilder() {
 		super(IRole.class);

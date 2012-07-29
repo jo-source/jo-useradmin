@@ -33,7 +33,7 @@ import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;
 import org.jowidgets.cap.common.tools.bean.BeanDtoDescriptorBuilder;
 import org.jowidgets.useradmin.common.bean.IPerson;
 
-public class PersonDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
+public final class PersonDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
 
 	public PersonDtoDescriptorBuilder() {
 		this("User", "Users");
