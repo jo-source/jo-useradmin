@@ -42,6 +42,7 @@ import org.jowidgets.security.api.IAuthenticationService;
 import org.jowidgets.security.tools.DefaultCredentials;
 import org.jowidgets.security.tools.DefaultPrincipal;
 import org.jowidgets.useradmin.common.bean.IPerson;
+import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
 
 public final class AuthenticationService implements IAuthenticationService<DefaultPrincipal, DefaultCredentials> {
@@ -49,7 +50,7 @@ public final class AuthenticationService implements IAuthenticationService<Defau
 	private final EntityManagerFactory entityManagerFactory;
 
 	public AuthenticationService() {
-		this.entityManagerFactory = EntityManagerFactoryProvider.get("userAdminPersistenceUnit");
+		this.entityManagerFactory = EntityManagerFactoryProvider.get(PersistenceUnitNames.USER_ADMIN);
 	}
 
 	@Override
