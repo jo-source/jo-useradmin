@@ -30,20 +30,14 @@ package org.jowidgets.useradmin.service.authentication;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 import org.jowidgets.cap.service.jpa.api.EntityManagerFactoryProvider;
 import org.jowidgets.security.api.IAuthenticationService;
 import org.jowidgets.security.tools.DefaultCredentials;
 import org.jowidgets.security.tools.DefaultPrincipal;
-import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
+import org.jowidgets.useradmin.service.persistence.dao.PersonDAO;
 
 public final class AuthenticationService implements IAuthenticationService<DefaultPrincipal, DefaultCredentials> {
 
@@ -63,9 +57,8 @@ public final class AuthenticationService implements IAuthenticationService<Defau
 		if (username != null && password != null) {
 			try {
 				em = entityManagerFactory.createEntityManager();
-				final Person person = getPerson(em, username);
-				final Boolean active = person.getActive();
-				if (person != null && active != null && active.booleanValue() && person.isAuthenticated(password)) {
+				final Person person = PersonDAO.findPersonByLogin(em, username, true);
+				if (person != null && person.isAuthenticated(password)) {
 					return new DefaultPrincipal(username);
 				}
 			}
@@ -86,22 +79,6 @@ public final class AuthenticationService implements IAuthenticationService<Defau
 			}
 		}
 		return null;
-	}
-
-	private Person getPerson(final EntityManager em, final String username) {
-		try {
-			final CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-			final CriteriaQuery<Person> query = criteriaBuilder.createQuery(Person.class);
-			final Root<?> root = query.from(Person.class);
-			final Path<String> loginPath = root.get(IPerson.LOGIN_NAME_PROPERTY);
-			final String usernameUpper = username != null ? username.toUpperCase() : null;
-			final Predicate predicate = criteriaBuilder.like(criteriaBuilder.upper(loginPath), usernameUpper);
-			query.where(predicate);
-			return em.createQuery(query).getSingleResult();
-		}
-		catch (final NoResultException e) {
-			return null;
-		}
 	}
 
 }

@@ -33,24 +33,18 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 import org.jowidgets.cap.service.jpa.api.EntityManagerFactoryProvider;
 import org.jowidgets.security.api.IAuthorizationService;
 import org.jowidgets.security.api.IPrincipal;
 import org.jowidgets.security.tools.DefaultPrincipal;
-import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Authorization;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
 import org.jowidgets.useradmin.service.persistence.bean.PersonRoleLink;
 import org.jowidgets.useradmin.service.persistence.bean.Role;
 import org.jowidgets.useradmin.service.persistence.bean.RoleAuthorizationLink;
+import org.jowidgets.useradmin.service.persistence.dao.PersonDAO;
 
 public final class AuthorizationService implements IAuthorizationService<IPrincipal<String>> {
 
@@ -71,7 +65,7 @@ public final class AuthorizationService implements IAuthorizationService<IPrinci
 		if (username != null) {
 			try {
 				em = entityManagerFactory.createEntityManager();
-				return getAuthorizations(getPerson(em, username));
+				return getAuthorizations(PersonDAO.findPersonByLogin(em, username, true));
 
 			}
 			catch (final Exception e) {
@@ -93,26 +87,9 @@ public final class AuthorizationService implements IAuthorizationService<IPrinci
 		return null;
 	}
 
-	private Person getPerson(final EntityManager em, final String username) {
-		try {
-			final CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-			final CriteriaQuery<Person> query = criteriaBuilder.createQuery(Person.class);
-			final Root<?> root = query.from(Person.class);
-			final Path<String> loginPath = root.get(IPerson.LOGIN_NAME_PROPERTY);
-			final String usernameUpper = username != null ? username.toUpperCase() : null;
-			final Predicate predicate = criteriaBuilder.like(criteriaBuilder.upper(loginPath), usernameUpper);
-			query.where(predicate);
-			return em.createQuery(query).getSingleResult();
-		}
-		catch (final NoResultException e) {
-			return null;
-		}
-	}
-
 	private Set<String> getAuthorizations(final Person person) {
 		final Set<String> result = new HashSet<String>();
-		final Boolean active = person.getActive();
-		if (person != null && active != null && active.booleanValue()) {
+		if (person != null) {
 			for (final PersonRoleLink personRoleLink : person.getPersonRoleLinks().values()) {
 				result.addAll(getAuthorizations(personRoleLink.getRole()));
 			}
