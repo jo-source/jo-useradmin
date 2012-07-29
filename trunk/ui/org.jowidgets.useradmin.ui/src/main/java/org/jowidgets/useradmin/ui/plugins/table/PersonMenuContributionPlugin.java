@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, grossmann
+ * Copyright (c) 2011, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -26,34 +26,32 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.app.ui.workbench;
+package org.jowidgets.useradmin.ui.plugins.table;
 
-import org.jowidgets.cap.ui.tools.workbench.CapWorkbenchModelBuilder;
-import org.jowidgets.useradmin.ui.application.UserAdminApplicationFactory;
-import org.jowidgets.workbench.api.IWorkbench;
-import org.jowidgets.workbench.api.IWorkbenchContext;
-import org.jowidgets.workbench.api.IWorkbenchFactory;
-import org.jowidgets.workbench.toolkit.api.IWorkbenchInitializeCallback;
-import org.jowidgets.workbench.toolkit.api.IWorkbenchModel;
-import org.jowidgets.workbench.toolkit.api.IWorkbenchModelBuilder;
-import org.jowidgets.workbench.toolkit.api.WorkbenchPartFactory;
+import org.jowidgets.api.model.item.IMenuModel;
+import org.jowidgets.cap.ui.api.plugin.IBeanTableMenuContributionPlugin;
+import org.jowidgets.cap.ui.api.widgets.IBeanTable;
+import org.jowidgets.plugin.api.IPluginProperties;
+import org.jowidgets.tools.model.item.MenuModel;
+import org.jowidgets.useradmin.common.bean.IPerson;
 
-public class UserAdminWorkbench implements IWorkbenchFactory {
+public final class PersonMenuContributionPlugin implements IBeanTableMenuContributionPlugin<IPerson> {
 
 	@Override
-	public IWorkbench create() {
-
-		final IWorkbenchModelBuilder builder = new CapWorkbenchModelBuilder();
-
-		builder.setLabel("UserAdmin");
-
-		builder.addInitializeCallback(new IWorkbenchInitializeCallback() {
-			@Override
-			public void onContextInitialize(final IWorkbenchModel model, final IWorkbenchContext context) {
-				model.addApplication(UserAdminApplicationFactory.create());
-			}
-		});
-
-		return WorkbenchPartFactory.workbench(builder.build());
+	public IMenuModel getCellMenu(final IPluginProperties properties, final IBeanTable<IPerson> table) {
+		final MenuModel result = new MenuModel();
+		result.addActionItem("TEST");
+		return result;
 	}
+
+	@Override
+	public IMenuModel getHeaderMenu(final IPluginProperties properties, final IBeanTable<IPerson> table) {
+		return new MenuModel();
+	}
+
+	@Override
+	public IMenuModel getTableMenu(final IPluginProperties properties, final IBeanTable<IPerson> table) {
+		return new MenuModel();
+	}
+
 }
