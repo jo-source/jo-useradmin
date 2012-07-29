@@ -30,6 +30,12 @@
 			<artifactId>org.jowidgets.useradmin.service.authentication</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.jowidgets.useradmin</groupId>
+			<artifactId>org.jowidgets.useradmin.service.authorization</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.jowidgets</groupId>

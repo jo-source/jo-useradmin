@@ -13,7 +13,12 @@
 
 	<dependencies>
 
-
+		<dependency>
+			<groupId>org.jowidgets.useradmin</groupId>
+			<artifactId>org.jowidgets.useradmin.service.persistence</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
 	</dependencies>
 
 </project>
