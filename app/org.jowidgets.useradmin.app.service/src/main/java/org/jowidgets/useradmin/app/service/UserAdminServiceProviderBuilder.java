@@ -30,6 +30,7 @@ package org.jowidgets.useradmin.app.service;
 
 import org.jowidgets.cap.common.api.service.IEntityService;
 import org.jowidgets.cap.common.api.service.ILookUpService;
+import org.jowidgets.cap.security.service.tools.DefaultAuthorizationProviderService;
 import org.jowidgets.cap.service.hibernate.api.HibernateServiceToolkit;
 import org.jowidgets.cap.service.hibernate.api.ICancelServicesDecoratorProviderBuilder;
 import org.jowidgets.cap.service.hibernate.oracle.api.HibernateOracleServiceToolkit;
@@ -38,14 +39,13 @@ import org.jowidgets.cap.service.jpa.api.JpaServiceToolkit;
 import org.jowidgets.cap.service.tools.CapServiceProviderBuilder;
 import org.jowidgets.service.api.IServicesDecoratorProvider;
 import org.jowidgets.useradmin.app.service.entity.UserAdminEntityServiceBuilder;
-import org.jowidgets.useradmin.app.service.security.AuthorizationProviderServiceImpl;
 import org.jowidgets.useradmin.common.security.AuthorizationProviderServiceId;
 import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
 
 public final class UserAdminServiceProviderBuilder extends CapServiceProviderBuilder {
 
 	public UserAdminServiceProviderBuilder() {
-		addService(AuthorizationProviderServiceId.ID, new AuthorizationProviderServiceImpl<String>());
+		addService(AuthorizationProviderServiceId.ID, new DefaultAuthorizationProviderService<String>());
 		addService(IEntityService.ID, new UserAdminEntityServiceBuilder(this).build());
 
 		addServiceDecorator(createJpaServiceDecoratorProvider());
