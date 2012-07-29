@@ -18,13 +18,13 @@
 			<artifactId>org.jowidgets.useradmin.service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.jowidgets.useradmin</groupId>
 			<artifactId>org.jowidgets.useradmin.service.authentication</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.jowidgets.useradmin</groupId>
 			<artifactId>org.jowidgets.useradmin.service.authorization</artifactId>
@@ -48,7 +48,7 @@
 			<artifactId>org.jowidgets.cap.service.hibernate</artifactId>
 			<version>${jocap.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.jowidgets</groupId>
 			<artifactId>org.jowidgets.cap.service.hibernate.oracle</artifactId>

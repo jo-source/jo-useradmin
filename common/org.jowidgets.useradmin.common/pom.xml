@@ -30,7 +30,7 @@
 			<artifactId>org.jowidgets.cap.security.common</artifactId>
 			<version>${jocap.version}</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
