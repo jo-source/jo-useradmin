@@ -26,18 +26,19 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.app.service;
+package org.jowidgets.useradmin.app.common.security;
 
-import org.jowidgets.service.tools.ServiceProviderBuilder;
-import org.jowidgets.useradmin.app.common.service.security.AuthorizationProviderServiceId;
-import org.jowidgets.useradmin.app.service.security.AuthorizationProviderServiceImpl;
+import org.jowidgets.cap.common.api.service.IAuthorizationProviderService;
+import org.jowidgets.security.tools.DefaultPrincipal;
+import org.jowidgets.service.api.IServiceId;
+import org.jowidgets.service.tools.ServiceId;
 
-public final class SampleServiceProviderBuilder extends ServiceProviderBuilder {
+public final class AuthorizationProviderServiceId {
 
-	public SampleServiceProviderBuilder() {
-		super();
+	public static final IServiceId<IAuthorizationProviderService<DefaultPrincipal>> ID = new ServiceId<IAuthorizationProviderService<DefaultPrincipal>>(
+		AuthorizationProviderServiceId.class.getName() + "ID",
+		IAuthorizationProviderService.class);
 
-		addService(AuthorizationProviderServiceId.ID, new AuthorizationProviderServiceImpl());
-	}
+	private AuthorizationProviderServiceId() {}
 
 }

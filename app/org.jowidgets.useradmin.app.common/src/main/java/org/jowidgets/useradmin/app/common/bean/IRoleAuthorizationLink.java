@@ -25,23 +25,42 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
+package org.jowidgets.useradmin.app.common.bean;
 
-package org.jowidgets.useradmin.starter.client.common;
+import java.util.LinkedList;
+import java.util.List;
 
-import org.jowidgets.cap.common.api.service.IAuthorizationProviderService;
-import org.jowidgets.useradmin.app.common.security.AuthorizationProviderServiceId;
-import org.jowidgets.cap.tools.starter.client.AbstractRemoteLoginService;
-import org.jowidgets.service.api.IServiceId;
+import org.jowidgets.cap.common.api.bean.IBean;
+import org.jowidgets.cap.security.common.api.annotation.CreateAuthorization;
+import org.jowidgets.cap.security.common.api.annotation.DeleteAuthorization;
+import org.jowidgets.cap.security.common.api.annotation.ReadAuthorization;
+import org.jowidgets.cap.security.common.api.annotation.UpdateAuthorization;
+import org.jowidgets.useradmin.app.common.security.AuthKeys;
 
-public class UserAdminRemoteLoginService extends AbstractRemoteLoginService {
+@CreateAuthorization(AuthKeys.CREATE_ROLE_AUTHORIZATION_LINK)
+@ReadAuthorization(AuthKeys.READ_ROLE_AUTHORIZATION_LINK)
+@UpdateAuthorization(AuthKeys.UPDATE_ROLE_AUTHORIZATION_LINK)
+@DeleteAuthorization(AuthKeys.DELETE_ROLE_AUTHORIZATION_LINK)
+public interface IRoleAuthorizationLink extends IBean {
 
-	public UserAdminRemoteLoginService() {
-		super("UserAdmin");
-	}
+	String ROLE_ID_PROPERTY = "roleId";
+	String AUTHORIZATION_ID_PROPERTY = "authorizationId";
 
-	@Override
-	protected IServiceId<? extends IAuthorizationProviderService<?>> getAuthorizationProviderServiceId() {
-		return AuthorizationProviderServiceId.ID;
-	}
+	List<String> ALL_PROPERTIES = new LinkedList<String>() {
+		private static final long serialVersionUID = 1L;
+		{
+			add(ROLE_ID_PROPERTY);
+			add(AUTHORIZATION_ID_PROPERTY);
+			add(IBean.ID_PROPERTY);
+			add(IBean.VERSION_PROPERTY);
+		}
+	};
 
+	Long getRoleId();
+
+	void setRoleId(final Long id);
+
+	Long getAuthorizationId();
+
+	void setAuthorizationId(Long id);
 }

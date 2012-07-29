@@ -26,22 +26,14 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.starter.client.common;
+package org.jowidgets.useradmin.app.service;
 
-import org.jowidgets.cap.common.api.service.IAuthorizationProviderService;
-import org.jowidgets.useradmin.app.common.security.AuthorizationProviderServiceId;
-import org.jowidgets.cap.tools.starter.client.AbstractRemoteLoginService;
-import org.jowidgets.service.api.IServiceId;
+import org.jowidgets.service.tools.DefaultServiceProviderHolder;
 
-public class UserAdminRemoteLoginService extends AbstractRemoteLoginService {
+public class UserAdminServiceProviderHolder extends DefaultServiceProviderHolder {
 
-	public UserAdminRemoteLoginService() {
-		super("UserAdmin");
-	}
-
-	@Override
-	protected IServiceId<? extends IAuthorizationProviderService<?>> getAuthorizationProviderServiceId() {
-		return AuthorizationProviderServiceId.ID;
+	public UserAdminServiceProviderHolder() {
+		super(new UserAdminServiceProviderBuilder());
 	}
 
 }

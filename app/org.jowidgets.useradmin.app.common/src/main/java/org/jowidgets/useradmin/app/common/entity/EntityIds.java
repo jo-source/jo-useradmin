@@ -26,22 +26,27 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.starter.client.common;
+package org.jowidgets.useradmin.app.common.entity;
 
-import org.jowidgets.cap.common.api.service.IAuthorizationProviderService;
-import org.jowidgets.useradmin.app.common.security.AuthorizationProviderServiceId;
-import org.jowidgets.cap.tools.starter.client.AbstractRemoteLoginService;
-import org.jowidgets.service.api.IServiceId;
+public enum EntityIds {
 
-public class UserAdminRemoteLoginService extends AbstractRemoteLoginService {
+	PERSON,
+	ROLE,
+	AUTHORIZATION,
 
-	public UserAdminRemoteLoginService() {
-		super("UserAdmin");
-	}
+	PERSON_ROLE_LINK,
+	ROLE_AUTHORIZATION_LINK,
 
-	@Override
-	protected IServiceId<? extends IAuthorizationProviderService<?>> getAuthorizationProviderServiceId() {
-		return AuthorizationProviderServiceId.ID;
-	}
+	LINKED_ROLES_OF_PERSONS,
+	LINKABLE_ROLES_OF_PERSONS,
+
+	LINKED_PERSONS_OF_ROLES,
+	LINKABLE_PERSONS_OF_ROLES,
+
+	LINKED_AUTHORIZATION_OF_ROLES,
+	LINKABLE_AUTHORIZATIONS_OF_ROLES,
+
+	LINKED_ROLES_OF_AUTHORIZATIONS,
+	LINKABLE_ROLES_OF_AUTHORIZATIONS
 
 }
