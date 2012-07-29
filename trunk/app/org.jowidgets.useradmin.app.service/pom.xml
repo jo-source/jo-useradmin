@@ -15,13 +15,7 @@
 
 		<dependency>
 			<groupId>org.jowidgets.useradmin</groupId>
-			<artifactId>org.jowidgets.useradmin.common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.jowidgets.useradmin</groupId>
-			<artifactId>org.jowidgets.useradmin.service.persistence</artifactId>
+			<artifactId>org.jowidgets.useradmin.service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		
@@ -35,12 +29,6 @@
 			<groupId>org.jowidgets.useradmin</groupId>
 			<artifactId>org.jowidgets.useradmin.service.authorization</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jowidgets</groupId>
-			<artifactId>org.jowidgets.cap.service</artifactId>
-			<version>${jocap.version}</version>
 		</dependency>
 
 		<dependency>
@@ -65,11 +53,6 @@
 			<groupId>org.jowidgets</groupId>
 			<artifactId>org.jowidgets.cap.service.hibernate.oracle</artifactId>
 			<version>${jocap.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
 		</dependency>
 
 		<dependency>

@@ -12,6 +12,7 @@
 	</parent>
 	
 	<modules>
+		<module>../org.jowidgets.useradmin.service</module>
 		<module>../org.jowidgets.useradmin.service.persistence</module>
 		<module>../org.jowidgets.useradmin.service.authentication</module>
 		<module>../org.jowidgets.useradmin.service.authorization</module>

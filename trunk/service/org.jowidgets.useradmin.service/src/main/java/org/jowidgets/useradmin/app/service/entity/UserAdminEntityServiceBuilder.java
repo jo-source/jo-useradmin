@@ -54,7 +54,7 @@ import org.jowidgets.useradmin.service.persistence.bean.PersonRoleLink;
 import org.jowidgets.useradmin.service.persistence.bean.Role;
 import org.jowidgets.useradmin.service.persistence.bean.RoleAuthorizationLink;
 
-public class UserAdminEntityServiceBuilder extends JpaEntityServiceBuilderWrapper {
+public final class UserAdminEntityServiceBuilder extends JpaEntityServiceBuilderWrapper {
 
 	public UserAdminEntityServiceBuilder(final IServiceRegistry registry) {
 		super(registry);
