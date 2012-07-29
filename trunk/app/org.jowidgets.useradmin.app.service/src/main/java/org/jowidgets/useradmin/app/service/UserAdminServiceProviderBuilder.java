@@ -45,7 +45,7 @@ import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
 public final class UserAdminServiceProviderBuilder extends CapServiceProviderBuilder {
 
 	public UserAdminServiceProviderBuilder() {
-		addService(AuthorizationProviderServiceId.ID, new AuthorizationProviderServiceImpl());
+		addService(AuthorizationProviderServiceId.ID, new AuthorizationProviderServiceImpl<String>());
 		addService(IEntityService.ID, new UserAdminEntityServiceBuilder(this).build());
 
 		addServiceDecorator(createJpaServiceDecoratorProvider());
