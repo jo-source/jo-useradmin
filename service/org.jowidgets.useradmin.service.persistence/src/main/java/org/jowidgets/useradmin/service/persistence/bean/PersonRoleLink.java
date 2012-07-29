@@ -25,7 +25,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
-package org.jowidgets.useradmin.app.service.bean;
+package org.jowidgets.useradmin.service.persistence.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,11 +35,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.jowidgets.cap.service.jpa.tools.entity.EntityManagerProvider;
-import org.jowidgets.useradmin.app.common.bean.IRoleAuthorizationLink;
+import org.jowidgets.useradmin.app.common.bean.IPersonRoleLink;
 
 @Entity
-@Table(name = "ROLE_AUTHORIZATION_LINK")
-public class RoleAuthorizationLink extends Bean implements IRoleAuthorizationLink {
+@Table(name = "PERSON_ROLE_LINK")
+public class PersonRoleLink extends Bean implements IPersonRoleLink {
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "PERSON_ID", nullable = false, insertable = false, updatable = false)
+	private Person person;
+
+	@Column(name = "PERSON_ID", nullable = false)
+	private Long personId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ROLE_ID", nullable = false, insertable = false, updatable = false)
@@ -48,12 +55,17 @@ public class RoleAuthorizationLink extends Bean implements IRoleAuthorizationLin
 	@Column(name = "ROLE_ID", nullable = false)
 	private Long roleId;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "AUTHORIZATION_ID", nullable = false, insertable = false, updatable = false)
-	private Authorization authorization;
+	public Person getPerson() {
+		if (person == null && personId != null) {
+			person = EntityManagerProvider.get().find(Person.class, personId);
+		}
+		return person;
+	}
 
-	@Column(name = "AUTHORIZATION_ID", nullable = false)
-	private Long authorizationId;
+	public void setPerson(final Person person) {
+		this.person = person;
+		personId = person != null ? person.getId() : null;
+	}
 
 	public Role getRole() {
 		if (role == null && roleId != null) {
@@ -68,6 +80,17 @@ public class RoleAuthorizationLink extends Bean implements IRoleAuthorizationLin
 	}
 
 	@Override
+	public Long getPersonId() {
+		return personId;
+	}
+
+	@Override
+	public void setPersonId(final Long id) {
+		this.personId = id;
+		this.person = null;
+	}
+
+	@Override
 	public Long getRoleId() {
 		return roleId;
 	}
@@ -76,29 +99,6 @@ public class RoleAuthorizationLink extends Bean implements IRoleAuthorizationLin
 	public void setRoleId(final Long id) {
 		this.roleId = id;
 		this.role = null;
-	}
-
-	public Authorization getAuthorization() {
-		if (authorizationId == null && authorizationId != null) {
-			authorization = EntityManagerProvider.get().find(Authorization.class, authorizationId);
-		}
-		return authorization;
-	}
-
-	public void setAuthorization(final Authorization authorization) {
-		this.authorization = authorization;
-		authorizationId = authorization != null ? authorization.getId() : null;
-	}
-
-	@Override
-	public Long getAuthorizationId() {
-		return authorizationId;
-	}
-
-	@Override
-	public void setAuthorizationId(final Long id) {
-		this.authorizationId = id;
-		this.authorization = null;
 	}
 
 }

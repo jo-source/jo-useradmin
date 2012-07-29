@@ -40,7 +40,7 @@ import org.jowidgets.cap.common.api.lookup.ILookUpEntry;
 import org.jowidgets.cap.common.api.lookup.LookUpEntry;
 import org.jowidgets.cap.service.api.adapter.ISyncLookUpService;
 import org.jowidgets.cap.service.jpa.tools.entity.EntityManagerProvider;
-import org.jowidgets.useradmin.app.service.bean.Role;
+import org.jowidgets.useradmin.service.persistence.bean.Role;
 
 public class RolesLookUpService implements ISyncLookUpService {
 

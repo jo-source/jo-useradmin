@@ -47,6 +47,7 @@ public class AuthorizationDtoDescriptorBuilder extends BeanDtoDescriptorBuilder 
 		propertyBp = addProperty(IBean.ID_PROPERTY);
 		propertyBp.setLabel("Id");
 		propertyBp.setDescription("The authorizations technical identifier");
+		propertyBp.setVisible(false);
 
 		propertyBp = addProperty(IAuthorization.KEY_PROPERTY);
 		propertyBp.setLabel("Key");

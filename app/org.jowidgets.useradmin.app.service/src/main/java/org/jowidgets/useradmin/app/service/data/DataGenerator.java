@@ -34,11 +34,11 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import org.jowidgets.useradmin.app.common.security.AuthKeys;
-import org.jowidgets.useradmin.app.service.bean.Authorization;
-import org.jowidgets.useradmin.app.service.bean.Person;
-import org.jowidgets.useradmin.app.service.bean.PersonRoleLink;
-import org.jowidgets.useradmin.app.service.bean.Role;
-import org.jowidgets.useradmin.app.service.bean.RoleAuthorizationLink;
+import org.jowidgets.useradmin.service.persistence.bean.Authorization;
+import org.jowidgets.useradmin.service.persistence.bean.Person;
+import org.jowidgets.useradmin.service.persistence.bean.PersonRoleLink;
+import org.jowidgets.useradmin.service.persistence.bean.Role;
+import org.jowidgets.useradmin.service.persistence.bean.RoleAuthorizationLink;
 
 public final class DataGenerator {
 

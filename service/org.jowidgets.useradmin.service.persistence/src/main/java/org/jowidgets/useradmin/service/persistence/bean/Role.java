@@ -25,7 +25,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
-package org.jowidgets.useradmin.app.service.bean;
+package org.jowidgets.useradmin.service.persistence.bean;
 
 import java.util.LinkedList;
 import java.util.List;

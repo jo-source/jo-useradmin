@@ -47,6 +47,7 @@ public class RoleDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
 		propertyBp = addProperty(IBean.ID_PROPERTY);
 		propertyBp.setLabel("Id");
 		propertyBp.setDescription("The roles technical identifier");
+		propertyBp.setVisible(false);
 
 		propertyBp = addProperty(IRole.NAME_PROPERTY);
 		propertyBp.setLabel("Name");

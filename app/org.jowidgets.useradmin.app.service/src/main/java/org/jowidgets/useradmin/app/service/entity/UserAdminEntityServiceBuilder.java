@@ -45,14 +45,14 @@ import org.jowidgets.useradmin.app.common.bean.IPersonRoleLink;
 import org.jowidgets.useradmin.app.common.bean.IRole;
 import org.jowidgets.useradmin.app.common.bean.IRoleAuthorizationLink;
 import org.jowidgets.useradmin.app.common.entity.EntityIds;
-import org.jowidgets.useradmin.app.service.bean.Authorization;
-import org.jowidgets.useradmin.app.service.bean.Person;
-import org.jowidgets.useradmin.app.service.bean.PersonRoleLink;
-import org.jowidgets.useradmin.app.service.bean.Role;
-import org.jowidgets.useradmin.app.service.bean.RoleAuthorizationLink;
 import org.jowidgets.useradmin.app.service.descriptor.AuthorizationDtoDescriptorBuilder;
 import org.jowidgets.useradmin.app.service.descriptor.PersonDtoDescriptorBuilder;
 import org.jowidgets.useradmin.app.service.descriptor.RoleDtoDescriptorBuilder;
+import org.jowidgets.useradmin.service.persistence.bean.Authorization;
+import org.jowidgets.useradmin.service.persistence.bean.Person;
+import org.jowidgets.useradmin.service.persistence.bean.PersonRoleLink;
+import org.jowidgets.useradmin.service.persistence.bean.Role;
+import org.jowidgets.useradmin.service.persistence.bean.RoleAuthorizationLink;
 
 public class UserAdminEntityServiceBuilder extends JpaEntityServiceBuilderWrapper {
 
