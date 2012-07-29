@@ -30,17 +30,13 @@ package org.jowidgets.useradmin.service.persistence.bean;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
 import javax.persistence.FetchType;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
@@ -51,7 +47,6 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Index;
 import org.jowidgets.cap.service.jpa.api.query.QueryPath;
-import org.jowidgets.cap.service.jpa.tools.entity.EntityManagerProvider;
 import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.util.Assert;
 import org.jowidgets.util.EmptyCheck;
@@ -127,41 +122,13 @@ public class Person extends Bean implements IPerson {
 	}
 
 	@Override
-	@QueryPath(path = {"personRoleLinks", "roleId"})
-	public List<Long> getRoleIds() {
-		return new LinkedList<Long>(personRoleLinks.keySet());
-	}
-
-	@Override
-	public void setRoleIds(List<Long> newRoleIds) {
-		if (newRoleIds == null) {
-			newRoleIds = new LinkedList<Long>();
+	@QueryPath(path = {"personRoleLinks", "role", "name"})
+	public List<String> getRoleNames() {
+		final List<String> result = new LinkedList<String>();
+		for (final PersonRoleLink personRoleLink : getPersonRoleLinks().values()) {
+			result.add(personRoleLink.getRole().getName());
 		}
-		final Set<Long> newRoleIdsSet = new LinkedHashSet<Long>(newRoleIds);
-		final Map<Long, PersonRoleLink> newPersonRoleLinks = new LinkedHashMap<Long, PersonRoleLink>();
-		final EntityManager em = EntityManagerProvider.get();
-
-		for (final Entry<Long, PersonRoleLink> entry : personRoleLinks.entrySet()) {
-			if (!newRoleIdsSet.contains(entry.getKey())) {
-				em.remove(entry.getValue());
-			}
-		}
-
-		for (final Long newId : newRoleIds) {
-			PersonRoleLink personRoleLink = personRoleLinks.get(newId);
-			if (personRoleLink == null) {
-				personRoleLink = new PersonRoleLink();
-				if (getId() == null) {
-					em.persist(this);
-				}
-				personRoleLink.setPersonId(getId());
-				personRoleLink.setRoleId(newId);
-				em.persist(personRoleLink);
-			}
-			newPersonRoleLinks.put(newId, personRoleLink);
-		}
-
-		personRoleLinks = newPersonRoleLinks;
+		return result;
 	}
 
 	public void setPassword(final String password) {

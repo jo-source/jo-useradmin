@@ -32,7 +32,6 @@ import org.jowidgets.cap.common.api.bean.IBean;
 import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;
 import org.jowidgets.cap.common.tools.bean.BeanDtoDescriptorBuilder;
 import org.jowidgets.useradmin.common.bean.IPerson;
-import org.jowidgets.useradmin.common.lookup.LookUpIds;
 
 public class PersonDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
 
@@ -73,11 +72,10 @@ public class PersonDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
 		propertyBp.setDescription("The hash of the password");
 		propertyBp.setVisible(false);
 
-		propertyBp = addProperty(IPerson.ROLE_IDS_PROPERTY);
+		propertyBp = addProperty(IPerson.ROLE_NAMES_PROPERTY);
 		propertyBp.setLabel("Roles");
 		propertyBp.setDescription("The users roles");
-		propertyBp.setElementValueType(Long.class);
-		propertyBp.setLookUpValueRange(LookUpIds.ROLE);
+		propertyBp.setElementValueType(String.class);
 		propertyBp.setSortable(false);
 		propertyBp.setFilterable(true);
 

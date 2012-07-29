@@ -38,9 +38,7 @@ import org.jowidgets.cap.service.jpa.api.JpaServiceToolkit;
 import org.jowidgets.cap.service.tools.CapServiceProviderBuilder;
 import org.jowidgets.service.api.IServicesDecoratorProvider;
 import org.jowidgets.useradmin.app.service.entity.UserAdminEntityServiceBuilder;
-import org.jowidgets.useradmin.app.service.lookup.RolesLookUpService;
 import org.jowidgets.useradmin.app.service.security.AuthorizationProviderServiceImpl;
-import org.jowidgets.useradmin.common.lookup.LookUpIds;
 import org.jowidgets.useradmin.common.security.AuthorizationProviderServiceId;
 import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
 
@@ -49,8 +47,6 @@ public final class UserAdminServiceProviderBuilder extends CapServiceProviderBui
 	public UserAdminServiceProviderBuilder() {
 		addService(AuthorizationProviderServiceId.ID, new AuthorizationProviderServiceImpl());
 		addService(IEntityService.ID, new UserAdminEntityServiceBuilder(this).build());
-
-		addLookUpService(LookUpIds.ROLE, new RolesLookUpService());
 
 		addServiceDecorator(createJpaServiceDecoratorProvider());
 		addServiceDecorator(createCancelServiceDecoratorProvider());
