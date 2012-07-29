@@ -25,6 +25,7 @@
 	<modules>
 		<module>app/parent/</module>
 		<module>app-starter/parent/</module>
+		<module>service/parent/</module>
 		<module>deploy/</module>
 	</modules>
 

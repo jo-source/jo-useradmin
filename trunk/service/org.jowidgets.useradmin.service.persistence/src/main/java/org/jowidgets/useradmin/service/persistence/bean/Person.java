@@ -25,7 +25,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
-package org.jowidgets.useradmin.app.service.bean;
+package org.jowidgets.useradmin.service.persistence.bean;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -60,6 +60,9 @@ public class Person extends Bean implements IPerson {
 	private String loginName;
 
 	@Basic
+	private String passwordHash;
+
+	@Basic
 	@Index(name = "PersonNameIndex")
 	private String name;
 
@@ -85,6 +88,15 @@ public class Person extends Bean implements IPerson {
 	@Override
 	public String getLoginName() {
 		return loginName;
+	}
+
+	@Override
+	public String getPasswordHash() {
+		return passwordHash;
+	}
+
+	public void setPasswordHash(final String passwordHash) {
+		this.passwordHash = passwordHash;
 	}
 
 	@Override

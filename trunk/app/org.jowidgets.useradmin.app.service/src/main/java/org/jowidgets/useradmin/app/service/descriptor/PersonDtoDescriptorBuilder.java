@@ -54,6 +54,7 @@ public class PersonDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
 		propertyBp.setLabel("Id");
 		propertyBp.setDescription("The users technical identifier");
 		propertyBp.setSortable(true);
+		propertyBp.setVisible(false);
 
 		propertyBp = addProperty(IPerson.LOGIN_NAME_PROPERTY);
 		propertyBp.setLabel("Login");
@@ -65,6 +66,12 @@ public class PersonDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
 		propertyBp.setLabel("Name");
 		propertyBp.setDescription("The users name");
 		propertyBp.setMandatory(true);
+
+		propertyBp = addProperty(IPerson.PASSWORD_HASH_PROPERTY);
+		propertyBp.setLabel("Password#");
+		propertyBp.setLabelLong("Password hash");
+		propertyBp.setDescription("The hash of the password");
+		propertyBp.setVisible(false);
 
 		propertyBp = addProperty(IPerson.ROLE_IDS_PROPERTY);
 		propertyBp.setLabel("Roles");

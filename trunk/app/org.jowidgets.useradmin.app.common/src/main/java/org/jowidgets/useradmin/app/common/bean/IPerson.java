@@ -47,6 +47,7 @@ import org.jowidgets.useradmin.app.common.security.AuthKeys;
 public interface IPerson extends IBean {
 
 	String LOGIN_NAME_PROPERTY = "loginName";
+	String PASSWORD_HASH_PROPERTY = "passwordHash";
 	String NAME_PROPERTY = "name";
 	String ACTIVE_PROPERTY = "active";
 	String ROLE_IDS_PROPERTY = "roleIds";
@@ -55,6 +56,7 @@ public interface IPerson extends IBean {
 		private static final long serialVersionUID = 1L;
 		{
 			add(LOGIN_NAME_PROPERTY);
+			add(PASSWORD_HASH_PROPERTY);
 			add(NAME_PROPERTY);
 			add(ROLE_IDS_PROPERTY);
 			add(ACTIVE_PROPERTY);
@@ -68,6 +70,8 @@ public interface IPerson extends IBean {
 	String getLoginName();
 
 	void setLoginName(String loginName);
+
+	String getPasswordHash();
 
 	@NotNull
 	@Size(min = 2, max = 50)

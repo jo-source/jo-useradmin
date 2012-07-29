@@ -5,12 +5,12 @@
 	<persistence-unit name="userAdminPersistenceUnit">
 		<description>UserAdmin</description>
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>org.jowidgets.useradmin.app.service.bean.Bean</class>
-		<class>org.jowidgets.useradmin.app.service.bean.Authorization</class>	
-		<class>org.jowidgets.useradmin.app.service.bean.Person</class>
-		<class>org.jowidgets.useradmin.app.service.bean.PersonRoleLink</class>
-		<class>org.jowidgets.useradmin.app.service.bean.Role</class>
-		<class>org.jowidgets.useradmin.app.service.bean.RoleAuthorizationLink</class>
+		<class>org.jowidgets.useradmin.service.persistence.bean.Bean</class>
+		<class>org.jowidgets.useradmin.service.persistence.bean.Authorization</class>	
+		<class>org.jowidgets.useradmin.service.persistence.bean.Person</class>
+		<class>org.jowidgets.useradmin.service.persistence.bean.PersonRoleLink</class>
+		<class>org.jowidgets.useradmin.service.persistence.bean.Role</class>
+		<class>org.jowidgets.useradmin.service.persistence.bean.RoleAuthorizationLink</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
 			<property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver"></property>
