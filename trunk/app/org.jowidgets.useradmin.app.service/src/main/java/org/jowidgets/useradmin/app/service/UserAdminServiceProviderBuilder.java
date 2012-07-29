@@ -32,12 +32,10 @@ import org.jowidgets.cap.common.api.bean.IBean;
 import org.jowidgets.cap.common.api.execution.IExecutableChecker;
 import org.jowidgets.cap.common.api.service.IEntityService;
 import org.jowidgets.cap.common.api.service.IExecutorService;
-import org.jowidgets.cap.common.api.service.ILookUpService;
 import org.jowidgets.cap.security.service.tools.DefaultAuthorizationProviderService;
 import org.jowidgets.cap.service.api.bean.IBeanAccess;
 import org.jowidgets.cap.service.api.executor.IBeanExecutor;
 import org.jowidgets.cap.service.hibernate.api.HibernateServiceToolkit;
-import org.jowidgets.cap.service.hibernate.api.ICancelServicesDecoratorProviderBuilder;
 import org.jowidgets.cap.service.hibernate.oracle.api.HibernateOracleServiceToolkit;
 import org.jowidgets.cap.service.jpa.api.IJpaServicesDecoratorProviderBuilder;
 import org.jowidgets.cap.service.jpa.api.JpaServiceToolkit;
@@ -78,16 +76,13 @@ public final class UserAdminServiceProviderBuilder extends CapServiceProviderBui
 
 	private IServicesDecoratorProvider createJpaServiceDecoratorProvider() {
 		final IJpaServicesDecoratorProviderBuilder builder = JpaServiceToolkit.serviceDecoratorProviderBuilder(PersistenceUnitNames.USER_ADMIN);
-		builder.addEntityManagerServices(ILookUpService.class);
 		builder.addExceptionDecorator(HibernateServiceToolkit.exceptionDecorator());
 		builder.addExceptionDecorator(HibernateOracleServiceToolkit.exceptionDecorator());
 		return builder.build();
 	}
 
 	private IServicesDecoratorProvider createCancelServiceDecoratorProvider() {
-		final ICancelServicesDecoratorProviderBuilder builder = HibernateServiceToolkit.serviceDecoratorProviderBuilder(PersistenceUnitNames.USER_ADMIN);
-		builder.addServices(ILookUpService.class);
-		return builder.build();
+		return HibernateServiceToolkit.serviceDecoratorProviderBuilder(PersistenceUnitNames.USER_ADMIN).build();
 	}
 
 	private <BEAN_TYPE extends IBean, PARAM_TYPE> void addPersonExecutorService(
