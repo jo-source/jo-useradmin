@@ -52,35 +52,15 @@ public final class AuthKeys {
 	public static final String UPDATE_ROLE = "UPDATE_ROLE";
 	public static final String DELETE_ROLE = "DELETE_ROLE";
 
-	public static final String CREATE_COUNTRY = "CREATE_COUNTRY";
-	public static final String READ_COUNTRY = "READ_COUNTRY";
-	public static final String UPDATE_COUNTRY = "UPDATE_COUNTRY";
-	public static final String DELETE_COUNTRY = "DELETE_COUNTRY";
-
 	public static final String CREATE_AUTHORIZATION = "CREATE_AUTHORIZATION";
 	public static final String READ_AUTHORIZATION = "READ_AUTHORIZATION";
 	public static final String UPDATE_AUTHORIZATION = "UPDATE_AUTHORIZATION";
 	public static final String DELETE_AUTHORIZATION = "DELETE_AUTHORIZATION";
 
-	public static final String CREATE_PHONE = "CREATE_PHONE";
-	public static final String READ_PHONE = "READ_PHONE";
-	public static final String UPDATE_PHONE = "UPDATE_PHONE";
-	public static final String DELETE_PHONE = "DELETE_PHONE";
-
-	public static final String CREATE_PERSON_LINK_TYPE = "CREATE_PERSON_LINK_TYPE";
-	public static final String READ_PERSON_LINK_TYPE = "READ_PERSON_LINK_TYPE";
-	public static final String UPDATE_PERSON_LINK_TYPE = "UPDATE_PERSON_LINK_TYPE";
-	public static final String DELETE_PERSON_LINK_TYPE = "DELETE_PERSON_LINK_TYPE";
-
 	public static final String CREATE_PERSON_ROLE_LINK = "CREATE_PERSON_ROLE_LINK";
 	public static final String READ_PERSON_ROLE_LINK = "READ_PERSON_ROLE_LINK";
 	public static final String UPDATE_PERSON_ROLE_LINK = "UPDATE_PERSON_ROLE_LINK";
 	public static final String DELETE_PERSON_ROLE_LINK = "DELETE_PERSON_ROLE_LINK";
-
-	public static final String CREATE_PERSON_PERSON_LINK = "CREATE_PERSON_PERSON_LINK";
-	public static final String READ_PERSON_PERSON_LINK = "READ_PERSON_PERSON_LINK";
-	public static final String UPDATE_PERSON_PERSON_LINK = "UPDATE_PERSON_PERSON_LINK";
-	public static final String DELETE_PERSON_PERSON_LINK = "DELETE_PERSON_PERSON_LINK";
 
 	public static final String CREATE_ROLE_AUTHORIZATION_LINK = "CREATE_ROLE_AUTHORIZATION_LINK";
 	public static final String READ_ROLE_AUTHORIZATION_LINK = "READ_ROLE_AUTHORIZATION_LINK";

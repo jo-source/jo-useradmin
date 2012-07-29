@@ -27,6 +27,12 @@
 
 		<dependency>
 			<groupId>org.jowidgets</groupId>
+			<artifactId>org.jowidgets.cap.security.service.plugin</artifactId>
+			<version>${jocap.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jowidgets</groupId>
 			<artifactId>org.jowidgets.cap.service.jpa.impl</artifactId>
 			<version>${jocap.version}</version>
 		</dependency>

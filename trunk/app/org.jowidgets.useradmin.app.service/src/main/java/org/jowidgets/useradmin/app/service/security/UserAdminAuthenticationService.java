@@ -31,6 +31,7 @@ package org.jowidgets.useradmin.app.service.security;
 import org.jowidgets.security.api.IAuthenticationService;
 import org.jowidgets.security.tools.DefaultCredentials;
 import org.jowidgets.security.tools.DefaultPrincipal;
+import org.jowidgets.useradmin.app.common.security.AuthKeys;
 import org.jowidgets.util.EmptyCheck;
 
 public class UserAdminAuthenticationService implements IAuthenticationService<DefaultPrincipal, DefaultCredentials> {
@@ -38,13 +39,13 @@ public class UserAdminAuthenticationService implements IAuthenticationService<De
 	@Override
 	public DefaultPrincipal authenticate(final DefaultCredentials credentials) {
 		if ("admin".equals(credentials.getUsername()) && "admin".equals(credentials.getPassword())) {
-			return new DefaultPrincipal(credentials.getUsername());
+			return new DefaultPrincipal(credentials.getUsername(), AuthKeys.ALL_AUTHORIZATIONS);
 		}
 		else if ("jo".equals(credentials.getUsername()) && "miller".equals(credentials.getPassword())) {
-			return new DefaultPrincipal(credentials.getUsername());
+			return new DefaultPrincipal(credentials.getUsername(), AuthKeys.GUEST_AUTHORIZATIONS);
 		}
 		else if (EmptyCheck.isEmpty(credentials.getUsername()) && EmptyCheck.isEmpty(credentials.getPassword())) {
-			return new DefaultPrincipal("guest");
+			return new DefaultPrincipal("guest", AuthKeys.GUEST_AUTHORIZATIONS);
 		}
 		return null;
 	}
