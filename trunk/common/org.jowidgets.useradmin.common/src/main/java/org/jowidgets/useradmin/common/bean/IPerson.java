@@ -50,7 +50,7 @@ public interface IPerson extends IBean {
 	String PASSWORD_HASH_PROPERTY = "passwordHash";
 	String NAME_PROPERTY = "name";
 	String ACTIVE_PROPERTY = "active";
-	String ROLE_IDS_PROPERTY = "roleIds";
+	String ROLE_NAMES_PROPERTY = "roleNames";
 
 	List<String> ALL_PROPERTIES = new LinkedList<String>() {
 		private static final long serialVersionUID = 1L;
@@ -58,7 +58,7 @@ public interface IPerson extends IBean {
 			add(LOGIN_NAME_PROPERTY);
 			add(PASSWORD_HASH_PROPERTY);
 			add(NAME_PROPERTY);
-			add(ROLE_IDS_PROPERTY);
+			add(ROLE_NAMES_PROPERTY);
 			add(ACTIVE_PROPERTY);
 			add(IBean.ID_PROPERTY);
 			add(IBean.VERSION_PROPERTY);
@@ -84,8 +84,6 @@ public interface IPerson extends IBean {
 
 	void setActive(Boolean active);
 
-	List<Long> getRoleIds();
-
-	void setRoleIds(final List<Long> roleIds);
+	List<String> getRoleNames();
 
 }
