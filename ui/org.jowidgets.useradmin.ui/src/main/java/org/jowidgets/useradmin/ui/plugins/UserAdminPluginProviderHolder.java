@@ -30,7 +30,7 @@ package org.jowidgets.useradmin.ui.plugins;
 
 import org.jowidgets.plugin.tools.PluginProviderHolder;
 
-public class UserAdminPluginProviderHolder extends PluginProviderHolder {
+public final class UserAdminPluginProviderHolder extends PluginProviderHolder {
 
 	public UserAdminPluginProviderHolder() {
 		super(new UserAdminPluginProviderBuilder(), 2);

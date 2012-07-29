@@ -37,7 +37,7 @@ import org.jowidgets.plugin.api.IPluginProperties;
 import org.jowidgets.useradmin.common.bean.IAuthorization;
 import org.jowidgets.useradmin.common.checker.AuthorizationDeleteExecutableChecker;
 
-public class AuthorizationMenuInterceptorPlugin extends BeanTableMenuInterceptorAdapter<IAuthorization> implements
+public final class AuthorizationMenuInterceptorPlugin extends BeanTableMenuInterceptorAdapter<IAuthorization> implements
 		IBeanTableMenuInterceptorPlugin<IAuthorization> {
 
 	@Override

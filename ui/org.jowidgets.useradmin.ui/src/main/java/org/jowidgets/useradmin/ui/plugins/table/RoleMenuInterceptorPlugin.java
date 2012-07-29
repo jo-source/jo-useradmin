@@ -37,7 +37,7 @@ import org.jowidgets.plugin.api.IPluginProperties;
 import org.jowidgets.useradmin.common.bean.IRole;
 import org.jowidgets.useradmin.common.checker.RoleDeleteExecutableChecker;
 
-public class RoleMenuInterceptorPlugin extends BeanTableMenuInterceptorAdapter<IRole> implements
+public final class RoleMenuInterceptorPlugin extends BeanTableMenuInterceptorAdapter<IRole> implements
 		IBeanTableMenuInterceptorPlugin<IRole> {
 
 	@Override
