@@ -26,47 +26,30 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.app.service.descriptor;
+package org.jowidgets.useradmin.common.checker;
 
-import org.jowidgets.cap.common.api.bean.IBean;
-import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;
-import org.jowidgets.cap.common.tools.bean.BeanDtoDescriptorBuilder;
-import org.jowidgets.useradmin.common.bean.IRole;
+import java.util.Collections;
+import java.util.Set;
 
-public class RoleDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
+import org.jowidgets.cap.common.api.execution.ExecutableState;
+import org.jowidgets.cap.common.api.execution.IExecutableChecker;
+import org.jowidgets.cap.common.api.execution.IExecutableState;
+import org.jowidgets.useradmin.common.bean.IAuthorization;
 
-	public RoleDtoDescriptorBuilder() {
-		super(IRole.class);
+public class AuthorizationDeleteExecutableChecker implements IExecutableChecker<IAuthorization> {
 
-		setLabelSingular("Role");
-		setLabelPlural("Roles");
-		setRenderingPattern("$" + IRole.NAME_PROPERTY + "$");
+	@Override
+	public IExecutableState getExecutableState(final IAuthorization authorization) {
+		if (authorization != null && authorization.getInUse()) {
+			return ExecutableState.notExecutable("The authorization is in use");
+		}
+		else {
+			return ExecutableState.EXECUTABLE;
+		}
+	}
 
-		IBeanPropertyBluePrint propertyBp;
-
-		propertyBp = addProperty(IBean.ID_PROPERTY);
-		propertyBp.setLabel("Id");
-		propertyBp.setDescription("The roles technical identifier");
-		propertyBp.setVisible(false);
-
-		propertyBp = addProperty(IRole.NAME_PROPERTY);
-		propertyBp.setLabel("Name");
-		propertyBp.setDescription("The roles name");
-		propertyBp.setMandatory(true);
-
-		propertyBp = addProperty(IRole.DESCRIPTION_PROPERTY);
-		propertyBp.setLabel("Description");
-		propertyBp.setDescription("The roles description");
-
-		propertyBp = addProperty(IRole.IN_USE_PROPERTY);
-		propertyBp.setLabel("Used");
-		propertyBp.setDescription("Determines if the role is used");
-		propertyBp.setSortable(false);
-		propertyBp.setFilterable(false);
-
-		propertyBp = addProperty(IBean.VERSION_PROPERTY);
-		propertyBp.setLabel("Version");
-		propertyBp.setDescription("The version of the dataset");
-		propertyBp.setVisible(false);
+	@Override
+	public Set<String> getPropertyDependencies() {
+		return Collections.singleton(IAuthorization.IN_USE_PROPERTY);
 	}
 }

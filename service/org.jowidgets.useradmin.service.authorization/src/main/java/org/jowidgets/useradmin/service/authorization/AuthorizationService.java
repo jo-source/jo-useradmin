@@ -111,7 +111,8 @@ public final class AuthorizationService implements IAuthorizationService<IPrinci
 
 	private Set<String> getAuthorizations(final Person person) {
 		final Set<String> result = new HashSet<String>();
-		if (person != null) {
+		final Boolean active = person.getActive();
+		if (person != null && active != null && active.booleanValue()) {
 			for (final PersonRoleLink personRoleLink : person.getPersonRoleLinks().values()) {
 				result.addAll(getAuthorizations(personRoleLink.getRole()));
 			}

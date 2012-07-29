@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, grossmann
+ * Copyright (c) 2011, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -26,48 +26,17 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.ui.plugins;
+package org.jowidgets.useradmin.ui.plugins.table;
 
-import org.jowidgets.cap.ui.api.plugin.IBeanTableMenuContributionPlugin;
-import org.jowidgets.cap.ui.api.plugin.IBeanTableMenuInterceptorPlugin;
 import org.jowidgets.cap.ui.api.plugin.IBeanTablePlugin;
-import org.jowidgets.plugin.tools.PluginProviderBuilder;
-import org.jowidgets.useradmin.common.entity.EntityIds;
-import org.jowidgets.useradmin.ui.plugins.table.AuthorizationMenuInterceptorPlugin;
-import org.jowidgets.useradmin.ui.plugins.table.PersonMenuContributionPlugin;
-import org.jowidgets.useradmin.ui.plugins.table.RoleMenuInterceptorPlugin;
-import org.jowidgets.useradmin.ui.plugins.table.SearchFilterOnTablePlugin;
+import org.jowidgets.cap.ui.api.widgets.IBeanTableBluePrint;
+import org.jowidgets.plugin.api.IPluginProperties;
 
-public final class UserAdminPluginProviderBuilder extends PluginProviderBuilder {
+public final class SearchFilterOnTablePlugin implements IBeanTablePlugin {
 
-	public UserAdminPluginProviderBuilder() {
-
-		addPlugin(
-				IBeanTablePlugin.ID,
-				new SearchFilterOnTablePlugin(),
-				IBeanTablePlugin.ENTITIY_ID_PROPERTY_KEY,
-				EntityIds.PERSON,
-				EntityIds.ROLE,
-				EntityIds.AUTHORIZATION);
-
-		addPlugin(
-				IBeanTableMenuContributionPlugin.ID,
-				new PersonMenuContributionPlugin(),
-				IBeanTableMenuContributionPlugin.ENTITIY_ID_PROPERTY_KEY,
-				EntityIds.PERSON,
-				EntityIds.LINKED_PERSONS_OF_ROLES);
-
-		addPlugin(
-				IBeanTableMenuInterceptorPlugin.ID,
-				new RoleMenuInterceptorPlugin(),
-				IBeanTableMenuInterceptorPlugin.ENTITIY_ID_PROPERTY_KEY,
-				EntityIds.ROLE);
-
-		addPlugin(
-				IBeanTableMenuInterceptorPlugin.ID,
-				new AuthorizationMenuInterceptorPlugin(),
-				IBeanTableMenuInterceptorPlugin.ENTITIY_ID_PROPERTY_KEY,
-				EntityIds.AUTHORIZATION);
-
+	@Override
+	public void modifySetup(final IPluginProperties properties, final IBeanTableBluePrint<?> bluePrint) {
+		bluePrint.setSearchFilterToolbarVisible(true);
 	}
+
 }
