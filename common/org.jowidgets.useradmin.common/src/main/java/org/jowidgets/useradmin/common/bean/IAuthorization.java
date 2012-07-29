@@ -25,20 +25,52 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
+package org.jowidgets.useradmin.common.bean;
 
-package org.jowidgets.useradmin.app.common.security;
+import java.util.LinkedList;
+import java.util.List;
 
-import org.jowidgets.cap.common.api.service.IAuthorizationProviderService;
-import org.jowidgets.security.tools.DefaultPrincipal;
-import org.jowidgets.service.api.IServiceId;
-import org.jowidgets.service.tools.ServiceId;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-public final class AuthorizationProviderServiceId {
+import org.jowidgets.cap.common.api.bean.IBean;
+import org.jowidgets.cap.security.common.api.annotation.CreateAuthorization;
+import org.jowidgets.cap.security.common.api.annotation.DeleteAuthorization;
+import org.jowidgets.cap.security.common.api.annotation.ReadAuthorization;
+import org.jowidgets.cap.security.common.api.annotation.UpdateAuthorization;
+import org.jowidgets.useradmin.common.security.AuthKeys;
 
-	public static final IServiceId<IAuthorizationProviderService<DefaultPrincipal>> ID = new ServiceId<IAuthorizationProviderService<DefaultPrincipal>>(
-		AuthorizationProviderServiceId.class.getName() + "ID",
-		IAuthorizationProviderService.class);
+@CreateAuthorization(AuthKeys.CREATE_AUTHORIZATION)
+@ReadAuthorization(AuthKeys.READ_AUTHORIZATION)
+@UpdateAuthorization(AuthKeys.UPDATE_AUTHORIZATION)
+@DeleteAuthorization(AuthKeys.DELETE_AUTHORIZATION)
+public interface IAuthorization extends IBean {
 
-	private AuthorizationProviderServiceId() {}
+	String KEY_PROPERTY = "key";
+	String DESCRIPTION_PROPERTY = "description";
+	String IN_USE_PROPERTY = "inUse";
+
+	List<String> ALL_PROPERTIES = new LinkedList<String>() {
+		private static final long serialVersionUID = 1L;
+		{
+			add(KEY_PROPERTY);
+			add(DESCRIPTION_PROPERTY);
+			add(IN_USE_PROPERTY);
+			add(IBean.ID_PROPERTY);
+			add(IBean.VERSION_PROPERTY);
+		}
+	};
+
+	@NotNull
+	@Size(min = 2, max = 50)
+	String getKey();
+
+	void setKey(String key);
+
+	String getDescription();
+
+	void setDescription(String name);
+
+	boolean getInUse();
 
 }

@@ -35,7 +35,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.jowidgets.cap.service.jpa.tools.entity.EntityManagerProvider;
-import org.jowidgets.useradmin.app.common.bean.IRoleAuthorizationLink;
+import org.jowidgets.useradmin.common.bean.IRoleAuthorizationLink;
 
 @Entity
 @Table(name = "ROLE_AUTHORIZATION_LINK")

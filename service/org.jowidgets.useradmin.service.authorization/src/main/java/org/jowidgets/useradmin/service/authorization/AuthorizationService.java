@@ -44,7 +44,7 @@ import org.jowidgets.cap.service.jpa.api.EntityManagerFactoryProvider;
 import org.jowidgets.security.api.IAuthorizationService;
 import org.jowidgets.security.api.IPrincipal;
 import org.jowidgets.security.tools.DefaultPrincipal;
-import org.jowidgets.useradmin.app.common.bean.IPerson;
+import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.useradmin.service.persistence.bean.Authorization;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
 import org.jowidgets.useradmin.service.persistence.bean.PersonRoleLink;

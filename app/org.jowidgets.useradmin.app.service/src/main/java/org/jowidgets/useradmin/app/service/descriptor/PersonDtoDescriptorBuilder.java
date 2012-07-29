@@ -31,8 +31,8 @@ package org.jowidgets.useradmin.app.service.descriptor;
 import org.jowidgets.cap.common.api.bean.IBean;
 import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;
 import org.jowidgets.cap.common.tools.bean.BeanDtoDescriptorBuilder;
-import org.jowidgets.useradmin.app.common.bean.IPerson;
-import org.jowidgets.useradmin.app.common.lookup.LookUpIds;
+import org.jowidgets.useradmin.common.bean.IPerson;
+import org.jowidgets.useradmin.common.lookup.LookUpIds;
 
 public class PersonDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
 

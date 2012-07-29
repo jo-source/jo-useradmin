@@ -25,52 +25,42 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
-package org.jowidgets.useradmin.app.common.bean;
+package org.jowidgets.useradmin.common.bean;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.jowidgets.cap.common.api.bean.IBean;
 import org.jowidgets.cap.security.common.api.annotation.CreateAuthorization;
 import org.jowidgets.cap.security.common.api.annotation.DeleteAuthorization;
 import org.jowidgets.cap.security.common.api.annotation.ReadAuthorization;
 import org.jowidgets.cap.security.common.api.annotation.UpdateAuthorization;
-import org.jowidgets.useradmin.app.common.security.AuthKeys;
+import org.jowidgets.useradmin.common.security.AuthKeys;
 
-@CreateAuthorization(AuthKeys.CREATE_AUTHORIZATION)
-@ReadAuthorization(AuthKeys.READ_AUTHORIZATION)
-@UpdateAuthorization(AuthKeys.UPDATE_AUTHORIZATION)
-@DeleteAuthorization(AuthKeys.DELETE_AUTHORIZATION)
-public interface IAuthorization extends IBean {
+@CreateAuthorization(AuthKeys.CREATE_PERSON_ROLE_LINK)
+@ReadAuthorization(AuthKeys.READ_PERSON_ROLE_LINK)
+@UpdateAuthorization(AuthKeys.UPDATE_PERSON_ROLE_LINK)
+@DeleteAuthorization(AuthKeys.DELETE_PERSON_ROLE_LINK)
+public interface IPersonRoleLink extends IBean {
 
-	String KEY_PROPERTY = "key";
-	String DESCRIPTION_PROPERTY = "description";
-	String IN_USE_PROPERTY = "inUse";
+	String PERSON_ID_PROPERTY = "personId";
+	String ROLE_ID_PROPERTY = "roleId";
 
 	List<String> ALL_PROPERTIES = new LinkedList<String>() {
 		private static final long serialVersionUID = 1L;
 		{
-			add(KEY_PROPERTY);
-			add(DESCRIPTION_PROPERTY);
-			add(IN_USE_PROPERTY);
+			add(PERSON_ID_PROPERTY);
+			add(ROLE_ID_PROPERTY);
 			add(IBean.ID_PROPERTY);
 			add(IBean.VERSION_PROPERTY);
 		}
 	};
 
-	@NotNull
-	@Size(min = 2, max = 50)
-	String getKey();
+	Long getPersonId();
 
-	void setKey(String key);
+	void setPersonId(Long id);
 
-	String getDescription();
+	Long getRoleId();
 
-	void setDescription(String name);
-
-	boolean getInUse();
-
+	void setRoleId(final Long id);
 }

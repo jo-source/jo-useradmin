@@ -15,7 +15,7 @@
 
 		<dependency>
 			<groupId>org.jowidgets.useradmin</groupId>
-			<artifactId>org.jowidgets.useradmin.app.common</artifactId>
+			<artifactId>org.jowidgets.useradmin.common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

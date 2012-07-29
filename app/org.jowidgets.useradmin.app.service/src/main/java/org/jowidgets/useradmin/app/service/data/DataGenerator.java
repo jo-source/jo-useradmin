@@ -33,7 +33,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-import org.jowidgets.useradmin.app.common.security.AuthKeys;
+import org.jowidgets.useradmin.common.security.AuthKeys;
 import org.jowidgets.useradmin.service.persistence.bean.Authorization;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
 import org.jowidgets.useradmin.service.persistence.bean.PersonRoleLink;

@@ -26,14 +26,12 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.app.common.security;
+package org.jowidgets.useradmin.common.security;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.jowidgets.util.EmptyCheck;
 
 public final class AuthKeys {
 
@@ -69,27 +67,15 @@ public final class AuthKeys {
 
 	//Authorization collections
 	public static final Collection<String> ALL_AUTHORIZATIONS = createAuthorizations();
-	public static final Collection<String> GUEST_AUTHORIZATIONS = createAuthorizations("READ_PERSON");
 
 	private AuthKeys() {}
 
-	private static List<String> createAuthorizations(final String... grantedAuthorizations) {
+	private static List<String> createAuthorizations() {
 		final List<String> result = new LinkedList<String>();
 		for (final Field field : AuthKeys.class.getDeclaredFields()) {
 			if (field.getType().equals(String.class)) {
 				try {
-					final String authorization = (String) field.get(AuthKeys.class);
-					if (EmptyCheck.isEmpty(grantedAuthorizations)) {
-						result.add(authorization);
-					}
-					else {
-						for (final String grantedAuthorization : grantedAuthorizations) {
-							if (authorization.equals(grantedAuthorization)) {
-								result.add(authorization);
-								break;
-							}
-						}
-					}
+					result.add((String) field.get(AuthKeys.class));
 				}
 				catch (final Exception e) {
 					throw new RuntimeException(e);

@@ -52,7 +52,7 @@ import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Index;
 import org.jowidgets.cap.service.jpa.api.query.QueryPath;
 import org.jowidgets.cap.service.jpa.tools.entity.EntityManagerProvider;
-import org.jowidgets.useradmin.app.common.bean.IPerson;
+import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.util.Assert;
 import org.jowidgets.util.EmptyCheck;
 
