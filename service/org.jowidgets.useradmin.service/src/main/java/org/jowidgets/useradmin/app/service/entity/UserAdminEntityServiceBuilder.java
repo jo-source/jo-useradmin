@@ -127,10 +127,6 @@ public final class UserAdminEntityServiceBuilder extends JpaEntityServiceBuilder
 	}
 
 	private void addPersonLinkDescriptors(final IBeanEntityBluePrint entityBp) {
-		addPersonLinkDescriptors(entityBp, true);
-	}
-
-	private void addPersonLinkDescriptors(final IBeanEntityBluePrint entityBp, final boolean createEntities) {
 		addPersonRoleLinkDescriptor(entityBp);
 	}
 
