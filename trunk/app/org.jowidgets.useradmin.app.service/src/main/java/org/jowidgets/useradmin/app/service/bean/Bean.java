@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, grossmann
+ * Copyright (c) 2012, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -25,23 +25,33 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
+package org.jowidgets.useradmin.app.service.bean;
 
-package org.jowidgets.useradmin.starter.client.common;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 
-import org.jowidgets.cap.common.api.service.IAuthorizationProviderService;
-import org.jowidgets.useradmin.app.common.security.AuthorizationProviderServiceId;
-import org.jowidgets.cap.tools.starter.client.AbstractRemoteLoginService;
-import org.jowidgets.service.api.IServiceId;
+import org.jowidgets.cap.common.api.bean.IBean;
 
-public class UserAdminRemoteLoginService extends AbstractRemoteLoginService {
+@MappedSuperclass
+public class Bean implements IBean {
 
-	public UserAdminRemoteLoginService() {
-		super("UserAdmin");
+	@Id
+	@GeneratedValue
+	private Long id;
+
+	@Version
+	private long version;
+
+	@Override
+	public Long getId() {
+		return id;
 	}
 
 	@Override
-	protected IServiceId<? extends IAuthorizationProviderService<?>> getAuthorizationProviderServiceId() {
-		return AuthorizationProviderServiceId.ID;
+	public long getVersion() {
+		return version;
 	}
 
 }

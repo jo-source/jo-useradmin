@@ -26,14 +26,45 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.app.service;
+package org.jowidgets.useradmin.app.service.descriptor;
 
-import org.jowidgets.service.tools.DefaultServiceProviderHolder;
+import org.jowidgets.cap.common.api.bean.IBean;
+import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;
+import org.jowidgets.cap.common.tools.bean.BeanDtoDescriptorBuilder;
+import org.jowidgets.useradmin.app.common.bean.IAuthorization;
 
-public class ServiceProviderHolder extends DefaultServiceProviderHolder {
+public class AuthorizationDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
 
-	public ServiceProviderHolder() {
-		super(new SampleServiceProviderBuilder());
+	public AuthorizationDtoDescriptorBuilder() {
+		super(IAuthorization.class);
+
+		setLabelSingular("Authorization");
+		setLabelPlural("Authorizations");
+		setRenderingPattern("$" + IAuthorization.KEY_PROPERTY + "$");
+
+		IBeanPropertyBluePrint propertyBp;
+
+		propertyBp = addProperty(IBean.ID_PROPERTY);
+		propertyBp.setLabel("Id");
+		propertyBp.setDescription("The authorizations technical identifier");
+
+		propertyBp = addProperty(IAuthorization.KEY_PROPERTY);
+		propertyBp.setLabel("Key");
+		propertyBp.setDescription("The authorizations key");
+		propertyBp.setMandatory(true);
+
+		propertyBp = addProperty(IAuthorization.DESCRIPTION_PROPERTY);
+		propertyBp.setLabel("Description");
+		propertyBp.setDescription("The authorizations description");
+
+		propertyBp = addProperty(IAuthorization.IN_USE_PROPERTY);
+		propertyBp.setLabel("Used");
+		propertyBp.setDescription("Determines if the authorization is used");
+		propertyBp.setSortable(false);
+		propertyBp.setFilterable(false);
+
+		propertyBp = addProperty(IBean.VERSION_PROPERTY);
+		propertyBp.setLabel("Version");
+		propertyBp.setDescription("The version of the dataset");
 	}
-
 }

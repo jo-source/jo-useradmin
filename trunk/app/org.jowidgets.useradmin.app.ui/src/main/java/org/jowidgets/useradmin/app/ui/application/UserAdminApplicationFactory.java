@@ -36,6 +36,7 @@ import org.jowidgets.cap.security.common.api.ISecureObject;
 import org.jowidgets.cap.ui.api.workbench.CapWorkbenchToolkit;
 import org.jowidgets.cap.ui.api.workbench.IEntityComponentNodesFactory;
 import org.jowidgets.service.api.ServiceProvider;
+import org.jowidgets.useradmin.app.common.entity.EntityIds;
 import org.jowidgets.workbench.toolkit.api.IWorkbenchApplicationModel;
 import org.jowidgets.workbench.toolkit.api.IWorkbenchApplicationModelBuilder;
 import org.jowidgets.workbench.tools.WorkbenchApplicationModelBuilder;
@@ -55,10 +56,11 @@ public final class UserAdminApplicationFactory {
 	}
 
 	private static void createComponentTree(final IWorkbenchApplicationModelBuilder model) {
-		//addEntityComponent(model, EntityIds.USER);
+		addEntityComponent(model, EntityIds.PERSON);
+		addEntityComponent(model, EntityIds.ROLE);
+		addEntityComponent(model, EntityIds.AUTHORIZATION);
 	}
 
-	@SuppressWarnings("unused")
 	private static void addEntityComponent(final IWorkbenchApplicationModelBuilder parent, final Object entityId) {
 		final IEntityComponentNodesFactory nodesFactory = CapWorkbenchToolkit.entityComponentNodesFactory();
 		if (hasReaderServiceAuthorization(entityId)) {

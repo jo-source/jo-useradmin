@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, grossmann
+ * Copyright (c) 2012, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -26,19 +26,37 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.app.common.service.security;
+package org.jowidgets.useradmin.app.service.lookup;
 
-import org.jowidgets.cap.common.api.service.IAuthorizationProviderService;
-import org.jowidgets.security.tools.DefaultPrincipal;
-import org.jowidgets.service.api.IServiceId;
-import org.jowidgets.service.tools.ServiceId;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
-public final class AuthorizationProviderServiceId {
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaQuery;
 
-	public static final IServiceId<IAuthorizationProviderService<DefaultPrincipal>> ID = new ServiceId<IAuthorizationProviderService<DefaultPrincipal>>(
-		AuthorizationProviderServiceId.class.getName() + "ID",
-		IAuthorizationProviderService.class);
+import org.jowidgets.cap.common.api.execution.IExecutionCallback;
+import org.jowidgets.cap.common.api.lookup.ILookUpEntry;
+import org.jowidgets.cap.common.api.lookup.LookUpEntry;
+import org.jowidgets.cap.service.api.adapter.ISyncLookUpService;
+import org.jowidgets.cap.service.jpa.tools.entity.EntityManagerProvider;
+import org.jowidgets.useradmin.app.service.bean.Role;
 
-	private AuthorizationProviderServiceId() {}
+public class RolesLookUpService implements ISyncLookUpService {
 
+	@Override
+	public List<ILookUpEntry> readValues(final IExecutionCallback executionCallback) {
+
+		final List<ILookUpEntry> result = new LinkedList<ILookUpEntry>();
+
+		final EntityManager em = EntityManagerProvider.get();
+
+		final CriteriaQuery<Role> criteriaQuery = em.getCriteriaBuilder().createQuery(Role.class);
+		criteriaQuery.from(Role.class);
+
+		for (final Role role : em.createQuery(criteriaQuery).getResultList()) {
+			result.add(LookUpEntry.create(role.getId(), role.getName(), role.getDescription()));
+		}
+		return Collections.unmodifiableList(result);
+	}
 }

@@ -26,22 +26,45 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.starter.client.common;
+package org.jowidgets.useradmin.app.service.descriptor;
 
-import org.jowidgets.cap.common.api.service.IAuthorizationProviderService;
-import org.jowidgets.useradmin.app.common.security.AuthorizationProviderServiceId;
-import org.jowidgets.cap.tools.starter.client.AbstractRemoteLoginService;
-import org.jowidgets.service.api.IServiceId;
+import org.jowidgets.cap.common.api.bean.IBean;
+import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;
+import org.jowidgets.cap.common.tools.bean.BeanDtoDescriptorBuilder;
+import org.jowidgets.useradmin.app.common.bean.IRole;
 
-public class UserAdminRemoteLoginService extends AbstractRemoteLoginService {
+public class RoleDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
 
-	public UserAdminRemoteLoginService() {
-		super("UserAdmin");
+	public RoleDtoDescriptorBuilder() {
+		super(IRole.class);
+
+		setLabelSingular("Role");
+		setLabelPlural("Roles");
+		setRenderingPattern("$" + IRole.NAME_PROPERTY + "$");
+
+		IBeanPropertyBluePrint propertyBp;
+
+		propertyBp = addProperty(IBean.ID_PROPERTY);
+		propertyBp.setLabel("Id");
+		propertyBp.setDescription("The roles technical identifier");
+
+		propertyBp = addProperty(IRole.NAME_PROPERTY);
+		propertyBp.setLabel("Name");
+		propertyBp.setDescription("The roles name");
+		propertyBp.setMandatory(true);
+
+		propertyBp = addProperty(IRole.DESCRIPTION_PROPERTY);
+		propertyBp.setLabel("Description");
+		propertyBp.setDescription("The roles description");
+
+		propertyBp = addProperty(IRole.IN_USE_PROPERTY);
+		propertyBp.setLabel("Used");
+		propertyBp.setDescription("Determines if the role is used");
+		propertyBp.setSortable(false);
+		propertyBp.setFilterable(false);
+
+		propertyBp = addProperty(IBean.VERSION_PROPERTY);
+		propertyBp.setLabel("Version");
+		propertyBp.setDescription("The version of the dataset");
 	}
-
-	@Override
-	protected IServiceId<? extends IAuthorizationProviderService<?>> getAuthorizationProviderServiceId() {
-		return AuthorizationProviderServiceId.ID;
-	}
-
 }
