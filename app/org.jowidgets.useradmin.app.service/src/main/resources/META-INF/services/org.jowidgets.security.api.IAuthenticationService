@@ -1,1 +1,1 @@
-org.jowidgets.useradmin.app.service.security.UserAdminAuthenticationService
+org.jowidgets.useradmin.service.authentication.AuthenticationService
