@@ -26,47 +26,31 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.app.service.descriptor;
+package org.jowidgets.useradmin.ui.action;
 
-import org.jowidgets.cap.common.api.bean.IBean;
-import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;
-import org.jowidgets.cap.common.tools.bean.BeanDtoDescriptorBuilder;
-import org.jowidgets.useradmin.common.bean.IRole;
+import org.jowidgets.api.command.IAction;
+import org.jowidgets.cap.ui.api.CapUiToolkit;
+import org.jowidgets.cap.ui.api.command.IExecutorActionBuilder;
+import org.jowidgets.cap.ui.api.execution.BeanSelectionPolicy;
+import org.jowidgets.cap.ui.api.model.IBeanListModel;
+import org.jowidgets.tools.command.ActionWrapper;
+import org.jowidgets.useradmin.common.bean.IPerson;
+import org.jowidgets.useradmin.common.checker.PersonDeactivateExecutableChecker;
+import org.jowidgets.useradmin.common.executor.ExecutorServices;
 
-public class RoleDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
+public final class PersonDeactivateAction extends ActionWrapper {
 
-	public RoleDtoDescriptorBuilder() {
-		super(IRole.class);
+	public PersonDeactivateAction(final IBeanListModel<IPerson> model) {
+		super(create(model));
+	}
 
-		setLabelSingular("Role");
-		setLabelPlural("Roles");
-		setRenderingPattern("$" + IRole.NAME_PROPERTY + "$");
-
-		IBeanPropertyBluePrint propertyBp;
-
-		propertyBp = addProperty(IBean.ID_PROPERTY);
-		propertyBp.setLabel("Id");
-		propertyBp.setDescription("The roles technical identifier");
-		propertyBp.setVisible(false);
-
-		propertyBp = addProperty(IRole.NAME_PROPERTY);
-		propertyBp.setLabel("Name");
-		propertyBp.setDescription("The roles name");
-		propertyBp.setMandatory(true);
-
-		propertyBp = addProperty(IRole.DESCRIPTION_PROPERTY);
-		propertyBp.setLabel("Description");
-		propertyBp.setDescription("The roles description");
-
-		propertyBp = addProperty(IRole.IN_USE_PROPERTY);
-		propertyBp.setLabel("Used");
-		propertyBp.setDescription("Determines if the role is used");
-		propertyBp.setSortable(false);
-		propertyBp.setFilterable(false);
-
-		propertyBp = addProperty(IBean.VERSION_PROPERTY);
-		propertyBp.setLabel("Version");
-		propertyBp.setDescription("The version of the dataset");
-		propertyBp.setVisible(false);
+	public static IAction create(final IBeanListModel<IPerson> model) {
+		final IExecutorActionBuilder<IPerson, Void> builder = CapUiToolkit.actionFactory().executorActionBuilder(model);
+		builder.setText("Deactivate user");
+		builder.setToolTipText("Deactivates the user");
+		builder.setSelectionPolicy(BeanSelectionPolicy.MULTI_SELECTION);
+		builder.setExecutor(ExecutorServices.DEACTIVATE_PERSON);
+		builder.addExecutableChecker(new PersonDeactivateExecutableChecker());
+		return builder.build();
 	}
 }

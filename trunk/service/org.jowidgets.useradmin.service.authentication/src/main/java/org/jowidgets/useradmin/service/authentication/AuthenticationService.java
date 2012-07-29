@@ -64,7 +64,8 @@ public final class AuthenticationService implements IAuthenticationService<Defau
 			try {
 				em = entityManagerFactory.createEntityManager();
 				final Person person = getPerson(em, username);
-				if (person != null && person.isAuthenticated(password)) {
+				final Boolean active = person.getActive();
+				if (person != null && active != null && active.booleanValue() && person.isAuthenticated(password)) {
 					return new DefaultPrincipal(username);
 				}
 			}

@@ -26,47 +26,22 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.app.service.descriptor;
+package org.jowidgets.useradmin.common.executor;
 
-import org.jowidgets.cap.common.api.bean.IBean;
-import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;
-import org.jowidgets.cap.common.tools.bean.BeanDtoDescriptorBuilder;
-import org.jowidgets.useradmin.common.bean.IRole;
+import org.jowidgets.cap.common.api.service.IExecutorService;
+import org.jowidgets.cap.security.common.tools.SecureServiceId;
+import org.jowidgets.service.api.IServiceId;
+import org.jowidgets.useradmin.common.security.AuthKeys;
 
-public class RoleDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
+public final class ExecutorServices {
 
-	public RoleDtoDescriptorBuilder() {
-		super(IRole.class);
+	public static final IServiceId<IExecutorService<Void>> ACTIVATE_PERSON = createId(AuthKeys.EXECUTOR_ACTIVATE_PERSON);
+	public static final IServiceId<IExecutorService<Void>> DEACTIVATE_PERSON = createId(AuthKeys.EXECUTOR_DEACTIVATE_PERSON);
 
-		setLabelSingular("Role");
-		setLabelPlural("Roles");
-		setRenderingPattern("$" + IRole.NAME_PROPERTY + "$");
+	private ExecutorServices() {};
 
-		IBeanPropertyBluePrint propertyBp;
-
-		propertyBp = addProperty(IBean.ID_PROPERTY);
-		propertyBp.setLabel("Id");
-		propertyBp.setDescription("The roles technical identifier");
-		propertyBp.setVisible(false);
-
-		propertyBp = addProperty(IRole.NAME_PROPERTY);
-		propertyBp.setLabel("Name");
-		propertyBp.setDescription("The roles name");
-		propertyBp.setMandatory(true);
-
-		propertyBp = addProperty(IRole.DESCRIPTION_PROPERTY);
-		propertyBp.setLabel("Description");
-		propertyBp.setDescription("The roles description");
-
-		propertyBp = addProperty(IRole.IN_USE_PROPERTY);
-		propertyBp.setLabel("Used");
-		propertyBp.setDescription("Determines if the role is used");
-		propertyBp.setSortable(false);
-		propertyBp.setFilterable(false);
-
-		propertyBp = addProperty(IBean.VERSION_PROPERTY);
-		propertyBp.setLabel("Version");
-		propertyBp.setDescription("The version of the dataset");
-		propertyBp.setVisible(false);
+	private static <PARAMETER_TYPE> IServiceId<IExecutorService<PARAMETER_TYPE>> createId(final String id) {
+		return new SecureServiceId<IExecutorService<PARAMETER_TYPE>, String>(id, IExecutorService.class, id);
 	}
+
 }

@@ -34,13 +34,16 @@ import org.jowidgets.cap.ui.api.widgets.IBeanTable;
 import org.jowidgets.plugin.api.IPluginProperties;
 import org.jowidgets.tools.model.item.MenuModel;
 import org.jowidgets.useradmin.common.bean.IPerson;
+import org.jowidgets.useradmin.ui.action.PersonActivateAction;
+import org.jowidgets.useradmin.ui.action.PersonDeactivateAction;
 
 public final class PersonMenuContributionPlugin implements IBeanTableMenuContributionPlugin<IPerson> {
 
 	@Override
 	public IMenuModel getCellMenu(final IPluginProperties properties, final IBeanTable<IPerson> table) {
 		final MenuModel result = new MenuModel();
-		result.addActionItem("TEST");
+		result.addAction(new PersonActivateAction(table.getModel()));
+		result.addAction(new PersonDeactivateAction(table.getModel()));
 		return result;
 	}
 

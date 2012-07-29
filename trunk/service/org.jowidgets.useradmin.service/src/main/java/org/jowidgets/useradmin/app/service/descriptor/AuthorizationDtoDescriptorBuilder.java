@@ -67,5 +67,6 @@ public class AuthorizationDtoDescriptorBuilder extends BeanDtoDescriptorBuilder 
 		propertyBp = addProperty(IBean.VERSION_PROPERTY);
 		propertyBp.setLabel("Version");
 		propertyBp.setDescription("The version of the dataset");
+		propertyBp.setVisible(false);
 	}
 }
