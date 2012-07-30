@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>org.jowidgets</groupId>
 			<artifactId>org.jowidgets.cap.security.ui.plugin</artifactId>
-			<version>0.13.0-SNAPSHOT</version>
+			<version>${jocap.version}</version>
 		</dependency>
 
 	</dependencies>
