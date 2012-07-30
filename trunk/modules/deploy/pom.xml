@@ -10,11 +10,11 @@
 		<groupId>org.jowidgets.useradmin</groupId>
 		<artifactId>org.jowidgets.useradmin.parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../pom.xml</relativePath>
+		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
 
 	<properties>
-		<deploy.dir>../deploy-war</deploy.dir>
+		<deploy.dir>../../deploy</deploy.dir>
 	</properties>
 
 	<build>
