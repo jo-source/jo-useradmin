@@ -6,7 +6,7 @@
 
 	<parent>
 		<groupId>org.jowidgets.useradmin</groupId>
-		<artifactId>org.jowidgets.useradmin.app.parent</artifactId>
+		<artifactId>org.jowidgets.useradmin.ui.parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
