@@ -38,8 +38,12 @@ import org.jowidgets.security.tools.DefaultPrincipal;
 import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
 import org.jowidgets.useradmin.service.persistence.dao.PersonDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class AuthenticationService implements IAuthenticationService<DefaultPrincipal, DefaultCredentials> {
+
+	private final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
 
 	private final EntityManagerFactory entityManagerFactory;
 
@@ -63,8 +67,7 @@ public final class AuthenticationService implements IAuthenticationService<Defau
 				}
 			}
 			catch (final Exception e) {
-				//TODO log exception
-				return null;
+				logger.error("Error on authentication", e);
 			}
 			finally {
 				if (em != null) {
@@ -72,8 +75,7 @@ public final class AuthenticationService implements IAuthenticationService<Defau
 						em.close();
 					}
 					catch (final Exception e) {
-						//TODO log exception
-						return null;
+						logger.error("Error on authentication", e);
 					}
 				}
 			}

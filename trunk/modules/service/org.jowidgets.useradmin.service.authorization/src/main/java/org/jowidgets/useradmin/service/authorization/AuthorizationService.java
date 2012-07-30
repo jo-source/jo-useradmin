@@ -41,8 +41,12 @@ import org.jowidgets.security.tools.DefaultPrincipal;
 import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
 import org.jowidgets.useradmin.service.persistence.dao.PersonDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class AuthorizationService implements IAuthorizationService<IPrincipal<String>> {
+
+	private final Logger logger = LoggerFactory.getLogger(AuthorizationService.class);
 
 	private final EntityManagerFactory entityManagerFactory;
 
@@ -67,8 +71,7 @@ public final class AuthorizationService implements IAuthorizationService<IPrinci
 				}
 			}
 			catch (final Exception e) {
-				//TODO log exception
-				return null;
+				logger.error("Error on authorization", e);
 			}
 			finally {
 				if (em != null) {
@@ -76,8 +79,7 @@ public final class AuthorizationService implements IAuthorizationService<IPrinci
 						em.close();
 					}
 					catch (final Exception e) {
-						//TODO log exception
-						return null;
+						logger.error("Error on authorization", e);
 					}
 				}
 			}
