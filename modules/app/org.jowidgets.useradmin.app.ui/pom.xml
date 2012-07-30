@@ -24,6 +24,18 @@
 			<artifactId>org.jowidgets.cap.security.ui.plugin</artifactId>
 			<version>${jocap.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jcl</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
 	</dependencies>
 </project>
