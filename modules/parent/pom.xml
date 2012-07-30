@@ -17,18 +17,18 @@
 	</properties>
 
 	<scm>
-		<connection>scm:svn:http://jo-useradmin.googlecode.com/svn/trunk/</connection>
-		<developerConnection>scm:svn:https://jo-useradmin.googlecode.com/svn/trunk</developerConnection>
-		<url>http://jo-client-platform.googlecode.com/svn/trunk/</url>
+		<connection>scm:svn:http://jo-useradmin.googlecode.com/svn/trunk/modules/parent</connection>
+		<developerConnection>scm:svn:https://jo-useradmin.googlecode.com/svn/trunk/modules/parent</developerConnection>
+		<url>http://jo-client-platform.googlecode.com/svn/trunk/modules/parent</url>
 	</scm>
 
 	<modules>
-		<module>common/parent/</module>
-		<module>service/parent/</module>
-		<module>ui/parent/</module>
-		<module>app/parent/</module>
-		<module>app-starter/parent/</module>
-		<module>deploy/</module>
+		<module>../common/parent/</module>
+		<module>../service/parent/</module>
+		<module>../ui/parent/</module>
+		<module>../app/parent/</module>
+		<module>../app-starter/parent/</module>
+		<module>../deploy/</module>
 	</modules>
 
 	<dependencyManagement>
