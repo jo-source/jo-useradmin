@@ -67,7 +67,7 @@ public final class AuthorizationService implements IAuthorizationService<IPrinci
 				em = entityManagerFactory.createEntityManager();
 				final Person person = PersonDAO.findPersonByLogin(em, username, true);
 				if (person != null) {
-					return person.getAuthorizations();
+					return person.getAuthorizationNames();
 				}
 			}
 			catch (final Exception e) {
