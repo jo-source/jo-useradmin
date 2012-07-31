@@ -28,11 +28,17 @@
 
 package org.jowidgets.useradmin.ui.plugins;
 
+import org.jowidgets.cap.ui.api.plugin.IAttributePlugin;
+import org.jowidgets.cap.ui.api.plugin.IBeanFormPlugin;
 import org.jowidgets.cap.ui.api.plugin.IBeanTableMenuContributionPlugin;
 import org.jowidgets.cap.ui.api.plugin.IBeanTableMenuInterceptorPlugin;
 import org.jowidgets.cap.ui.api.plugin.IBeanTablePlugin;
 import org.jowidgets.plugin.tools.PluginProviderBuilder;
+import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.useradmin.common.entity.EntityIds;
+import org.jowidgets.useradmin.ui.plugins.attribute.GlobalAttributesPlugin;
+import org.jowidgets.useradmin.ui.plugins.attribute.PersonAttributesPlugin;
+import org.jowidgets.useradmin.ui.plugins.form.PersonFormPlugin;
 import org.jowidgets.useradmin.ui.plugins.table.AuthorizationMenuInterceptorPlugin;
 import org.jowidgets.useradmin.ui.plugins.table.PersonMenuContributionPlugin;
 import org.jowidgets.useradmin.ui.plugins.table.RoleMenuInterceptorPlugin;
@@ -41,6 +47,9 @@ import org.jowidgets.useradmin.ui.plugins.table.SearchFilterOnTablePlugin;
 public final class UserAdminPluginProviderBuilder extends PluginProviderBuilder {
 
 	public UserAdminPluginProviderBuilder() {
+
+		addPlugin(IAttributePlugin.ID, new GlobalAttributesPlugin());
+		addAttributePlugin(new PersonAttributesPlugin(), IPerson.class);
 
 		addPlugin(
 				IBeanTablePlugin.ID,
@@ -69,5 +78,11 @@ public final class UserAdminPluginProviderBuilder extends PluginProviderBuilder 
 				IBeanTableMenuInterceptorPlugin.ENTITIY_ID_PROPERTY_KEY,
 				EntityIds.AUTHORIZATION);
 
+		addPlugin(IBeanFormPlugin.ID, new PersonFormPlugin(), IBeanFormPlugin.BEAN_TYPE_PROPERTY_KEY, IPerson.class);
+
+	}
+
+	private void addAttributePlugin(final IAttributePlugin plugin, final Class<?> beanType) {
+		addPlugin(IAttributePlugin.ID, plugin, IAttributePlugin.BEAN_TYPE_PROPERTY_KEY, beanType);
 	}
 }

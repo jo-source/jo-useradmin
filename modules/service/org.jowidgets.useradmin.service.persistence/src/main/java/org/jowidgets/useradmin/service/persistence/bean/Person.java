@@ -57,6 +57,8 @@ import org.jowidgets.util.EmptyCheck;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"loginName"}))
 public class Person extends Bean implements IPerson {
 
+	private static String defaultPasswordValue = createDefaultPasswordValue();
+
 	@Basic
 	private String loginName;
 
@@ -81,6 +83,14 @@ public class Person extends Bean implements IPerson {
 		return name;
 	}
 
+	private static String createDefaultPasswordValue() {
+		final StringBuilder result = new StringBuilder();
+		for (int i = 0; i < 5; i++) {
+			result.append('\u2022');
+		}
+		return result.toString();
+	}
+
 	@Override
 	public void setName(final String name) {
 		this.name = name;
@@ -89,15 +99,6 @@ public class Person extends Bean implements IPerson {
 	@Override
 	public String getLoginName() {
 		return loginName;
-	}
-
-	@Override
-	public String getPasswordHash() {
-		return passwordHash;
-	}
-
-	public void setPasswordHash(final String passwordHash) {
-		this.passwordHash = passwordHash;
 	}
 
 	@Override
@@ -133,6 +134,7 @@ public class Person extends Bean implements IPerson {
 		return result;
 	}
 
+	@Override
 	public void setPassword(final String password) {
 		if (!EmptyCheck.isEmpty(password)) {
 			setPasswordHash(encodePassword(password));
@@ -140,6 +142,36 @@ public class Person extends Bean implements IPerson {
 		else {
 			setPasswordHash(null);
 		}
+	}
+
+	@Override
+	@QueryPath(path = {"passwordHash"})
+	public String getPassword() {
+		if (passwordHash != null) {
+			return defaultPasswordValue;
+		}
+		else {
+			return null;
+		}
+	}
+
+	@Override
+	@QueryPath(path = {"passwordHash"})
+	public String getPasswordRepeat() {
+		return getPassword();
+	}
+
+	@Override
+	public void setPasswordRepeat(final String passwordRepeat) {
+		//nothing to do
+	}
+
+	private String getPasswordHash() {
+		return passwordHash;
+	}
+
+	private void setPasswordHash(final String passwordHash) {
+		this.passwordHash = passwordHash;
 	}
 
 	public Set<String> getAuthorizations() {

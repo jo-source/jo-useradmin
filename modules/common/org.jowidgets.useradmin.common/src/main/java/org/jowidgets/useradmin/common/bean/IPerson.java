@@ -33,21 +33,25 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.jowidgets.cap.common.api.annotation.BeanValidator;
 import org.jowidgets.cap.common.api.bean.IBean;
 import org.jowidgets.cap.security.common.api.annotation.CreateAuthorization;
 import org.jowidgets.cap.security.common.api.annotation.DeleteAuthorization;
 import org.jowidgets.cap.security.common.api.annotation.ReadAuthorization;
 import org.jowidgets.cap.security.common.api.annotation.UpdateAuthorization;
 import org.jowidgets.useradmin.common.security.AuthKeys;
+import org.jowidgets.useradmin.common.validation.PersonPasswordRepeatValidator;
 
 @CreateAuthorization(AuthKeys.CREATE_PERSON)
 @ReadAuthorization(AuthKeys.READ_PERSON)
 @UpdateAuthorization(AuthKeys.UPDATE_PERSON)
 @DeleteAuthorization(AuthKeys.DELETE_PERSON)
+@BeanValidator(PersonPasswordRepeatValidator.class)
 public interface IPerson extends IBean {
 
 	String LOGIN_NAME_PROPERTY = "loginName";
-	String PASSWORD_HASH_PROPERTY = "passwordHash";
+	String PASSWORD_PROPERTY = "password";
+	String PASSWORD_REPEAT_PROPERTY = "passwordRepeat";
 	String NAME_PROPERTY = "name";
 	String ACTIVE_PROPERTY = "active";
 	String ROLE_NAMES_PROPERTY = "roleNames";
@@ -56,8 +60,9 @@ public interface IPerson extends IBean {
 		private static final long serialVersionUID = 1L;
 		{
 			add(LOGIN_NAME_PROPERTY);
-			add(PASSWORD_HASH_PROPERTY);
 			add(NAME_PROPERTY);
+			add(PASSWORD_PROPERTY);
+			add(PASSWORD_REPEAT_PROPERTY);
 			add(ROLE_NAMES_PROPERTY);
 			add(ACTIVE_PROPERTY);
 			add(IBean.ID_PROPERTY);
@@ -71,7 +76,13 @@ public interface IPerson extends IBean {
 
 	void setLoginName(String loginName);
 
-	String getPasswordHash();
+	String getPassword();
+
+	void setPassword(String password);
+
+	String getPasswordRepeat();
+
+	void setPasswordRepeat(String passwordRepeat);
 
 	@NotNull
 	@Size(min = 2, max = 50)
