@@ -66,10 +66,14 @@ public final class PersonDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
 		propertyBp.setDescription("The users name");
 		propertyBp.setMandatory(true);
 
-		propertyBp = addProperty(IPerson.PASSWORD_HASH_PROPERTY);
-		propertyBp.setLabel("Password#");
-		propertyBp.setLabelLong("Password hash");
-		propertyBp.setDescription("The hash of the password");
+		propertyBp = addProperty(IPerson.PASSWORD_PROPERTY);
+		propertyBp.setLabel("Password");
+		propertyBp.setDescription("The password");
+		propertyBp.setVisible(false);
+
+		propertyBp = addProperty(IPerson.PASSWORD_REPEAT_PROPERTY);
+		propertyBp.setLabel("Repeat password");
+		propertyBp.setDescription("The repeated password");
 		propertyBp.setVisible(false);
 
 		propertyBp = addProperty(IPerson.ROLE_NAMES_PROPERTY);
