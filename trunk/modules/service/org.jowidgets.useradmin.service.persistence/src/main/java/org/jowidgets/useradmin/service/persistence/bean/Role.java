@@ -97,7 +97,7 @@ public class Role extends Bean implements IRole {
 		this.roleAuthorizationLinks = roleAuthorizationLinks;
 	}
 
-	public Set<String> getAuthorizations() {
+	public Set<String> getAuthorizationNames() {
 		final Set<String> result = new HashSet<String>();
 		for (final RoleAuthorizationLink roleAuthorizationLink : getRoleAuthorizationLinks()) {
 			final Authorization authorization = roleAuthorizationLink.getAuthorization();

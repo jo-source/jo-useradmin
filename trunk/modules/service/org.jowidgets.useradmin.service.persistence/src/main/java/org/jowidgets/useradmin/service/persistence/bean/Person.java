@@ -27,22 +27,16 @@
  */
 package org.jowidgets.useradmin.service.persistence.bean;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -52,6 +46,7 @@ import org.jowidgets.cap.service.jpa.api.query.QueryPath;
 import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.util.Assert;
 import org.jowidgets.util.EmptyCheck;
+import org.jowidgets.util.security.String2Hash;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"loginName"}))
@@ -74,9 +69,7 @@ public class Person extends Bean implements IPerson {
 
 	@OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "person")
 	@BatchSize(size = 1000)
-	@MapKey(name = "roleId")
-	@OrderBy("roleId ASC")
-	private Map<Long, PersonRoleLink> personRoleLinks = new LinkedHashMap<Long, PersonRoleLink>();
+	private Set<PersonRoleLink> personRoleLinks = new HashSet<PersonRoleLink>();
 
 	private static String createDefaultPasswordValue() {
 		final StringBuilder result = new StringBuilder();
@@ -116,11 +109,12 @@ public class Person extends Bean implements IPerson {
 		this.active = active;
 	}
 
-	public Map<Long, PersonRoleLink> getPersonRoleLinks() {
+	public Set<PersonRoleLink> getPersonRoleLinks() {
 		return personRoleLinks;
 	}
 
-	public void setPersonRoleLinks(final Map<Long, PersonRoleLink> personRoleLinks) {
+	public void setPersonRoleLinks(final Set<PersonRoleLink> personRoleLinks) {
+		Assert.paramNotNull(personRoleLinks, "personRoleLinks");
 		this.personRoleLinks = personRoleLinks;
 	}
 
@@ -128,8 +122,22 @@ public class Person extends Bean implements IPerson {
 	@QueryPath(path = {"personRoleLinks", "role", "name"})
 	public List<String> getRoleNames() {
 		final List<String> result = new LinkedList<String>();
-		for (final PersonRoleLink personRoleLink : getPersonRoleLinks().values()) {
+		for (final PersonRoleLink personRoleLink : getPersonRoleLinks()) {
 			result.add(personRoleLink.getRole().getName());
+		}
+		return result;
+	}
+
+	public Set<String> getAuthorizationNames() {
+		final Set<String> result = new HashSet<String>();
+		final Set<PersonRoleLink> personRoleLinksSet = getPersonRoleLinks();
+		if (personRoleLinksSet != null) {
+			for (final PersonRoleLink personRoleLink : personRoleLinksSet) {
+				final Role role = personRoleLink.getRole();
+				if (role != null) {
+					result.addAll(role.getAuthorizationNames());
+				}
+			}
 		}
 		return result;
 	}
@@ -148,7 +156,7 @@ public class Person extends Bean implements IPerson {
 	@Override
 	public void setPassword(final String password) {
 		if (!EmptyCheck.isEmpty(password)) {
-			setPasswordHash(encodePassword(password));
+			setPasswordHash(String2Hash.encode(password));
 		}
 		else {
 			setPasswordHash(null);
@@ -174,64 +182,23 @@ public class Person extends Bean implements IPerson {
 		this.passwordHash = passwordHash;
 	}
 
-	public Set<String> getAuthorizations() {
-		final Set<String> result = new HashSet<String>();
-		final Map<Long, PersonRoleLink> personRoleLinksMap = getPersonRoleLinks();
-		if (personRoleLinksMap != null) {
-			for (final PersonRoleLink personRoleLink : personRoleLinksMap.values()) {
-				result.addAll(getAuthorizations(personRoleLink.getRole()));
-			}
-		}
-		return result;
-	}
-
-	private static Set<String> getAuthorizations(final Role role) {
-		if (role != null) {
-			return role.getAuthorizations();
-		}
-		else {
-			return new HashSet<String>();
-		}
-	}
-
 	public boolean isAuthenticated(final String password) {
-
 		String currentPasswordHash = getPasswordHash();
 		if (currentPasswordHash == null) {
-			currentPasswordHash = encodePassword(getLoginName());
+			final String currentLoginName = getLoginName();
+			if (currentLoginName != null) {
+				currentPasswordHash = String2Hash.encode(currentLoginName);
+			}
+			else {
+				return false;
+			}
 		}
-		if (encodePassword(password).equals(currentPasswordHash)) {
+		if (String2Hash.encode(password).equals(currentPasswordHash)) {
 			return true;
 		}
 		else {
 			return false;
 		}
-
 	}
 
-	private static String encodePassword(final String password) {
-		Assert.paramNotNull(password, "password");
-
-		try {
-			final MessageDigest md5 = MessageDigest.getInstance("MD5");
-			final StringBuffer strBuf = new StringBuffer();
-			md5.update(password.getBytes());
-
-			for (final byte b : md5.digest()) {
-				strBuf.append(byteToHexString(b));
-			}
-
-			return strBuf.toString();
-		}
-		catch (final NoSuchAlgorithmException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	private static String byteToHexString(final byte b) {
-		final int value = (b & 0x7F) + (b < 0 ? 128 : 0);
-		String ret = value < 16 ? "0" : "";
-		ret = ret + Integer.toHexString(value).toLowerCase();
-		return ret;
-	}
 }

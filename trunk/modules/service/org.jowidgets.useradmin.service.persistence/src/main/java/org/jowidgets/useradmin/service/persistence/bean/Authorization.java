@@ -27,8 +27,8 @@
  */
 package org.jowidgets.useradmin.service.persistence.bean;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -54,7 +54,7 @@ public class Authorization extends Bean implements IAuthorization {
 	private String description;
 
 	@OneToMany(mappedBy = "authorization")
-	private List<RoleAuthorizationLink> roleAuthorizationLinks = new LinkedList<RoleAuthorizationLink>();
+	private Set<RoleAuthorizationLink> roleAuthorizationLinks = new HashSet<RoleAuthorizationLink>();
 
 	@Override
 	public String getKey() {
@@ -76,11 +76,11 @@ public class Authorization extends Bean implements IAuthorization {
 		this.description = description;
 	}
 
-	public List<RoleAuthorizationLink> getPersonRoleLinks() {
+	public Set<RoleAuthorizationLink> getPersonRoleLinks() {
 		return roleAuthorizationLinks;
 	}
 
-	public void setPersonRoleLinks(final List<RoleAuthorizationLink> roleAuthorizationLinks) {
+	public void setPersonRoleLinks(final Set<RoleAuthorizationLink> roleAuthorizationLinks) {
 		this.roleAuthorizationLinks = roleAuthorizationLinks;
 	}
 
