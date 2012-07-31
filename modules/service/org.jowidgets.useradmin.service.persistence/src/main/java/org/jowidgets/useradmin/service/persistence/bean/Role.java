@@ -27,8 +27,10 @@
  */
 package org.jowidgets.useradmin.service.persistence.bean;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -93,6 +95,15 @@ public class Role extends Bean implements IRole {
 
 	public void setRoleAuthorizationLinks(final List<RoleAuthorizationLink> roleAuthorizationLinks) {
 		this.roleAuthorizationLinks = roleAuthorizationLinks;
+	}
+
+	public Set<String> getAuthorizations() {
+		final Set<String> result = new HashSet<String>();
+		for (final RoleAuthorizationLink roleAuthorizationLink : getRoleAuthorizationLinks()) {
+			final Authorization authorization = roleAuthorizationLink.getAuthorization();
+			result.add(authorization.getKey());
+		}
+		return result;
 	}
 
 	@Override

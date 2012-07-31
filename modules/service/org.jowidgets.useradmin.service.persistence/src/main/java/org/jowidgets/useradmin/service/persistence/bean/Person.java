@@ -78,17 +78,17 @@ public class Person extends Bean implements IPerson {
 	@OrderBy("roleId ASC")
 	private Map<Long, PersonRoleLink> personRoleLinks = new LinkedHashMap<Long, PersonRoleLink>();
 
-	@Override
-	public String getName() {
-		return name;
-	}
-
 	private static String createDefaultPasswordValue() {
 		final StringBuilder result = new StringBuilder();
 		for (int i = 0; i < 5; i++) {
 			result.append('\u2022');
 		}
 		return result.toString();
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 
 	@Override
@@ -135,16 +135,6 @@ public class Person extends Bean implements IPerson {
 	}
 
 	@Override
-	public void setPassword(final String password) {
-		if (!EmptyCheck.isEmpty(password)) {
-			setPasswordHash(encodePassword(password));
-		}
-		else {
-			setPasswordHash(null);
-		}
-	}
-
-	@Override
 	@QueryPath(path = {"passwordHash"})
 	public String getPassword() {
 		if (passwordHash != null) {
@@ -152,6 +142,16 @@ public class Person extends Bean implements IPerson {
 		}
 		else {
 			return null;
+		}
+	}
+
+	@Override
+	public void setPassword(final String password) {
+		if (!EmptyCheck.isEmpty(password)) {
+			setPasswordHash(encodePassword(password));
+		}
+		else {
+			setPasswordHash(null);
 		}
 	}
 
@@ -186,14 +186,12 @@ public class Person extends Bean implements IPerson {
 	}
 
 	private static Set<String> getAuthorizations(final Role role) {
-		final Set<String> result = new HashSet<String>();
 		if (role != null) {
-			for (final RoleAuthorizationLink roleAuthorizationLink : role.getRoleAuthorizationLinks()) {
-				final Authorization authorization = roleAuthorizationLink.getAuthorization();
-				result.add(authorization.getKey());
-			}
+			return role.getAuthorizations();
 		}
-		return result;
+		else {
+			return new HashSet<String>();
+		}
 	}
 
 	public boolean isAuthenticated(final String password) {
