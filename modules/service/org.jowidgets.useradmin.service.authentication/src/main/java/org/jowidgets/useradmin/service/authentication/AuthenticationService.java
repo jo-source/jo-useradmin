@@ -33,7 +33,8 @@ import javax.persistence.EntityManagerFactory;
 
 import org.jowidgets.cap.service.jpa.api.EntityManagerFactoryProvider;
 import org.jowidgets.security.api.IAuthenticationService;
-import org.jowidgets.security.tools.DefaultCredentials;
+import org.jowidgets.security.api.ICredentials;
+import org.jowidgets.security.api.IPrincipal;
 import org.jowidgets.security.tools.DefaultPrincipal;
 import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
@@ -41,7 +42,7 @@ import org.jowidgets.useradmin.service.persistence.dao.PersonDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class AuthenticationService implements IAuthenticationService<DefaultPrincipal, DefaultCredentials> {
+public final class AuthenticationService implements IAuthenticationService<IPrincipal<String>, ICredentials> {
 
 	private final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
 
@@ -52,7 +53,7 @@ public final class AuthenticationService implements IAuthenticationService<Defau
 	}
 
 	@Override
-	public DefaultPrincipal authenticate(final DefaultCredentials credentials) {
+	public IPrincipal<String> authenticate(final ICredentials credentials) {
 
 		final String username = credentials.getUsername();
 		final String password = credentials.getPassword();
