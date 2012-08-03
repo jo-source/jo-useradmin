@@ -26,7 +26,7 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.app.service.descriptor;
+package org.jowidgets.useradmin.service.descriptor;
 
 import org.jowidgets.cap.common.api.bean.IBean;
 import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;

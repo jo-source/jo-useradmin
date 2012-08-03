@@ -42,14 +42,14 @@ import org.jowidgets.cap.service.jpa.api.JpaServiceToolkit;
 import org.jowidgets.cap.service.tools.CapServiceProviderBuilder;
 import org.jowidgets.service.api.IServiceId;
 import org.jowidgets.service.api.IServicesDecoratorProvider;
-import org.jowidgets.useradmin.app.service.entity.UserAdminEntityServiceBuilder;
-import org.jowidgets.useradmin.app.service.executor.PersonActivateExecutor;
-import org.jowidgets.useradmin.app.service.executor.PersonDeactivateExecutor;
 import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.useradmin.common.checker.PersonActivateExecutableChecker;
 import org.jowidgets.useradmin.common.checker.PersonDeactivateExecutableChecker;
 import org.jowidgets.useradmin.common.executor.ExecutorServices;
 import org.jowidgets.useradmin.common.security.AuthorizationProviderServiceId;
+import org.jowidgets.useradmin.service.entity.UserAdminEntityServiceBuilder;
+import org.jowidgets.useradmin.service.executor.PersonActivateExecutor;
+import org.jowidgets.useradmin.service.executor.PersonDeactivateExecutor;
 import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
 

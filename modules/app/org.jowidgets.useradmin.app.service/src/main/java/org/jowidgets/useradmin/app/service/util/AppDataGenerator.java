@@ -30,7 +30,7 @@ package org.jowidgets.useradmin.app.service.util;
 
 import javax.persistence.Persistence;
 
-import org.jowidgets.useradmin.app.service.data.DataGenerator;
+import org.jowidgets.useradmin.service.data.DataGenerator;
 import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
 
 public final class AppDataGenerator {

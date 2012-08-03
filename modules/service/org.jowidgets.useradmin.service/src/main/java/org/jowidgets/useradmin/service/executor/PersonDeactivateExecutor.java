@@ -26,17 +26,17 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.app.service.executor;
+package org.jowidgets.useradmin.service.executor;
 
 import org.jowidgets.cap.common.api.execution.IExecutionCallback;
 import org.jowidgets.cap.service.api.executor.IBeanExecutor;
 import org.jowidgets.useradmin.common.bean.IPerson;
 
-public class PersonActivateExecutor implements IBeanExecutor<IPerson, Void> {
+public class PersonDeactivateExecutor implements IBeanExecutor<IPerson, Void> {
 
 	@Override
 	public IPerson execute(final IPerson person, final Void parameter, final IExecutionCallback executionCallback) {
-		person.setActive(Boolean.TRUE);
+		person.setActive(Boolean.FALSE);
 		return person;
 	}
 
