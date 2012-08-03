@@ -26,47 +26,74 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.app.service.descriptor;
+package org.jowidgets.useradmin.service.descriptor;
 
 import org.jowidgets.cap.common.api.bean.IBean;
 import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;
 import org.jowidgets.cap.common.tools.bean.BeanDtoDescriptorBuilder;
-import org.jowidgets.useradmin.common.bean.IAuthorization;
+import org.jowidgets.useradmin.common.bean.IPerson;
 
-public final class AuthorizationDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
+public final class PersonDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
 
-	public AuthorizationDtoDescriptorBuilder() {
-		super(IAuthorization.class);
+	public PersonDtoDescriptorBuilder() {
+		this("User", "Users");
+	}
 
-		setLabelSingular("Authorization");
-		setLabelPlural("Authorizations");
-		setRenderingPattern("$" + IAuthorization.KEY_PROPERTY + "$");
+	public PersonDtoDescriptorBuilder(final String labelSingular, final String labelPlural) {
+		super(IPerson.class);
+
+		setLabelSingular(labelSingular);
+		setLabelPlural(labelPlural);
+
+		setRenderingPattern("$" + IPerson.NAME_PROPERTY + "$" + "($" + IPerson.LOGIN_NAME_PROPERTY + "$)");
 
 		IBeanPropertyBluePrint propertyBp;
 
 		propertyBp = addProperty(IBean.ID_PROPERTY);
 		propertyBp.setLabel("Id");
-		propertyBp.setDescription("The authorizations technical identifier");
+		propertyBp.setDescription("The users technical identifier");
+		propertyBp.setSortable(true);
 		propertyBp.setVisible(false);
 
-		propertyBp = addProperty(IAuthorization.KEY_PROPERTY);
-		propertyBp.setLabel("Key");
-		propertyBp.setDescription("The authorizations key");
+		propertyBp = addProperty(IPerson.LOGIN_NAME_PROPERTY);
+		propertyBp.setLabel("Login");
+		propertyBp.setLabelLong("Login name");
+		propertyBp.setDescription("The users login name");
 		propertyBp.setMandatory(true);
 
-		propertyBp = addProperty(IAuthorization.DESCRIPTION_PROPERTY);
-		propertyBp.setLabel("Description");
-		propertyBp.setDescription("The authorizations description");
+		propertyBp = addProperty(IPerson.NAME_PROPERTY);
+		propertyBp.setLabel("Name");
+		propertyBp.setDescription("The users name");
+		propertyBp.setMandatory(true);
 
-		propertyBp = addProperty(IAuthorization.IN_USE_PROPERTY);
-		propertyBp.setLabel("Used");
-		propertyBp.setDescription("Determines if the authorization is used");
+		propertyBp = addProperty(IPerson.PASSWORD_PROPERTY);
+		propertyBp.setLabel("Password");
+		propertyBp.setDescription("The password");
+		propertyBp.setVisible(false);
+
+		propertyBp = addProperty(IPerson.PASSWORD_REPEAT_PROPERTY);
+		propertyBp.setLabel("Repeat password");
+		propertyBp.setDescription("The repeated password");
+		propertyBp.setVisible(false);
+
+		propertyBp = addProperty(IPerson.ROLE_NAMES_PROPERTY);
+		propertyBp.setLabel("Roles");
+		propertyBp.setDescription("The users roles");
+		propertyBp.setElementValueType(String.class);
 		propertyBp.setSortable(false);
-		propertyBp.setFilterable(false);
+		propertyBp.setFilterable(true);
+
+		propertyBp = addProperty(IPerson.ACTIVE_PROPERTY);
+		propertyBp.setLabel("Active");
+		propertyBp.setDescription("Determines if the person is active");
+		propertyBp.setDefaultValue(Boolean.TRUE);
+		propertyBp.setMandatory(true);
+		propertyBp.setEditable(false);
 
 		propertyBp = addProperty(IBean.VERSION_PROPERTY);
 		propertyBp.setLabel("Version");
 		propertyBp.setDescription("The version of the dataset");
 		propertyBp.setVisible(false);
+
 	}
 }

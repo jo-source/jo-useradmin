@@ -26,7 +26,7 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.app.service.entity;
+package org.jowidgets.useradmin.service.entity;
 
 import org.jowidgets.cap.common.api.filter.ArithmeticFilter;
 import org.jowidgets.cap.common.api.filter.ArithmeticOperator;
@@ -39,15 +39,15 @@ import org.jowidgets.cap.service.jpa.api.query.ICriteriaQueryCreatorBuilder;
 import org.jowidgets.cap.service.jpa.api.query.JpaQueryToolkit;
 import org.jowidgets.cap.service.jpa.tools.entity.JpaEntityServiceBuilderWrapper;
 import org.jowidgets.service.api.IServiceRegistry;
-import org.jowidgets.useradmin.app.service.descriptor.AuthorizationDtoDescriptorBuilder;
-import org.jowidgets.useradmin.app.service.descriptor.PersonDtoDescriptorBuilder;
-import org.jowidgets.useradmin.app.service.descriptor.RoleDtoDescriptorBuilder;
 import org.jowidgets.useradmin.common.bean.IAuthorization;
 import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.useradmin.common.bean.IPersonRoleLink;
 import org.jowidgets.useradmin.common.bean.IRole;
 import org.jowidgets.useradmin.common.bean.IRoleAuthorizationLink;
 import org.jowidgets.useradmin.common.entity.EntityIds;
+import org.jowidgets.useradmin.service.descriptor.AuthorizationDtoDescriptorBuilder;
+import org.jowidgets.useradmin.service.descriptor.PersonDtoDescriptorBuilder;
+import org.jowidgets.useradmin.service.descriptor.RoleDtoDescriptorBuilder;
 import org.jowidgets.useradmin.service.persistence.bean.Authorization;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
 import org.jowidgets.useradmin.service.persistence.bean.PersonRoleLink;

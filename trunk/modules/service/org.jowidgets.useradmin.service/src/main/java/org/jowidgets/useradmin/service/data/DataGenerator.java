@@ -26,7 +26,7 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.app.service.data;
+package org.jowidgets.useradmin.service.data;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
