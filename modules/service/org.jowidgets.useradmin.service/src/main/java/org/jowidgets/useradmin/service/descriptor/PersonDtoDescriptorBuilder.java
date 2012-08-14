@@ -28,18 +28,19 @@
 
 package org.jowidgets.useradmin.service.descriptor;
 
-import org.jowidgets.cap.common.api.bean.IBean;
 import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;
-import org.jowidgets.cap.common.tools.bean.BeanDtoDescriptorBuilder;
+import org.jowidgets.i18n.api.IMessage;
 import org.jowidgets.useradmin.common.bean.IPerson;
+import org.jowidgets.useradmin.common.i18n.entity.EntityMessages;
+import org.jowidgets.util.Assert;
 
-public final class PersonDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
+public final class PersonDtoDescriptorBuilder extends AbstractDtoDescriptorBuilder {
 
 	public PersonDtoDescriptorBuilder() {
-		this("User", "Users");
+		this(getMessage("user"), getMessage("users"));
 	}
 
-	public PersonDtoDescriptorBuilder(final String labelSingular, final String labelPlural) {
+	public PersonDtoDescriptorBuilder(final IMessage labelSingular, final IMessage labelPlural) {
 		super(IPerson.class);
 
 		setLabelSingular(labelSingular);
@@ -47,53 +48,50 @@ public final class PersonDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
 
 		setRenderingPattern("$" + IPerson.NAME_PROPERTY + "$" + "($" + IPerson.LOGIN_NAME_PROPERTY + "$)");
 
+		addIdProperty();
+
 		IBeanPropertyBluePrint propertyBp;
 
-		propertyBp = addProperty(IBean.ID_PROPERTY);
-		propertyBp.setLabel("Id");
-		propertyBp.setDescription("The users technical identifier");
-		propertyBp.setSortable(true);
-		propertyBp.setVisible(false);
-
 		propertyBp = addProperty(IPerson.LOGIN_NAME_PROPERTY);
-		propertyBp.setLabel("Login");
-		propertyBp.setLabelLong("Login name");
-		propertyBp.setDescription("The users login name");
+		propertyBp.setLabel(getMessage("login.label"));
+		propertyBp.setLabelLong(getMessage("login.label.long"));
+		propertyBp.setDescription(getMessage("login.description"));
 		propertyBp.setMandatory(true);
 
 		propertyBp = addProperty(IPerson.NAME_PROPERTY);
-		propertyBp.setLabel("Name");
-		propertyBp.setDescription("The users name");
+		propertyBp.setLabel(getMessage("name.label"));
+		propertyBp.setDescription(getMessage("name.description"));
 		propertyBp.setMandatory(true);
 
 		propertyBp = addProperty(IPerson.PASSWORD_PROPERTY);
-		propertyBp.setLabel("Password");
-		propertyBp.setDescription("The password");
+		propertyBp.setLabel(getMessage("password.label"));
+		propertyBp.setDescription(getMessage("password.description"));
 		propertyBp.setVisible(false);
 
 		propertyBp = addProperty(IPerson.PASSWORD_REPEAT_PROPERTY);
-		propertyBp.setLabel("Repeat password");
-		propertyBp.setDescription("The repeated password");
+		propertyBp.setLabel(getMessage("passwordRepeat.label"));
+		propertyBp.setDescription(getMessage("passwordRepeat.description"));
 		propertyBp.setVisible(false);
 
 		propertyBp = addProperty(IPerson.ROLE_NAMES_PROPERTY);
-		propertyBp.setLabel("Roles");
-		propertyBp.setDescription("The users roles");
+		propertyBp.setLabel(getMessage("roleNames.label"));
+		propertyBp.setDescription(getMessage("roleNames.description"));
 		propertyBp.setElementValueType(String.class);
 		propertyBp.setSortable(false);
 		propertyBp.setFilterable(true);
 
 		propertyBp = addProperty(IPerson.ACTIVE_PROPERTY);
-		propertyBp.setLabel("Active");
-		propertyBp.setDescription("Determines if the person is active");
+		propertyBp.setLabel(getMessage("active.label"));
+		propertyBp.setDescription(getMessage("active.description"));
 		propertyBp.setDefaultValue(Boolean.TRUE);
 		propertyBp.setMandatory(true);
 		propertyBp.setEditable(false);
 
-		propertyBp = addProperty(IBean.VERSION_PROPERTY);
-		propertyBp.setLabel("Version");
-		propertyBp.setDescription("The version of the dataset");
-		propertyBp.setVisible(false);
+		addVersionProperty();
+	}
 
+	private static IMessage getMessage(final String keySuffix) {
+		Assert.paramNotEmpty(keySuffix, "keySuffix");
+		return EntityMessages.getMessage("PersonDtoDescriptorBuilder." + keySuffix);
 	}
 }

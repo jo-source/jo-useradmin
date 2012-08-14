@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, grossmann
+ * Copyright (c) 2012, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -26,47 +26,23 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.service.descriptor;
+package org.jowidgets.useradmin.common.i18n.entity;
 
-import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;
 import org.jowidgets.i18n.api.IMessage;
-import org.jowidgets.useradmin.common.bean.IRole;
-import org.jowidgets.useradmin.common.i18n.entity.EntityMessages;
-import org.jowidgets.util.Assert;
+import org.jowidgets.i18n.api.IMessageProvider;
+import org.jowidgets.i18n.api.MessageProvider;
 
-public final class RoleDtoDescriptorBuilder extends AbstractDtoDescriptorBuilder {
+public final class EntityMessages {
 
-	public RoleDtoDescriptorBuilder() {
-		super(IRole.class);
+	private static final IMessageProvider MESSAGE_PROVIDER = MessageProvider.create("org.jowidgets.useradmin.common.i18n.entity.messages");
 
-		setLabelSingular(getMessage("role"));
-		setLabelPlural(getMessage("roles"));
-		setRenderingPattern("$" + IRole.NAME_PROPERTY + "$");
+	private EntityMessages() {}
 
-		IBeanPropertyBluePrint propertyBp;
-
-		addIdProperty();
-
-		propertyBp = addProperty(IRole.NAME_PROPERTY);
-		propertyBp.setLabel(getMessage("name.label"));
-		propertyBp.setDescription(getMessage("name.description"));
-		propertyBp.setMandatory(true);
-
-		propertyBp = addProperty(IRole.DESCRIPTION_PROPERTY);
-		propertyBp.setLabel(getMessage("description.label"));
-		propertyBp.setDescription(getMessage("description.description"));
-
-		propertyBp = addProperty(IRole.IN_USE_PROPERTY);
-		propertyBp.setLabel(getMessage("inUse.label"));
-		propertyBp.setDescription("inUse.description");
-		propertyBp.setSortable(false);
-		propertyBp.setFilterable(false);
-
-		addVersionProperty();
+	public static String getString(final String key) {
+		return MESSAGE_PROVIDER.getString(key);
 	}
 
-	private static IMessage getMessage(final String keySuffix) {
-		Assert.paramNotEmpty(keySuffix, "keySuffix");
-		return EntityMessages.getMessage("RoleDtoDescriptorBuilder." + keySuffix);
+	public static IMessage getMessage(final String key) {
+		return MESSAGE_PROVIDER.getMessage(key);
 	}
 }

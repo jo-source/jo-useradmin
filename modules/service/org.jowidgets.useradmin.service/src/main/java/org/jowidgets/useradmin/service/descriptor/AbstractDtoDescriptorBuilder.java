@@ -28,45 +28,36 @@
 
 package org.jowidgets.useradmin.service.descriptor;
 
+import org.jowidgets.cap.common.api.bean.IBean;
 import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;
+import org.jowidgets.cap.common.tools.bean.BeanDtoDescriptorBuilder;
 import org.jowidgets.i18n.api.IMessage;
-import org.jowidgets.useradmin.common.bean.IRole;
 import org.jowidgets.useradmin.common.i18n.entity.EntityMessages;
 import org.jowidgets.util.Assert;
 
-public final class RoleDtoDescriptorBuilder extends AbstractDtoDescriptorBuilder {
+abstract class AbstractDtoDescriptorBuilder extends BeanDtoDescriptorBuilder {
 
-	public RoleDtoDescriptorBuilder() {
-		super(IRole.class);
+	AbstractDtoDescriptorBuilder(final Class<?> beanType) {
+		super(beanType);
+	}
 
-		setLabelSingular(getMessage("role"));
-		setLabelPlural(getMessage("roles"));
-		setRenderingPattern("$" + IRole.NAME_PROPERTY + "$");
+	void addIdProperty() {
+		final IBeanPropertyBluePrint propertyBp = addProperty(IBean.ID_PROPERTY);
+		propertyBp.setLabel(getMessage("id.label"));
+		propertyBp.setDescription(getMessage("id.description"));
+		propertyBp.setSortable(true);
+		propertyBp.setVisible(false);
+	}
 
-		IBeanPropertyBluePrint propertyBp;
-
-		addIdProperty();
-
-		propertyBp = addProperty(IRole.NAME_PROPERTY);
-		propertyBp.setLabel(getMessage("name.label"));
-		propertyBp.setDescription(getMessage("name.description"));
-		propertyBp.setMandatory(true);
-
-		propertyBp = addProperty(IRole.DESCRIPTION_PROPERTY);
-		propertyBp.setLabel(getMessage("description.label"));
-		propertyBp.setDescription(getMessage("description.description"));
-
-		propertyBp = addProperty(IRole.IN_USE_PROPERTY);
-		propertyBp.setLabel(getMessage("inUse.label"));
-		propertyBp.setDescription("inUse.description");
-		propertyBp.setSortable(false);
-		propertyBp.setFilterable(false);
-
-		addVersionProperty();
+	void addVersionProperty() {
+		final IBeanPropertyBluePrint propertyBp = addProperty(IBean.VERSION_PROPERTY);
+		propertyBp.setLabel(getMessage("version.label"));
+		propertyBp.setDescription(getMessage("version.description"));
+		propertyBp.setVisible(false);
 	}
 
 	private static IMessage getMessage(final String keySuffix) {
 		Assert.paramNotEmpty(keySuffix, "keySuffix");
-		return EntityMessages.getMessage("RoleDtoDescriptorBuilder." + keySuffix);
+		return EntityMessages.getMessage("AbstractDtoDescriptorBuilder." + keySuffix);
 	}
 }
