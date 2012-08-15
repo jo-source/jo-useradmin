@@ -34,7 +34,9 @@ import org.jowidgets.i18n.api.MessageProvider;
 
 public final class EntityMessages {
 
-	private static final IMessageProvider MESSAGE_PROVIDER = MessageProvider.create("org.jowidgets.useradmin.common.i18n.entity.messages");
+	private static final IMessageProvider MESSAGE_PROVIDER = MessageProvider.create(
+			"org.jowidgets.useradmin.common.i18n.entity.messages",
+			EntityMessages.class);
 
 	private EntityMessages() {}
 
