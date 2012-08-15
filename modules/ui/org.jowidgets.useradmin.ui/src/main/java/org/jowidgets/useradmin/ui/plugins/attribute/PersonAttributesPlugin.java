@@ -51,7 +51,7 @@ public class PersonAttributesPlugin extends AbstractAttributesPlugin {
 
 	private void addPasswordControlPanel(final IAttributeBluePrint<String> attributeBp) {
 		final IControlPanelProviderBluePrint<String> controlPanel = attributeBp.setControlPanel();
-		controlPanel.setObjectLabelConverter(Toolkit.getConverterProvider().passwordPresentationConveter());
+		controlPanel.setObjectLabelConverter(Toolkit.getConverterProvider().passwordPresentationConverter());
 		controlPanel.setControlCreator(new ICustomWidgetCreator<IInputControl<String>>() {
 			@Override
 			public IInputControl<String> create(final ICustomWidgetFactory widgetFactory) {

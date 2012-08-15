@@ -46,7 +46,7 @@ public final class PersonDtoDescriptorBuilder extends AbstractDtoDescriptorBuild
 		setLabelSingular(labelSingular);
 		setLabelPlural(labelPlural);
 
-		setRenderingPattern("$" + IPerson.NAME_PROPERTY + "$" + "($" + IPerson.LOGIN_NAME_PROPERTY + "$)");
+		setRenderingPattern("$" + IPerson.NAME_PROPERTY + "$" + " ($" + IPerson.LOGIN_NAME_PROPERTY + "$)");
 
 		addIdProperty();
 
