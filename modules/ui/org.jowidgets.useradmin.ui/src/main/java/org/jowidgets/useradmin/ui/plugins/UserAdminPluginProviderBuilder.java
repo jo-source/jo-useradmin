@@ -34,6 +34,7 @@ import org.jowidgets.cap.ui.api.plugin.IBeanProxyLabelRendererPlugin;
 import org.jowidgets.cap.ui.api.plugin.IBeanRelationTreeModelPlugin;
 import org.jowidgets.cap.ui.api.plugin.IBeanTableMenuContributionPlugin;
 import org.jowidgets.cap.ui.api.plugin.IBeanTableMenuInterceptorPlugin;
+import org.jowidgets.cap.ui.api.plugin.IBeanTableModelPlugin;
 import org.jowidgets.cap.ui.api.plugin.IBeanTablePlugin;
 import org.jowidgets.plugin.tools.PluginProviderBuilder;
 import org.jowidgets.useradmin.common.bean.IAuthorization;
@@ -47,9 +48,12 @@ import org.jowidgets.useradmin.ui.plugins.bean.PersonRendererPlugin;
 import org.jowidgets.useradmin.ui.plugins.bean.RoleRendererPlugin;
 import org.jowidgets.useradmin.ui.plugins.form.PersonFormPlugin;
 import org.jowidgets.useradmin.ui.plugins.table.AuthorizationMenuInterceptorPlugin;
+import org.jowidgets.useradmin.ui.plugins.table.AuthorizationTableModelPlugin;
 import org.jowidgets.useradmin.ui.plugins.table.PersonMenuContributionPlugin;
 import org.jowidgets.useradmin.ui.plugins.table.PersonMenuInterceptorPlugin;
+import org.jowidgets.useradmin.ui.plugins.table.PersonTableModelPlugin;
 import org.jowidgets.useradmin.ui.plugins.table.RoleMenuInterceptorPlugin;
+import org.jowidgets.useradmin.ui.plugins.table.RoleTableModelPlugin;
 import org.jowidgets.useradmin.ui.plugins.table.SearchFilterOnTablePlugin;
 import org.jowidgets.useradmin.ui.plugins.tree.RelationTreeModelPlugin;
 
@@ -98,9 +102,17 @@ public final class UserAdminPluginProviderBuilder extends PluginProviderBuilder 
 
 		addPlugin(IBeanFormPlugin.ID, new PersonFormPlugin(), IBeanFormPlugin.BEAN_TYPE_PROPERTY_KEY, IPerson.class);
 
+		addBeanTableModelPlugin(new PersonTableModelPlugin(), IPerson.class);
+		addBeanTableModelPlugin(new RoleTableModelPlugin(), IRole.class);
+		addBeanTableModelPlugin(new AuthorizationTableModelPlugin(), IAuthorization.class);
+
 		addBeanProxyLabelRendererPlugin(new PersonRendererPlugin(), IPerson.class);
 		addBeanProxyLabelRendererPlugin(new RoleRendererPlugin(), IRole.class);
 		addBeanProxyLabelRendererPlugin(new AuthorizationRendererPlugin(), IAuthorization.class);
+	}
+
+	private void addBeanTableModelPlugin(final IBeanTableModelPlugin plugin, final Class<?> beanType) {
+		addPlugin(IBeanTableModelPlugin.ID, plugin, IBeanTableModelPlugin.BEAN_TYPE_PROPERTY_KEY, beanType);
 	}
 
 	private void addAttributePlugin(final IAttributePlugin plugin, final Class<?> beanType) {

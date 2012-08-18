@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, grossmann
+ * Copyright (c) 2012, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -26,30 +26,47 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.common.checker;
+package org.jowidgets.useradmin.ui.converter;
 
-import java.util.Collections;
-import java.util.Set;
+import org.jowidgets.api.convert.IConverter;
+import org.jowidgets.api.toolkit.Toolkit;
+import org.jowidgets.common.image.IImageConstant;
+import org.jowidgets.tools.converter.AbstractObjectLabelConverter;
+import org.jowidgets.util.Assert;
 
-import org.jowidgets.cap.common.api.execution.ExecutableState;
-import org.jowidgets.cap.common.api.execution.IExecutableChecker;
-import org.jowidgets.cap.common.api.execution.IExecutableState;
-import org.jowidgets.useradmin.common.bean.IPerson;
+public abstract class AbstractBooleanLabelConverter extends AbstractObjectLabelConverter<Boolean> {
 
-public class PersonDeactivateExecutableChecker implements IExecutableChecker<IPerson> {
+	private final IImageConstant trueIcon;
+	private final IImageConstant falseIcon;
+
+	private final IConverter<Boolean> original;
+
+	public AbstractBooleanLabelConverter(final IImageConstant trueIcon, final IImageConstant falseIcon) {
+		Assert.paramNotNull(trueIcon, "trueIcon");
+		Assert.paramNotNull(falseIcon, "falseIcon");
+
+		this.trueIcon = trueIcon;
+		this.falseIcon = falseIcon;
+
+		this.original = Toolkit.getConverterProvider().boolLong();
+	}
 
 	@Override
-	public IExecutableState getExecutableState(final IPerson person) {
-		if (person != null && !person.getActive()) {
-			return ExecutableState.notExecutable(Messages.getString("PersonDeactivateExecutableChecker.deactivated"));
+	public final IImageConstant getIcon(final Boolean value) {
+		if (Boolean.TRUE.equals(value)) {
+			return trueIcon;
+		}
+		if (Boolean.FALSE.equals(value)) {
+			return falseIcon;
 		}
 		else {
-			return ExecutableState.EXECUTABLE;
+			return null;
 		}
 	}
 
 	@Override
-	public Set<String> getPropertyDependencies() {
-		return Collections.singleton(IPerson.ACTIVE_PROPERTY);
+	public final String getDescription(final Boolean value) {
+		return original.convertToString(value);
 	}
+
 }

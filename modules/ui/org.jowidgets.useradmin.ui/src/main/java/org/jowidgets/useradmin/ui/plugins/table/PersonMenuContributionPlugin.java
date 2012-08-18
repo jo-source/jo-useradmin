@@ -28,10 +28,15 @@
 
 package org.jowidgets.useradmin.ui.plugins.table;
 
+import org.jowidgets.api.command.IAction;
+import org.jowidgets.api.model.item.IActionItemModel;
+import org.jowidgets.api.model.item.IActionItemModelBuilder;
 import org.jowidgets.api.model.item.IMenuModel;
+import org.jowidgets.api.toolkit.Toolkit;
 import org.jowidgets.cap.ui.api.plugin.IBeanTableMenuContributionPlugin;
 import org.jowidgets.cap.ui.api.widgets.IBeanTable;
 import org.jowidgets.plugin.api.IPluginProperties;
+import org.jowidgets.tools.model.item.EnabledStateVisibilityAspect;
 import org.jowidgets.tools.model.item.MenuModel;
 import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.useradmin.ui.action.PersonActivateAction;
@@ -42,9 +47,16 @@ public final class PersonMenuContributionPlugin implements IBeanTableMenuContrib
 	@Override
 	public IMenuModel getCellMenu(final IPluginProperties properties, final IBeanTable<IPerson> table) {
 		final MenuModel result = new MenuModel();
-		result.addAction(new PersonActivateAction(table.getModel()));
-		result.addAction(new PersonDeactivateAction(table.getModel()));
+		result.addItem(createActionModelWithVisibilityAspect(new PersonActivateAction(table.getModel())));
+		result.addItem(createActionModelWithVisibilityAspect(new PersonDeactivateAction(table.getModel())));
 		return result;
+	}
+
+	private IActionItemModel createActionModelWithVisibilityAspect(final IAction action) {
+		final IActionItemModelBuilder builder = Toolkit.getModelFactoryProvider().getItemModelFactory().actionItemBuilder();
+		builder.setAction(action);
+		builder.addVisibilityAspect(new EnabledStateVisibilityAspect());
+		return builder.build();
 	}
 
 	@Override

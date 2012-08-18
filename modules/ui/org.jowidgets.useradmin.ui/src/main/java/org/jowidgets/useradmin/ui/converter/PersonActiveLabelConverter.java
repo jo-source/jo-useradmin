@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, grossmann
+ * Copyright (c) 2012, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -26,30 +26,14 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.common.checker;
+package org.jowidgets.useradmin.ui.converter;
 
-import java.util.Collections;
-import java.util.Set;
+import org.jowidgets.useradmin.ui.icons.UserAdminIcons;
 
-import org.jowidgets.cap.common.api.execution.ExecutableState;
-import org.jowidgets.cap.common.api.execution.IExecutableChecker;
-import org.jowidgets.cap.common.api.execution.IExecutableState;
-import org.jowidgets.useradmin.common.bean.IPerson;
+public final class PersonActiveLabelConverter extends AbstractBooleanLabelConverter {
 
-public class PersonDeactivateExecutableChecker implements IExecutableChecker<IPerson> {
-
-	@Override
-	public IExecutableState getExecutableState(final IPerson person) {
-		if (person != null && !person.getActive()) {
-			return ExecutableState.notExecutable(Messages.getString("PersonDeactivateExecutableChecker.deactivated"));
-		}
-		else {
-			return ExecutableState.EXECUTABLE;
-		}
+	public PersonActiveLabelConverter() {
+		super(UserAdminIcons.ACTIVATE_PERSON, UserAdminIcons.DEACTIVATE_PERSON);
 	}
 
-	@Override
-	public Set<String> getPropertyDependencies() {
-		return Collections.singleton(IPerson.ACTIVE_PROPERTY);
-	}
 }

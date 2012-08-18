@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, grossmann
+ * Copyright (c) 2012, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -28,28 +28,23 @@
 
 package org.jowidgets.useradmin.common.checker;
 
-import java.util.Collections;
-import java.util.Set;
+import org.jowidgets.i18n.api.IMessage;
+import org.jowidgets.i18n.api.IMessageProvider;
+import org.jowidgets.i18n.api.MessageProvider;
 
-import org.jowidgets.cap.common.api.execution.ExecutableState;
-import org.jowidgets.cap.common.api.execution.IExecutableChecker;
-import org.jowidgets.cap.common.api.execution.IExecutableState;
-import org.jowidgets.useradmin.common.bean.IPerson;
+public final class Messages {
 
-public class PersonDeactivateExecutableChecker implements IExecutableChecker<IPerson> {
+	private static final IMessageProvider MESSAGE_PROVIDER = MessageProvider.create(
+			"org.jowidgets.useradmin.common.checker.messages",
+			Messages.class);
 
-	@Override
-	public IExecutableState getExecutableState(final IPerson person) {
-		if (person != null && !person.getActive()) {
-			return ExecutableState.notExecutable(Messages.getString("PersonDeactivateExecutableChecker.deactivated"));
-		}
-		else {
-			return ExecutableState.EXECUTABLE;
-		}
+	private Messages() {}
+
+	public static String getString(final String key) {
+		return MESSAGE_PROVIDER.getString(key);
 	}
 
-	@Override
-	public Set<String> getPropertyDependencies() {
-		return Collections.singleton(IPerson.ACTIVE_PROPERTY);
+	public static IMessage getMessage(final String key) {
+		return MESSAGE_PROVIDER.getMessage(key);
 	}
 }
