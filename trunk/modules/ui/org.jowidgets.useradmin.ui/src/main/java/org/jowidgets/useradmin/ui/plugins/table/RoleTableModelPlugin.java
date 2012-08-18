@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, grossmann
+ * Copyright (c) 2012, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -26,30 +26,28 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.common.checker;
+package org.jowidgets.useradmin.ui.plugins.table;
 
-import java.util.Collections;
-import java.util.Set;
+import org.jowidgets.api.toolkit.Toolkit;
+import org.jowidgets.cap.ui.api.attribute.IAttributeBluePrint;
+import org.jowidgets.cap.ui.api.attribute.IAttributeCollectionModifierBuilder;
+import org.jowidgets.cap.ui.api.attribute.IControlPanelProviderBluePrint;
+import org.jowidgets.cap.ui.api.control.IconDisplayFormat;
+import org.jowidgets.cap.ui.tools.plugin.AbstractBeanTableModelPlugin;
+import org.jowidgets.common.types.AlignmentHorizontal;
+import org.jowidgets.useradmin.common.bean.IRole;
+import org.jowidgets.useradmin.ui.converter.RoleInUseLabelConverter;
 
-import org.jowidgets.cap.common.api.execution.ExecutableState;
-import org.jowidgets.cap.common.api.execution.IExecutableChecker;
-import org.jowidgets.cap.common.api.execution.IExecutableState;
-import org.jowidgets.useradmin.common.bean.IPerson;
-
-public class PersonDeactivateExecutableChecker implements IExecutableChecker<IPerson> {
-
-	@Override
-	public IExecutableState getExecutableState(final IPerson person) {
-		if (person != null && !person.getActive()) {
-			return ExecutableState.notExecutable(Messages.getString("PersonDeactivateExecutableChecker.deactivated"));
-		}
-		else {
-			return ExecutableState.EXECUTABLE;
-		}
-	}
+public final class RoleTableModelPlugin extends AbstractBeanTableModelPlugin {
 
 	@Override
-	public Set<String> getPropertyDependencies() {
-		return Collections.singleton(IPerson.ACTIVE_PROPERTY);
+	public void modifyAttributes(final IAttributeCollectionModifierBuilder modifier) {
+		final IAttributeBluePrint<Boolean> attributeBp = modifier.addModifier(IRole.IN_USE_PROPERTY);
+		attributeBp.setDisplayFormat(IconDisplayFormat.getInstance()).setTableAlignment(AlignmentHorizontal.CENTER);
+
+		final IControlPanelProviderBluePrint<Boolean> controlPanel = attributeBp.addControlPanel(IconDisplayFormat.getInstance());
+		controlPanel.setObjectLabelConverter(new RoleInUseLabelConverter());
+		controlPanel.setFilterSupport(Toolkit.getConverterProvider().boolLong());
 	}
+
 }

@@ -41,7 +41,7 @@ public class AuthorizationDeleteExecutableChecker implements IExecutableChecker<
 	@Override
 	public IExecutableState getExecutableState(final IAuthorization authorization) {
 		if (authorization != null && authorization.getInUse()) {
-			return ExecutableState.notExecutable("The authorization is in use");
+			return ExecutableState.notExecutable(Messages.getString("AuthorizationDeleteExecutableChecker.inUse"));
 		}
 		else {
 			return ExecutableState.EXECUTABLE;

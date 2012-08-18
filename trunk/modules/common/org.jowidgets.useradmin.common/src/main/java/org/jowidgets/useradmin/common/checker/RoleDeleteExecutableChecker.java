@@ -41,7 +41,7 @@ public class RoleDeleteExecutableChecker implements IExecutableChecker<IRole> {
 	@Override
 	public IExecutableState getExecutableState(final IRole role) {
 		if (role != null && role.getInUse()) {
-			return ExecutableState.notExecutable("The role is in use");
+			return ExecutableState.notExecutable(Messages.getString("RoleDeleteExecutableChecker.inUse"));
 		}
 		else {
 			return ExecutableState.EXECUTABLE;

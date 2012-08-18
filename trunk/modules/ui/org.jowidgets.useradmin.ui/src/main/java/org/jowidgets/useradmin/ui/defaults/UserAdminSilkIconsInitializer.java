@@ -31,6 +31,7 @@ package org.jowidgets.useradmin.ui.defaults;
 import org.jowidgets.addons.icons.silkicons.SilkIcons;
 import org.jowidgets.api.image.IconsSmall;
 import org.jowidgets.api.toolkit.Toolkit;
+import org.jowidgets.cap.ui.api.icons.CapIcons;
 import org.jowidgets.common.image.IImageRegistry;
 import org.jowidgets.useradmin.ui.icons.UserAdminIcons;
 
@@ -45,29 +46,31 @@ public final class UserAdminSilkIconsInitializer {
 		registry.registerImageConstant(IconsSmall.REFRESH, SilkIcons.ARROW_REFRESH);
 		registry.registerImageConstant(IconsSmall.UNDO, SilkIcons.ARROW_UNDO);
 
+		registry.registerImageConstant(CapIcons.ADD_LINK, SilkIcons.LINK_ADD);
+		registry.registerImageConstant(CapIcons.REMOVE_LINK, SilkIcons.LINK_BREAK);
+
 		registry.registerImageConstant(UserAdminIcons.USER_ADMINISTRATION_ICON, SilkIcons.GROUP);
 
 		registry.registerImageConstant(UserAdminIcons.PERSON, SilkIcons.USER);
 		registry.registerImageConstant(UserAdminIcons.CREATE_PERSON, SilkIcons.USER_ADD);
-		registry.registerImageConstant(UserAdminIcons.ADD_PERSON, SilkIcons.LINK_ADD);
 		registry.registerImageConstant(UserAdminIcons.DELETE_PERSON, SilkIcons.USER_DELETE);
-		registry.registerImageConstant(UserAdminIcons.REMOVE_PERSON, SilkIcons.LINK_DELETE);
 		registry.registerImageConstant(UserAdminIcons.LINKED_PERSONS, SilkIcons.LINK);
+		registry.registerImageConstant(UserAdminIcons.ACTIVATE_PERSON, SilkIcons.STATUS_ONLINE);
+		registry.registerImageConstant(UserAdminIcons.DEACTIVATE_PERSON, SilkIcons.STATUS_OFFLINE);
 
 		registry.registerImageConstant(UserAdminIcons.ROLE, SilkIcons.GROUP);
 		registry.registerImageConstant(UserAdminIcons.CREATE_ROLE, SilkIcons.GROUP_ADD);
-		registry.registerImageConstant(UserAdminIcons.ADD_ROLE, SilkIcons.LINK_ADD);
 		registry.registerImageConstant(UserAdminIcons.DELETE_ROLE, SilkIcons.GROUP_DELETE);
-		registry.registerImageConstant(UserAdminIcons.REMOVE_ROLE, SilkIcons.LINK_DELETE);
 		registry.registerImageConstant(UserAdminIcons.LINKED_ROLES, SilkIcons.LINK);
+		registry.registerImageConstant(UserAdminIcons.ROLE_IN_USE, SilkIcons.LINK);
+		registry.registerImageConstant(UserAdminIcons.ROLE_NOT_IN_USE, SilkIcons.LINK_BREAK);
 
 		registry.registerImageConstant(UserAdminIcons.AUTHORIZATION, SilkIcons.KEY);
 		registry.registerImageConstant(UserAdminIcons.CREATE_AUTHORIZATION, SilkIcons.KEY_ADD);
-		registry.registerImageConstant(UserAdminIcons.ADD_AUTHORIZATION, SilkIcons.LINK_ADD);
 		registry.registerImageConstant(UserAdminIcons.DELETE_AUTHORIZATION, SilkIcons.KEY_DELETE);
-		registry.registerImageConstant(UserAdminIcons.REMOVE_AUTHORIZATION, SilkIcons.LINK_DELETE);
 		registry.registerImageConstant(UserAdminIcons.LINKED_AUTHORIZATIONS, SilkIcons.LINK);
-
+		registry.registerImageConstant(UserAdminIcons.AUTHORIZATION_IN_USE, SilkIcons.LINK);
+		registry.registerImageConstant(UserAdminIcons.AUTHORIZATION_NOT_IN_USE, SilkIcons.LINK_BREAK);
 	}
 
 }

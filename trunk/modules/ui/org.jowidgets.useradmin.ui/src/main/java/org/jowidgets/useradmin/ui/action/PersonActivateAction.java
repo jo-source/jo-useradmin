@@ -37,6 +37,7 @@ import org.jowidgets.tools.command.ActionWrapper;
 import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.useradmin.common.checker.PersonActivateExecutableChecker;
 import org.jowidgets.useradmin.common.executor.ExecutorServices;
+import org.jowidgets.useradmin.ui.icons.UserAdminIcons;
 
 public final class PersonActivateAction extends ActionWrapper {
 
@@ -46,8 +47,9 @@ public final class PersonActivateAction extends ActionWrapper {
 
 	public static IAction create(final IBeanListModel<IPerson> model) {
 		final IExecutorActionBuilder<IPerson, Void> builder = CapUiToolkit.actionFactory().executorActionBuilder(model);
-		builder.setText("Activate user");
-		builder.setToolTipText("Activates the user");
+		builder.setText(Messages.getString("PersonActivateAction.label"));
+		builder.setToolTipText(Messages.getString("PersonActivateAction.tooltip"));
+		builder.setIcon(UserAdminIcons.ACTIVATE_PERSON);
 		builder.setSelectionPolicy(BeanSelectionPolicy.MULTI_SELECTION);
 		builder.setExecutor(ExecutorServices.ACTIVATE_PERSON);
 		builder.addExecutableChecker(new PersonActivateExecutableChecker());

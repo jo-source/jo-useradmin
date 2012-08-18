@@ -37,6 +37,7 @@ import org.jowidgets.tools.command.ActionWrapper;
 import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.useradmin.common.checker.PersonDeactivateExecutableChecker;
 import org.jowidgets.useradmin.common.executor.ExecutorServices;
+import org.jowidgets.useradmin.ui.icons.UserAdminIcons;
 
 public final class PersonDeactivateAction extends ActionWrapper {
 
@@ -46,8 +47,9 @@ public final class PersonDeactivateAction extends ActionWrapper {
 
 	public static IAction create(final IBeanListModel<IPerson> model) {
 		final IExecutorActionBuilder<IPerson, Void> builder = CapUiToolkit.actionFactory().executorActionBuilder(model);
-		builder.setText("Deactivate user");
-		builder.setToolTipText("Deactivates the user");
+		builder.setText(Messages.getString("PersonDeactivateAction.label"));
+		builder.setToolTipText(Messages.getString("PersonDeactivateAction.tooltip"));
+		builder.setIcon(UserAdminIcons.DEACTIVATE_PERSON);
 		builder.setSelectionPolicy(BeanSelectionPolicy.MULTI_SELECTION);
 		builder.setExecutor(ExecutorServices.DEACTIVATE_PERSON);
 		builder.addExecutableChecker(new PersonDeactivateExecutableChecker());
