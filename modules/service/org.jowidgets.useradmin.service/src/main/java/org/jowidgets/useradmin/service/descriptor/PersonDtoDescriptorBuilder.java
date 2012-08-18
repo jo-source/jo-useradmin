@@ -29,6 +29,7 @@
 package org.jowidgets.useradmin.service.descriptor;
 
 import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;
+import org.jowidgets.cap.common.api.sort.Sort;
 import org.jowidgets.i18n.api.IMessage;
 import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.useradmin.common.i18n.entity.EntityMessages;
@@ -45,6 +46,7 @@ public final class PersonDtoDescriptorBuilder extends AbstractDtoDescriptorBuild
 
 		setLabelSingular(labelSingular);
 		setLabelPlural(labelPlural);
+		setDefaultSorting(Sort.create(IPerson.NAME_PROPERTY));
 
 		setRenderingPattern("$" + IPerson.NAME_PROPERTY + "$" + " ($" + IPerson.LOGIN_NAME_PROPERTY + "$)");
 
@@ -52,15 +54,15 @@ public final class PersonDtoDescriptorBuilder extends AbstractDtoDescriptorBuild
 
 		IBeanPropertyBluePrint propertyBp;
 
+		propertyBp = addProperty(IPerson.NAME_PROPERTY);
+		propertyBp.setLabel(getMessage("name.label"));
+		propertyBp.setDescription(getMessage("name.description"));
+		propertyBp.setMandatory(true);
+
 		propertyBp = addProperty(IPerson.LOGIN_NAME_PROPERTY);
 		propertyBp.setLabel(getMessage("login.label"));
 		propertyBp.setLabelLong(getMessage("login.label.long"));
 		propertyBp.setDescription(getMessage("login.description"));
-		propertyBp.setMandatory(true);
-
-		propertyBp = addProperty(IPerson.NAME_PROPERTY);
-		propertyBp.setLabel(getMessage("name.label"));
-		propertyBp.setDescription(getMessage("name.description"));
 		propertyBp.setMandatory(true);
 
 		propertyBp = addProperty(IPerson.PASSWORD_PROPERTY);

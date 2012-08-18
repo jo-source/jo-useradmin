@@ -29,11 +29,12 @@
 package org.jowidgets.useradmin.starter.webapp.rwt;
 
 import org.jowidgets.cap.tools.starter.standalone.common.StandaloneLoginService;
+import org.jowidgets.useradmin.ui.messages.UserAdminMessages;
 
 public final class UserAdminRwtLoginService extends StandaloneLoginService {
 
 	public UserAdminRwtLoginService() {
-		super("UserAdmin");
+		super(UserAdminMessages.USER_ADMINISTRATION_LABEL.get());
 	}
 
 }

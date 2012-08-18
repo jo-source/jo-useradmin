@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, grossmann
+ * Copyright (c) 2012, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -26,44 +26,38 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.ui.plugins.table;
+package org.jowidgets.useradmin.ui.plugins.tree;
 
-import org.jowidgets.cap.ui.api.command.ICreatorActionBuilder;
-import org.jowidgets.cap.ui.api.command.IDeleterActionBuilder;
-import org.jowidgets.cap.ui.api.plugin.IBeanTableMenuInterceptorPlugin;
-import org.jowidgets.cap.ui.api.table.IBeanTableMenuInterceptor;
-import org.jowidgets.cap.ui.api.widgets.IBeanTable;
-import org.jowidgets.cap.ui.tools.table.BeanTableMenuInterceptorAdapter;
-import org.jowidgets.plugin.api.IPluginProperties;
+import org.jowidgets.cap.common.api.sort.Sort;
+import org.jowidgets.cap.ui.api.tree.IBeanRelationNodeModelBluePrint;
+import org.jowidgets.cap.ui.api.tree.IBeanRelationNodeModelConfigurator;
+import org.jowidgets.cap.ui.api.types.IEntityTypeId;
 import org.jowidgets.useradmin.common.bean.IAuthorization;
-import org.jowidgets.useradmin.common.checker.AuthorizationDeleteExecutableChecker;
+import org.jowidgets.useradmin.common.bean.IPerson;
+import org.jowidgets.useradmin.common.bean.IRole;
 import org.jowidgets.useradmin.ui.icons.UserAdminIcons;
 
-public final class AuthorizationMenuInterceptorPlugin extends BeanTableMenuInterceptorAdapter<IAuthorization> implements
-		IBeanTableMenuInterceptorPlugin<IAuthorization> {
+final class BeanRelationNodeModelConfigurator implements IBeanRelationNodeModelConfigurator {
 
 	@Override
-	public IBeanTableMenuInterceptor<IAuthorization> getMenuInterceptor(
-		final IPluginProperties properties,
-		final IBeanTable<IAuthorization> table) {
-		return this;
-	}
+	public <CHILD_BEAN_TYPE> void configureNode(
+		final IEntityTypeId<CHILD_BEAN_TYPE> entityTypeId,
+		final IBeanRelationNodeModelBluePrint<CHILD_BEAN_TYPE, IBeanRelationNodeModelBluePrint<?, ?>> bluePrint) {
 
-	@Override
-	public IDeleterActionBuilder<IAuthorization> deleterActionBuilder(
-		final IBeanTable<IAuthorization> table,
-		final IDeleterActionBuilder<IAuthorization> builder) {
-		builder.setIcon(UserAdminIcons.DELETE_AUTHORIZATION);
-		builder.addExecutableChecker(new AuthorizationDeleteExecutableChecker());
-		return builder;
-	}
+		final Class<CHILD_BEAN_TYPE> beanType = entityTypeId.getBeanType();
 
-	@Override
-	public ICreatorActionBuilder<IAuthorization> creatorActionBuilder(
-		final IBeanTable<IAuthorization> table,
-		final ICreatorActionBuilder<IAuthorization> builder) {
-		builder.setIcon(UserAdminIcons.CREATE_AUTHORIZATION);
-		return builder;
+		//sort setting
+		if (beanType == IPerson.class) {
+			bluePrint.setDefaultSort(Sort.create(IPerson.NAME_PROPERTY));
+			bluePrint.setIcon(UserAdminIcons.LINKED_PERSONS);
+		}
+		else if (beanType == IRole.class) {
+			bluePrint.setDefaultSort(Sort.create(IRole.NAME_PROPERTY));
+			bluePrint.setIcon(UserAdminIcons.LINKED_ROLES);
+		}
+		else if (beanType == IAuthorization.class) {
+			bluePrint.setDefaultSort(Sort.create(IAuthorization.KEY_PROPERTY));
+			bluePrint.setIcon(UserAdminIcons.LINKED_AUTHORIZATIONS);
+		}
 	}
-
 }

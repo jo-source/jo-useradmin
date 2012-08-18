@@ -29,6 +29,7 @@
 package org.jowidgets.useradmin.service.descriptor;
 
 import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;
+import org.jowidgets.cap.common.api.sort.Sort;
 import org.jowidgets.i18n.api.IMessage;
 import org.jowidgets.useradmin.common.bean.IRole;
 import org.jowidgets.useradmin.common.i18n.entity.EntityMessages;
@@ -42,6 +43,7 @@ public final class RoleDtoDescriptorBuilder extends AbstractDtoDescriptorBuilder
 		setLabelSingular(getMessage("role"));
 		setLabelPlural(getMessage("roles"));
 		setRenderingPattern("$" + IRole.NAME_PROPERTY + "$");
+		setDefaultSorting(Sort.create(IRole.NAME_PROPERTY));
 
 		IBeanPropertyBluePrint propertyBp;
 
