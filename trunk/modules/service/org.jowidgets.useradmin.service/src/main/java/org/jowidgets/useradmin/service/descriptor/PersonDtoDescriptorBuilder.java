@@ -52,9 +52,7 @@ public final class PersonDtoDescriptorBuilder extends AbstractDtoDescriptorBuild
 
 		addIdProperty();
 
-		IBeanPropertyBluePrint propertyBp;
-
-		propertyBp = addProperty(IPerson.NAME_PROPERTY);
+		IBeanPropertyBluePrint propertyBp = addProperty(IPerson.NAME_PROPERTY);
 		propertyBp.setLabel(getMessage("name.label"));
 		propertyBp.setDescription(getMessage("name.description"));
 		propertyBp.setMandatory(true);

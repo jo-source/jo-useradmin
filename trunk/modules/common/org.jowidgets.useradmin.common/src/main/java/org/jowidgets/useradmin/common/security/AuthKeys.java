@@ -65,7 +65,7 @@ public final class AuthKeys {
 	public static final String UPDATE_ROLE_AUTHORIZATION_LINK = "UPDATE_ROLE_AUTHORIZATION_LINK";
 	public static final String DELETE_ROLE_AUTHORIZATION_LINK = "DELETE_ROLE_AUTHORIZATION_LINK";
 
-	//Authorization collections
+	//Authorizations collection
 	public static final Collection<String> ALL_AUTHORIZATIONS = createAuthorizations();
 
 	private AuthKeys() {}

@@ -36,7 +36,7 @@ import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.useradmin.ui.icons.UserAdminIcons;
 import org.jowidgets.util.IDecorator;
 
-public class PersonRendererPlugin implements IBeanProxyLabelRendererPlugin<IPerson> {
+public final class PersonRendererPlugin implements IBeanProxyLabelRendererPlugin<IPerson> {
 
 	@Override
 	public IDecorator<IBeanProxyLabelRenderer<IPerson>> getRendererDecorator(final IPluginProperties properties) {

@@ -45,11 +45,9 @@ public final class AuthorizationDtoDescriptorBuilder extends AbstractDtoDescript
 		setRenderingPattern("$" + IAuthorization.KEY_PROPERTY + "$");
 		setDefaultSorting(Sort.create(IAuthorization.KEY_PROPERTY));
 
-		IBeanPropertyBluePrint propertyBp;
-
 		addIdProperty();
 
-		propertyBp = addProperty(IAuthorization.KEY_PROPERTY);
+		IBeanPropertyBluePrint propertyBp = addProperty(IAuthorization.KEY_PROPERTY);
 		propertyBp.setLabel(getMessage("key.label"));
 		propertyBp.setDescription(getMessage("key.description"));
 		propertyBp.setMandatory(true);
