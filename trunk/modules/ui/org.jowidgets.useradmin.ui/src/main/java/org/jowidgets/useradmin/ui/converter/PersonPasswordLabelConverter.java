@@ -26,35 +26,22 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.common.validation;
+package org.jowidgets.useradmin.ui.converter;
 
-import org.jowidgets.cap.common.tools.validation.AbstractSingleConcernBeanValidator;
-import org.jowidgets.useradmin.common.bean.IPerson;
+import org.jowidgets.common.image.IImageConstant;
+import org.jowidgets.tools.converter.AbstractObjectLabelConverter;
+import org.jowidgets.useradmin.ui.icons.UserAdminIcons;
 import org.jowidgets.util.EmptyCheck;
-import org.jowidgets.util.NullCompatibleEquivalence;
-import org.jowidgets.validation.IValidationResult;
-import org.jowidgets.validation.ValidationResult;
 
-public final class PersonPasswordRepeatValidator extends AbstractSingleConcernBeanValidator<IPerson> {
-
-	private static final long serialVersionUID = 3995642751853640816L;
-
-	public PersonPasswordRepeatValidator() {
-		super(IPerson.PASSWORD_PROPERTY, IPerson.PASSWORD_REPEAT_PROPERTY);
-	}
+public final class PersonPasswordLabelConverter extends AbstractObjectLabelConverter<String> {
 
 	@Override
-	public IValidationResult validateBean(final IPerson bean) {
-		if (!NullCompatibleEquivalence.equals(bean.getPassword(), bean.getPasswordRepeat())) {
-			if (EmptyCheck.isEmpty(bean.getPasswordRepeat())) {
-				return ValidationResult.infoError(Messages.getString("PersonPasswordRepeatValidator.retype"));
-			}
-			else {
-				return ValidationResult.error(Messages.getString("PersonPasswordRepeatValidator.mismatch"));
-			}
+	public IImageConstant getIcon(final String value) {
+		if (!EmptyCheck.isEmpty(value)) {
+			return UserAdminIcons.LOCK;
 		}
 		else {
-			return ValidationResult.ok();
+			return null;
 		}
 	}
 

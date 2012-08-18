@@ -28,34 +28,23 @@
 
 package org.jowidgets.useradmin.common.validation;
 
-import org.jowidgets.cap.common.tools.validation.AbstractSingleConcernBeanValidator;
-import org.jowidgets.useradmin.common.bean.IPerson;
-import org.jowidgets.util.EmptyCheck;
-import org.jowidgets.util.NullCompatibleEquivalence;
-import org.jowidgets.validation.IValidationResult;
-import org.jowidgets.validation.ValidationResult;
+import org.jowidgets.i18n.api.IMessage;
+import org.jowidgets.i18n.api.IMessageProvider;
+import org.jowidgets.i18n.api.MessageProvider;
 
-public final class PersonPasswordRepeatValidator extends AbstractSingleConcernBeanValidator<IPerson> {
+public final class Messages {
 
-	private static final long serialVersionUID = 3995642751853640816L;
+	private static final IMessageProvider MESSAGE_PROVIDER = MessageProvider.create(
+			"org.jowidgets.useradmin.common.validation.messages",
+			Messages.class);
 
-	public PersonPasswordRepeatValidator() {
-		super(IPerson.PASSWORD_PROPERTY, IPerson.PASSWORD_REPEAT_PROPERTY);
+	private Messages() {}
+
+	public static String getString(final String key) {
+		return MESSAGE_PROVIDER.getString(key);
 	}
 
-	@Override
-	public IValidationResult validateBean(final IPerson bean) {
-		if (!NullCompatibleEquivalence.equals(bean.getPassword(), bean.getPasswordRepeat())) {
-			if (EmptyCheck.isEmpty(bean.getPasswordRepeat())) {
-				return ValidationResult.infoError(Messages.getString("PersonPasswordRepeatValidator.retype"));
-			}
-			else {
-				return ValidationResult.error(Messages.getString("PersonPasswordRepeatValidator.mismatch"));
-			}
-		}
-		else {
-			return ValidationResult.ok();
-		}
+	public static IMessage getMessage(final String key) {
+		return MESSAGE_PROVIDER.getMessage(key);
 	}
-
 }

@@ -65,22 +65,22 @@ public final class PersonDtoDescriptorBuilder extends AbstractDtoDescriptorBuild
 		propertyBp.setDescription(getMessage("login.description"));
 		propertyBp.setMandatory(true);
 
-		propertyBp = addProperty(IPerson.PASSWORD_PROPERTY);
-		propertyBp.setLabel(getMessage("password.label"));
-		propertyBp.setDescription(getMessage("password.description"));
-		propertyBp.setVisible(false);
-
-		propertyBp = addProperty(IPerson.PASSWORD_REPEAT_PROPERTY);
-		propertyBp.setLabel(getMessage("passwordRepeat.label"));
-		propertyBp.setDescription(getMessage("passwordRepeat.description"));
-		propertyBp.setVisible(false);
-
 		propertyBp = addProperty(IPerson.ROLE_NAMES_PROPERTY);
 		propertyBp.setLabel(getMessage("roleNames.label"));
 		propertyBp.setDescription(getMessage("roleNames.description"));
 		propertyBp.setElementValueType(String.class);
 		propertyBp.setSortable(false);
 		propertyBp.setFilterable(true);
+
+		propertyBp = addProperty(IPerson.PASSWORD_PROPERTY);
+		propertyBp.setLabel(getMessage("password.label"));
+		propertyBp.setDescription(getMessage("password.description"));
+		propertyBp.setVisible(true);
+
+		propertyBp = addProperty(IPerson.PASSWORD_REPEAT_PROPERTY);
+		propertyBp.setLabel(getMessage("passwordRepeat.label"));
+		propertyBp.setDescription(getMessage("passwordRepeat.description"));
+		propertyBp.setVisible(false);
 
 		propertyBp = addProperty(IPerson.ACTIVE_PROPERTY);
 		propertyBp.setLabel(getMessage("active.label"));

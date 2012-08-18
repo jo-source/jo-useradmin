@@ -37,17 +37,34 @@ import org.jowidgets.cap.ui.tools.plugin.AbstractBeanTableModelPlugin;
 import org.jowidgets.common.types.AlignmentHorizontal;
 import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.useradmin.ui.converter.PersonActiveLabelConverter;
+import org.jowidgets.useradmin.ui.converter.PersonPasswordLabelConverter;
+import org.jowidgets.useradmin.ui.filter.PasswordFilterSupportFactory;
 
 public final class PersonTableModelPlugin extends AbstractBeanTableModelPlugin {
 
 	@Override
-	public void modifyAttributes(final IAttributeCollectionModifierBuilder modifier) {
-		final IAttributeBluePrint<Boolean> attributeBp = modifier.addModifier(IPerson.ACTIVE_PROPERTY);
+	public void modifyAttributes(final IAttributeCollectionModifierBuilder builder) {
+		addActivePropertyModifier(builder);
+		addPasswordPropertyModifier(builder, IPerson.PASSWORD_PROPERTY);
+		addPasswordPropertyModifier(builder, IPerson.PASSWORD_REPEAT_PROPERTY);
+	}
+
+	private void addActivePropertyModifier(final IAttributeCollectionModifierBuilder builder) {
+		final IAttributeBluePrint<Boolean> attributeBp = builder.addModifier(IPerson.ACTIVE_PROPERTY);
 		attributeBp.setDisplayFormat(IconDisplayFormat.getInstance()).setTableAlignment(AlignmentHorizontal.CENTER);
 
 		final IControlPanelProviderBluePrint<Boolean> controlPanel = attributeBp.addControlPanel(IconDisplayFormat.getInstance());
 		controlPanel.setObjectLabelConverter(new PersonActiveLabelConverter());
 		controlPanel.setFilterSupport(Toolkit.getConverterProvider().boolLong());
+	}
+
+	private void addPasswordPropertyModifier(final IAttributeCollectionModifierBuilder builder, final String propertyName) {
+		final IAttributeBluePrint<String> attributeBp = builder.addModifier(propertyName);
+		attributeBp.setTableAlignment(AlignmentHorizontal.CENTER);
+
+		final IControlPanelProviderBluePrint<String> controlPanel = attributeBp.setControlPanel();
+		controlPanel.setObjectLabelConverter(new PersonPasswordLabelConverter());
+		controlPanel.setFilterSupport(PasswordFilterSupportFactory.create(propertyName));
 	}
 
 }
