@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, grossmann
+ * Copyright (c) 2012, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -26,44 +26,21 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.ui.plugins.table;
+package org.jowidgets.useradmin.ui.plugins.bean;
 
-import org.jowidgets.cap.ui.api.command.ICreatorActionBuilder;
-import org.jowidgets.cap.ui.api.command.IDeleterActionBuilder;
-import org.jowidgets.cap.ui.api.plugin.IBeanTableMenuInterceptorPlugin;
-import org.jowidgets.cap.ui.api.table.IBeanTableMenuInterceptor;
-import org.jowidgets.cap.ui.api.widgets.IBeanTable;
-import org.jowidgets.cap.ui.tools.table.BeanTableMenuInterceptorAdapter;
+import org.jowidgets.cap.ui.api.bean.IBeanProxyLabelRenderer;
+import org.jowidgets.cap.ui.api.plugin.IBeanProxyLabelRendererPlugin;
+import org.jowidgets.cap.ui.tools.bean.BeanLabelProxyRendererIconDecorator;
 import org.jowidgets.plugin.api.IPluginProperties;
-import org.jowidgets.useradmin.common.bean.IAuthorization;
-import org.jowidgets.useradmin.common.checker.AuthorizationDeleteExecutableChecker;
+import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.useradmin.ui.icons.UserAdminIcons;
+import org.jowidgets.util.IDecorator;
 
-public final class AuthorizationMenuInterceptorPlugin extends BeanTableMenuInterceptorAdapter<IAuthorization> implements
-		IBeanTableMenuInterceptorPlugin<IAuthorization> {
-
-	@Override
-	public IBeanTableMenuInterceptor<IAuthorization> getMenuInterceptor(
-		final IPluginProperties properties,
-		final IBeanTable<IAuthorization> table) {
-		return this;
-	}
+public class AuthorizationRendererPlugin implements IBeanProxyLabelRendererPlugin<IPerson> {
 
 	@Override
-	public IDeleterActionBuilder<IAuthorization> deleterActionBuilder(
-		final IBeanTable<IAuthorization> table,
-		final IDeleterActionBuilder<IAuthorization> builder) {
-		builder.setIcon(UserAdminIcons.DELETE_AUTHORIZATION);
-		builder.addExecutableChecker(new AuthorizationDeleteExecutableChecker());
-		return builder;
-	}
-
-	@Override
-	public ICreatorActionBuilder<IAuthorization> creatorActionBuilder(
-		final IBeanTable<IAuthorization> table,
-		final ICreatorActionBuilder<IAuthorization> builder) {
-		builder.setIcon(UserAdminIcons.CREATE_AUTHORIZATION);
-		return builder;
+	public IDecorator<IBeanProxyLabelRenderer<IPerson>> getRendererDecorator(final IPluginProperties properties) {
+		return new BeanLabelProxyRendererIconDecorator<IPerson>(UserAdminIcons.AUTHORIZATION);
 	}
 
 }

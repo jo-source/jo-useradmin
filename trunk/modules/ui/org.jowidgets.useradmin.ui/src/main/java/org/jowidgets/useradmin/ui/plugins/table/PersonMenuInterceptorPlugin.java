@@ -35,34 +35,32 @@ import org.jowidgets.cap.ui.api.table.IBeanTableMenuInterceptor;
 import org.jowidgets.cap.ui.api.widgets.IBeanTable;
 import org.jowidgets.cap.ui.tools.table.BeanTableMenuInterceptorAdapter;
 import org.jowidgets.plugin.api.IPluginProperties;
-import org.jowidgets.useradmin.common.bean.IAuthorization;
-import org.jowidgets.useradmin.common.checker.AuthorizationDeleteExecutableChecker;
+import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.useradmin.ui.icons.UserAdminIcons;
 
-public final class AuthorizationMenuInterceptorPlugin extends BeanTableMenuInterceptorAdapter<IAuthorization> implements
-		IBeanTableMenuInterceptorPlugin<IAuthorization> {
+public final class PersonMenuInterceptorPlugin extends BeanTableMenuInterceptorAdapter<IPerson> implements
+		IBeanTableMenuInterceptorPlugin<IPerson> {
 
 	@Override
-	public IBeanTableMenuInterceptor<IAuthorization> getMenuInterceptor(
+	public IBeanTableMenuInterceptor<IPerson> getMenuInterceptor(
 		final IPluginProperties properties,
-		final IBeanTable<IAuthorization> table) {
+		final IBeanTable<IPerson> table) {
 		return this;
 	}
 
 	@Override
-	public IDeleterActionBuilder<IAuthorization> deleterActionBuilder(
-		final IBeanTable<IAuthorization> table,
-		final IDeleterActionBuilder<IAuthorization> builder) {
-		builder.setIcon(UserAdminIcons.DELETE_AUTHORIZATION);
-		builder.addExecutableChecker(new AuthorizationDeleteExecutableChecker());
+	public IDeleterActionBuilder<IPerson> deleterActionBuilder(
+		final IBeanTable<IPerson> table,
+		final IDeleterActionBuilder<IPerson> builder) {
+		builder.setIcon(UserAdminIcons.DELETE_PERSON);
 		return builder;
 	}
 
 	@Override
-	public ICreatorActionBuilder<IAuthorization> creatorActionBuilder(
-		final IBeanTable<IAuthorization> table,
-		final ICreatorActionBuilder<IAuthorization> builder) {
-		builder.setIcon(UserAdminIcons.CREATE_AUTHORIZATION);
+	public ICreatorActionBuilder<IPerson> creatorActionBuilder(
+		final IBeanTable<IPerson> table,
+		final ICreatorActionBuilder<IPerson> builder) {
+		builder.setIcon(UserAdminIcons.CREATE_PERSON);
 		return builder;
 	}
 

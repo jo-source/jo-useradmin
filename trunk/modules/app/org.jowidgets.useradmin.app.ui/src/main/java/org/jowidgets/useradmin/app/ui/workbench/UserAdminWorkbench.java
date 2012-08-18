@@ -30,6 +30,10 @@ package org.jowidgets.useradmin.app.ui.workbench;
 
 import org.jowidgets.cap.ui.tools.workbench.CapWorkbenchModelBuilder;
 import org.jowidgets.useradmin.ui.application.UserAdminApplicationFactory;
+import org.jowidgets.useradmin.ui.defaults.UserAdminDefaultsInitializer;
+import org.jowidgets.useradmin.ui.defaults.UserAdminSilkIconsInitializer;
+import org.jowidgets.useradmin.ui.icons.UserAdminIcons;
+import org.jowidgets.useradmin.ui.messages.UserAdminMessages;
 import org.jowidgets.workbench.api.IWorkbench;
 import org.jowidgets.workbench.api.IWorkbenchContext;
 import org.jowidgets.workbench.api.IWorkbenchFactory;
@@ -43,9 +47,13 @@ public class UserAdminWorkbench implements IWorkbenchFactory {
 	@Override
 	public IWorkbench create() {
 
+		UserAdminSilkIconsInitializer.initialize();
+		UserAdminDefaultsInitializer.initialize();
+
 		final IWorkbenchModelBuilder builder = new CapWorkbenchModelBuilder();
 
-		builder.setLabel("UserAdmin");
+		builder.setIcon(UserAdminIcons.USER_ADMINISTRATION_ICON);
+		builder.setLabel(UserAdminMessages.USER_ADMINISTRATION_LABEL.get());
 
 		builder.addInitializeCallback(new IWorkbenchInitializeCallback() {
 			@Override

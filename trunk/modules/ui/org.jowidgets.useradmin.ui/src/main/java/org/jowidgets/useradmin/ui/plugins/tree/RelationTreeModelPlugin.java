@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, grossmann
+ * Copyright (c) 2012, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -26,15 +26,17 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.starter.standalone.common;
+package org.jowidgets.useradmin.ui.plugins.tree;
 
-import org.jowidgets.cap.tools.starter.standalone.common.StandaloneLoginService;
-import org.jowidgets.useradmin.ui.messages.UserAdminMessages;
+import org.jowidgets.cap.common.api.bean.IBean;
+import org.jowidgets.cap.ui.api.plugin.IBeanRelationTreeModelPlugin;
+import org.jowidgets.cap.ui.api.tree.IBeanRelationTreeModelBuilder;
+import org.jowidgets.plugin.api.IPluginProperties;
 
-public final class UserAdminStandaloneLoginService extends StandaloneLoginService {
+public final class RelationTreeModelPlugin implements IBeanRelationTreeModelPlugin<IBean> {
 
-	public UserAdminStandaloneLoginService() {
-		super(UserAdminMessages.USER_ADMINISTRATION_LABEL.get());
+	@Override
+	public void modifySetup(final IPluginProperties properties, final IBeanRelationTreeModelBuilder<IBean> builder) {
+		builder.addNodeConfigurator(new BeanRelationNodeModelConfigurator());
 	}
-
 }

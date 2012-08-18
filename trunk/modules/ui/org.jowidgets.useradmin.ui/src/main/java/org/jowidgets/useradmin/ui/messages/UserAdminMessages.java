@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, grossmann
+ * Copyright (c) 2012, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -26,15 +26,28 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.starter.standalone.common;
+package org.jowidgets.useradmin.ui.messages;
 
-import org.jowidgets.cap.tools.starter.standalone.common.StandaloneLoginService;
-import org.jowidgets.useradmin.ui.messages.UserAdminMessages;
+import org.jowidgets.i18n.api.IMessage;
+import org.jowidgets.i18n.api.IMessageProvider;
+import org.jowidgets.i18n.api.MessageProvider;
 
-public final class UserAdminStandaloneLoginService extends StandaloneLoginService {
+public final class UserAdminMessages {
 
-	public UserAdminStandaloneLoginService() {
-		super(UserAdminMessages.USER_ADMINISTRATION_LABEL.get());
+	public static IMessage USER_ADMINISTRATION_LABEL = getMessage("UserAdministration.label");
+
+	private static IMessageProvider messageProvider;
+
+	private UserAdminMessages() {}
+
+	private static IMessage getMessage(final String key) {
+		return getMessageProvider().getMessage(key);
 	}
 
+	private static IMessageProvider getMessageProvider() {
+		if (messageProvider == null) {
+			messageProvider = MessageProvider.create("org.jowidgets.useradmin.ui.messages.messages", UserAdminMessages.class);
+		}
+		return messageProvider;
+	}
 }

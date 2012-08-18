@@ -35,8 +35,12 @@ import org.jowidgets.cap.security.common.api.AuthorizationChecker;
 import org.jowidgets.cap.security.common.api.ISecureObject;
 import org.jowidgets.cap.ui.api.workbench.CapWorkbenchToolkit;
 import org.jowidgets.cap.ui.api.workbench.IEntityComponentNodesFactory;
+import org.jowidgets.common.image.IImageConstant;
 import org.jowidgets.service.api.ServiceProvider;
 import org.jowidgets.useradmin.common.entity.EntityIds;
+import org.jowidgets.useradmin.ui.icons.UserAdminIcons;
+import org.jowidgets.useradmin.ui.messages.UserAdminMessages;
+import org.jowidgets.workbench.toolkit.api.IComponentNodeModel;
 import org.jowidgets.workbench.toolkit.api.IWorkbenchApplicationModel;
 import org.jowidgets.workbench.toolkit.api.IWorkbenchApplicationModelBuilder;
 import org.jowidgets.workbench.tools.WorkbenchApplicationModelBuilder;
@@ -49,22 +53,27 @@ public final class UserAdminApplicationFactory {
 		final IWorkbenchApplicationModelBuilder builder = new WorkbenchApplicationModelBuilder();
 
 		builder.setId(UserAdminApplicationFactory.class.getName());
-		builder.setLabel("Administration");
+		builder.setLabel(UserAdminMessages.USER_ADMINISTRATION_LABEL.get());
 		createComponentTree(builder);
 
 		return builder.build();
 	}
 
 	private static void createComponentTree(final IWorkbenchApplicationModelBuilder model) {
-		addEntityComponent(model, EntityIds.PERSON);
-		addEntityComponent(model, EntityIds.ROLE);
-		addEntityComponent(model, EntityIds.AUTHORIZATION);
+		addEntityComponent(model, EntityIds.PERSON, UserAdminIcons.PERSON);
+		addEntityComponent(model, EntityIds.ROLE, UserAdminIcons.ROLE);
+		addEntityComponent(model, EntityIds.AUTHORIZATION, UserAdminIcons.AUTHORIZATION);
 	}
 
-	private static void addEntityComponent(final IWorkbenchApplicationModelBuilder parent, final Object entityId) {
+	private static void addEntityComponent(
+		final IWorkbenchApplicationModelBuilder parent,
+		final Object entityId,
+		final IImageConstant icon) {
 		final IEntityComponentNodesFactory nodesFactory = CapWorkbenchToolkit.entityComponentNodesFactory();
 		if (hasReaderServiceAuthorization(entityId)) {
-			parent.addChild(nodesFactory.createNode(entityId));
+			final IComponentNodeModel node = nodesFactory.createNode(entityId);
+			node.setIcon(icon);
+			parent.addChild(node);
 		}
 	}
 

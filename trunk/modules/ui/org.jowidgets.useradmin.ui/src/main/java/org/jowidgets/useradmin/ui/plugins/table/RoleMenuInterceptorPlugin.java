@@ -28,6 +28,7 @@
 
 package org.jowidgets.useradmin.ui.plugins.table;
 
+import org.jowidgets.cap.ui.api.command.ICreatorActionBuilder;
 import org.jowidgets.cap.ui.api.command.IDeleterActionBuilder;
 import org.jowidgets.cap.ui.api.plugin.IBeanTableMenuInterceptorPlugin;
 import org.jowidgets.cap.ui.api.table.IBeanTableMenuInterceptor;
@@ -36,6 +37,7 @@ import org.jowidgets.cap.ui.tools.table.BeanTableMenuInterceptorAdapter;
 import org.jowidgets.plugin.api.IPluginProperties;
 import org.jowidgets.useradmin.common.bean.IRole;
 import org.jowidgets.useradmin.common.checker.RoleDeleteExecutableChecker;
+import org.jowidgets.useradmin.ui.icons.UserAdminIcons;
 
 public final class RoleMenuInterceptorPlugin extends BeanTableMenuInterceptorAdapter<IRole> implements
 		IBeanTableMenuInterceptorPlugin<IRole> {
@@ -49,7 +51,16 @@ public final class RoleMenuInterceptorPlugin extends BeanTableMenuInterceptorAda
 	public IDeleterActionBuilder<IRole> deleterActionBuilder(
 		final IBeanTable<IRole> table,
 		final IDeleterActionBuilder<IRole> builder) {
+		builder.setIcon(UserAdminIcons.DELETE_ROLE);
 		builder.addExecutableChecker(new RoleDeleteExecutableChecker());
+		return builder;
+	}
+
+	@Override
+	public ICreatorActionBuilder<IRole> creatorActionBuilder(
+		final IBeanTable<IRole> table,
+		final ICreatorActionBuilder<IRole> builder) {
+		builder.setIcon(UserAdminIcons.CREATE_ROLE);
 		return builder;
 	}
 

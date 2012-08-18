@@ -29,6 +29,7 @@
 package org.jowidgets.useradmin.service.descriptor;
 
 import org.jowidgets.cap.common.api.bean.IBeanPropertyBluePrint;
+import org.jowidgets.cap.common.api.sort.Sort;
 import org.jowidgets.i18n.api.IMessage;
 import org.jowidgets.useradmin.common.bean.IAuthorization;
 import org.jowidgets.useradmin.common.i18n.entity.EntityMessages;
@@ -42,6 +43,7 @@ public final class AuthorizationDtoDescriptorBuilder extends AbstractDtoDescript
 		setLabelSingular(getMessage("authorization"));
 		setLabelPlural(getMessage("authorizations"));
 		setRenderingPattern("$" + IAuthorization.KEY_PROPERTY + "$");
+		setDefaultSorting(Sort.create(IAuthorization.KEY_PROPERTY));
 
 		IBeanPropertyBluePrint propertyBp;
 
