@@ -42,7 +42,6 @@ import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.useradmin.common.bean.IRole;
 import org.jowidgets.useradmin.common.entity.EntityIds;
 import org.jowidgets.useradmin.ui.plugins.attribute.GlobalAttributesPlugin;
-import org.jowidgets.useradmin.ui.plugins.attribute.PersonAttributesPlugin;
 import org.jowidgets.useradmin.ui.plugins.bean.AuthorizationRendererPlugin;
 import org.jowidgets.useradmin.ui.plugins.bean.PersonRendererPlugin;
 import org.jowidgets.useradmin.ui.plugins.bean.RoleRendererPlugin;
@@ -60,63 +59,62 @@ import org.jowidgets.useradmin.ui.plugins.tree.RelationTreeModelPlugin;
 public final class UserAdminPluginProviderBuilder extends PluginProviderBuilder {
 
 	public UserAdminPluginProviderBuilder() {
+		addAttributePlugin(new GlobalAttributesPlugin(), (Object[]) EntityIds.values());
 
-		addPlugin(IAttributePlugin.ID, new GlobalAttributesPlugin());
+		addBeanTablePlugin(new SearchFilterOnTablePlugin(), EntityIds.PERSON, EntityIds.ROLE, EntityIds.AUTHORIZATION);
 
-		addPlugin(IBeanRelationTreeModelPlugin.ID, new RelationTreeModelPlugin());
-
-		addAttributePlugin(new PersonAttributesPlugin(), IPerson.class);
-
-		addPlugin(
-				IBeanTablePlugin.ID,
-				new SearchFilterOnTablePlugin(),
-				IBeanTablePlugin.ENTITIY_ID_PROPERTY_KEY,
-				EntityIds.PERSON,
-				EntityIds.ROLE,
-				EntityIds.AUTHORIZATION);
-
-		addPlugin(
-				IBeanTableMenuContributionPlugin.ID,
+		addBeanTableMenuContributionPlugin(
 				new PersonMenuContributionPlugin(),
-				IBeanTableMenuContributionPlugin.ENTITIY_ID_PROPERTY_KEY,
 				EntityIds.PERSON,
 				EntityIds.LINKED_PERSONS_OF_ROLES);
 
-		addPlugin(
-				IBeanTableMenuInterceptorPlugin.ID,
-				new PersonMenuInterceptorPlugin(),
-				IBeanTableMenuInterceptorPlugin.ENTITIY_ID_PROPERTY_KEY,
-				EntityIds.PERSON);
+		addBeanTableMenuInterceptorPlugin(new PersonMenuInterceptorPlugin(), EntityIds.PERSON);
+		addBeanTableMenuInterceptorPlugin(new RoleMenuInterceptorPlugin(), EntityIds.ROLE);
+		addBeanTableMenuInterceptorPlugin(new AuthorizationMenuInterceptorPlugin(), EntityIds.AUTHORIZATION);
 
-		addPlugin(
-				IBeanTableMenuInterceptorPlugin.ID,
-				new RoleMenuInterceptorPlugin(),
-				IBeanTableMenuInterceptorPlugin.ENTITIY_ID_PROPERTY_KEY,
-				EntityIds.ROLE);
-
-		addPlugin(
-				IBeanTableMenuInterceptorPlugin.ID,
-				new AuthorizationMenuInterceptorPlugin(),
-				IBeanTableMenuInterceptorPlugin.ENTITIY_ID_PROPERTY_KEY,
-				EntityIds.AUTHORIZATION);
-
-		addPlugin(IBeanFormPlugin.ID, new PersonFormPlugin(), IBeanFormPlugin.BEAN_TYPE_PROPERTY_KEY, IPerson.class);
+		addBeanFormPlugin(new PersonFormPlugin(), IPerson.class);
 
 		addBeanTableModelPlugin(new PersonTableModelPlugin(), IPerson.class);
 		addBeanTableModelPlugin(new RoleTableModelPlugin(), IRole.class);
 		addBeanTableModelPlugin(new AuthorizationTableModelPlugin(), IAuthorization.class);
+
+		addBeanRelationTreeModelPlugin(new RelationTreeModelPlugin(), EntityIds.PERSON, EntityIds.ROLE, EntityIds.AUTHORIZATION);
 
 		addBeanProxyLabelRendererPlugin(new PersonRendererPlugin(), IPerson.class);
 		addBeanProxyLabelRendererPlugin(new RoleRendererPlugin(), IRole.class);
 		addBeanProxyLabelRendererPlugin(new AuthorizationRendererPlugin(), IAuthorization.class);
 	}
 
+	private void addAttributePlugin(final IAttributePlugin plugin, final Object... entityIds) {
+		addPlugin(IAttributePlugin.ID, plugin, IAttributePlugin.ENTITIY_ID_PROPERTY_KEY, entityIds);
+	}
+
+	private void addBeanTablePlugin(final IBeanTablePlugin plugin, final Object... entityIds) {
+		addPlugin(IBeanTablePlugin.ID, plugin, IBeanTablePlugin.ENTITIY_ID_PROPERTY_KEY, entityIds);
+	}
+
+	private void addBeanTableMenuContributionPlugin(final IBeanTableMenuContributionPlugin<?> plugin, final Object... entityIds) {
+		addPlugin(
+				IBeanTableMenuContributionPlugin.ID,
+				plugin,
+				IBeanTableMenuContributionPlugin.ENTITIY_ID_PROPERTY_KEY,
+				entityIds);
+	}
+
+	private void addBeanTableMenuInterceptorPlugin(final IBeanTableMenuInterceptorPlugin<?> plugin, final Object... entityIds) {
+		addPlugin(IBeanTableMenuInterceptorPlugin.ID, plugin, IBeanTableMenuInterceptorPlugin.ENTITIY_ID_PROPERTY_KEY, entityIds);
+	}
+
 	private void addBeanTableModelPlugin(final IBeanTableModelPlugin plugin, final Class<?> beanType) {
 		addPlugin(IBeanTableModelPlugin.ID, plugin, IBeanTableModelPlugin.BEAN_TYPE_PROPERTY_KEY, beanType);
 	}
 
-	private void addAttributePlugin(final IAttributePlugin plugin, final Class<?> beanType) {
-		addPlugin(IAttributePlugin.ID, plugin, IAttributePlugin.BEAN_TYPE_PROPERTY_KEY, beanType);
+	private void addBeanFormPlugin(final IBeanFormPlugin plugin, final Class<?> beanType) {
+		addPlugin(IBeanFormPlugin.ID, plugin, IBeanFormPlugin.BEAN_TYPE_PROPERTY_KEY, beanType);
+	}
+
+	private void addBeanRelationTreeModelPlugin(final IBeanRelationTreeModelPlugin<?> plugin, final Object... entityIds) {
+		addPlugin(IBeanRelationTreeModelPlugin.ID, plugin, IBeanRelationTreeModelPlugin.ENTITIY_ID_PROPERTY_KEY, entityIds);
 	}
 
 	private void addBeanProxyLabelRendererPlugin(final IBeanProxyLabelRendererPlugin<?> plugin, final Class<?> beanType) {

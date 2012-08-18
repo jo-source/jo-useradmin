@@ -32,7 +32,7 @@ import org.jowidgets.cap.common.api.execution.IExecutionCallback;
 import org.jowidgets.cap.service.api.executor.IBeanExecutor;
 import org.jowidgets.useradmin.common.bean.IPerson;
 
-public class PersonActivateExecutor implements IBeanExecutor<IPerson, Void> {
+public final class PersonActivateExecutor implements IBeanExecutor<IPerson, Void> {
 
 	@Override
 	public IPerson execute(final IPerson person, final Void parameter, final IExecutionCallback executionCallback) {

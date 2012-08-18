@@ -99,9 +99,9 @@ public final class PasswordFilterSupportFactory {
 		}
 
 		@Override
-		public IUiConfigurableFilter<?> getIncludingFilter(final String attributeValue) {
+		public IUiConfigurableFilter<?> getIncludingFilter(final String value) {
 			final IUiFilterFactory filterFactory = CapUiToolkit.filterToolkit().filterFactory();
-			if (EmptyCheck.isEmpty(attributeValue)) {
+			if (EmptyCheck.isEmpty(value)) {
 				return filterFactory.arithmeticFilter(propertyName, ArithmeticOperator.EMPTY);
 			}
 			else {

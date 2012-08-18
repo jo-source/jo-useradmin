@@ -54,8 +54,7 @@ public final class PersonMenuContributionPlugin implements IBeanTableMenuContrib
 
 	private IActionItemModel createActionModelWithVisibilityAspect(final IAction action) {
 		final IActionItemModelBuilder builder = Toolkit.getModelFactoryProvider().getItemModelFactory().actionItemBuilder();
-		builder.setAction(action);
-		builder.addVisibilityAspect(new EnabledStateVisibilityAspect());
+		builder.setAction(action).addVisibilityAspect(new EnabledStateVisibilityAspect());
 		return builder.build();
 	}
 

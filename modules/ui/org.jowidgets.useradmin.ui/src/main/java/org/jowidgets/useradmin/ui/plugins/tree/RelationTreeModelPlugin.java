@@ -29,14 +29,46 @@
 package org.jowidgets.useradmin.ui.plugins.tree;
 
 import org.jowidgets.cap.common.api.bean.IBean;
+import org.jowidgets.cap.common.api.sort.Sort;
 import org.jowidgets.cap.ui.api.plugin.IBeanRelationTreeModelPlugin;
+import org.jowidgets.cap.ui.api.tree.IBeanRelationNodeModelBluePrint;
+import org.jowidgets.cap.ui.api.tree.IBeanRelationNodeModelConfigurator;
 import org.jowidgets.cap.ui.api.tree.IBeanRelationTreeModelBuilder;
+import org.jowidgets.cap.ui.api.types.IEntityTypeId;
 import org.jowidgets.plugin.api.IPluginProperties;
+import org.jowidgets.useradmin.common.bean.IAuthorization;
+import org.jowidgets.useradmin.common.bean.IPerson;
+import org.jowidgets.useradmin.common.bean.IRole;
+import org.jowidgets.useradmin.ui.icons.UserAdminIcons;
 
 public final class RelationTreeModelPlugin implements IBeanRelationTreeModelPlugin<IBean> {
 
 	@Override
 	public void modifySetup(final IPluginProperties properties, final IBeanRelationTreeModelBuilder<IBean> builder) {
 		builder.addNodeConfigurator(new BeanRelationNodeModelConfigurator());
+	}
+
+	private final class BeanRelationNodeModelConfigurator implements IBeanRelationNodeModelConfigurator {
+
+		@Override
+		public <CHILD_BEAN_TYPE> void configureNode(
+			final IEntityTypeId<CHILD_BEAN_TYPE> entityTypeId,
+			final IBeanRelationNodeModelBluePrint<CHILD_BEAN_TYPE, IBeanRelationNodeModelBluePrint<?, ?>> bluePrint) {
+
+			final Class<CHILD_BEAN_TYPE> beanType = entityTypeId.getBeanType();
+
+			if (beanType == IPerson.class) {
+				bluePrint.setDefaultSort(Sort.create(IPerson.NAME_PROPERTY));
+				bluePrint.setIcon(UserAdminIcons.LINKED_PERSONS);
+			}
+			else if (beanType == IRole.class) {
+				bluePrint.setDefaultSort(Sort.create(IRole.NAME_PROPERTY));
+				bluePrint.setIcon(UserAdminIcons.LINKED_ROLES);
+			}
+			else if (beanType == IAuthorization.class) {
+				bluePrint.setDefaultSort(Sort.create(IAuthorization.KEY_PROPERTY));
+				bluePrint.setIcon(UserAdminIcons.LINKED_AUTHORIZATIONS);
+			}
+		}
 	}
 }

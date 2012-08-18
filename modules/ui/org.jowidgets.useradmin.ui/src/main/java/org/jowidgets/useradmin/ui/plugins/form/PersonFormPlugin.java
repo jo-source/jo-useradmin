@@ -28,21 +28,40 @@
 
 package org.jowidgets.useradmin.ui.plugins.form;
 
+import org.jowidgets.api.widgets.IInputControl;
+import org.jowidgets.cap.ui.api.attribute.IAttributeBluePrint;
 import org.jowidgets.cap.ui.api.attribute.IAttributeCollectionModifierBuilder;
+import org.jowidgets.cap.ui.api.attribute.IControlPanelProviderBluePrint;
 import org.jowidgets.cap.ui.tools.plugin.AbstractBeanFormPlugin;
+import org.jowidgets.common.widgets.factory.ICustomWidgetCreator;
+import org.jowidgets.common.widgets.factory.ICustomWidgetFactory;
+import org.jowidgets.tools.widgets.blueprint.BPF;
 import org.jowidgets.useradmin.common.bean.IPerson;
 
 public final class PersonFormPlugin extends AbstractBeanFormPlugin {
 
 	@Override
-	protected void modifyEditAttributes(final IAttributeCollectionModifierBuilder modifierBuilder) {
-		modifierBuilder.addModifier(IPerson.LOGIN_NAME_PROPERTY).setEditable(false);
+	protected void modifyEditAttributes(final IAttributeCollectionModifierBuilder builder) {
+		builder.addModifier(IPerson.LOGIN_NAME_PROPERTY).setEditable(false);
 	}
 
 	@Override
-	protected void modifyAttributes(final IAttributeCollectionModifierBuilder modifierBuilder) {
-		modifierBuilder.addAcceptEditableAttributesFilter();
-		modifierBuilder.addModifier(IPerson.PASSWORD_REPEAT_PROPERTY).setVisible(true);
+	protected void modifyAttributes(final IAttributeCollectionModifierBuilder builder) {
+		builder.addAcceptEditableAttributesFilter();
+		builder.addModifier(IPerson.PASSWORD_REPEAT_PROPERTY).setVisible(true);
+		addPasswordControlPanel(builder, IPerson.PASSWORD_PROPERTY);
+		addPasswordControlPanel(builder, IPerson.PASSWORD_REPEAT_PROPERTY);
+	}
+
+	private void addPasswordControlPanel(final IAttributeCollectionModifierBuilder builder, final String propertyName) {
+		final IAttributeBluePrint<String> attributeBp = builder.addModifier(propertyName);
+		final IControlPanelProviderBluePrint<String> controlPanel = attributeBp.setControlPanel();
+		controlPanel.setControlCreator(new ICustomWidgetCreator<IInputControl<String>>() {
+			@Override
+			public IInputControl<String> create(final ICustomWidgetFactory widgetFactory) {
+				return widgetFactory.create(BPF.inputFieldString().setPasswordPresentation(true));
+			}
+		});
 	}
 
 }

@@ -45,11 +45,9 @@ public final class RoleDtoDescriptorBuilder extends AbstractDtoDescriptorBuilder
 		setRenderingPattern("$" + IRole.NAME_PROPERTY + "$");
 		setDefaultSorting(Sort.create(IRole.NAME_PROPERTY));
 
-		IBeanPropertyBluePrint propertyBp;
-
 		addIdProperty();
 
-		propertyBp = addProperty(IRole.NAME_PROPERTY);
+		IBeanPropertyBluePrint propertyBp = addProperty(IRole.NAME_PROPERTY);
 		propertyBp.setLabel(getMessage("name.label"));
 		propertyBp.setDescription(getMessage("name.description"));
 		propertyBp.setMandatory(true);
