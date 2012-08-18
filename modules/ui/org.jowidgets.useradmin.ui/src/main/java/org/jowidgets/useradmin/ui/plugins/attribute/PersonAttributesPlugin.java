@@ -28,7 +28,6 @@
 
 package org.jowidgets.useradmin.ui.plugins.attribute;
 
-import org.jowidgets.api.toolkit.Toolkit;
 import org.jowidgets.api.widgets.IInputControl;
 import org.jowidgets.cap.ui.api.attribute.IAttributeBluePrint;
 import org.jowidgets.cap.ui.api.attribute.IAttributeCollectionModifierBuilder;
@@ -51,7 +50,6 @@ public class PersonAttributesPlugin extends AbstractAttributesPlugin {
 
 	private void addPasswordControlPanel(final IAttributeBluePrint<String> attributeBp) {
 		final IControlPanelProviderBluePrint<String> controlPanel = attributeBp.setControlPanel();
-		controlPanel.setObjectLabelConverter(Toolkit.getConverterProvider().passwordPresentationConverter());
 		controlPanel.setControlCreator(new ICustomWidgetCreator<IInputControl<String>>() {
 			@Override
 			public IInputControl<String> create(final ICustomWidgetFactory widgetFactory) {

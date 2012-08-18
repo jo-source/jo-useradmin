@@ -71,6 +71,8 @@ public final class UserAdminSilkIconsInitializer {
 		registry.registerImageConstant(UserAdminIcons.LINKED_AUTHORIZATIONS, SilkIcons.LINK);
 		registry.registerImageConstant(UserAdminIcons.AUTHORIZATION_IN_USE, SilkIcons.LINK);
 		registry.registerImageConstant(UserAdminIcons.AUTHORIZATION_NOT_IN_USE, SilkIcons.LINK_BREAK);
+
+		registry.registerImageConstant(UserAdminIcons.LOCK, SilkIcons.LOCK);
 	}
 
 }

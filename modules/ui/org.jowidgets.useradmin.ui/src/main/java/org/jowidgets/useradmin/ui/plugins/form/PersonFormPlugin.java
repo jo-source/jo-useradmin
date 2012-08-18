@@ -42,7 +42,6 @@ public final class PersonFormPlugin extends AbstractBeanFormPlugin {
 	@Override
 	protected void modifyAttributes(final IAttributeCollectionModifierBuilder modifierBuilder) {
 		modifierBuilder.addAcceptEditableAttributesFilter();
-		modifierBuilder.addModifier(IPerson.PASSWORD_PROPERTY).setVisible(true);
 		modifierBuilder.addModifier(IPerson.PASSWORD_REPEAT_PROPERTY).setVisible(true);
 	}
 

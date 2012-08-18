@@ -71,7 +71,7 @@ public interface IPerson extends IBean {
 	};
 
 	@NotNull
-	@Size(min = 2, max = 20)
+	@Size(min = 2, max = 50)
 	String getLoginName();
 
 	void setLoginName(String loginName);
