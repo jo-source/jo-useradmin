@@ -59,11 +59,11 @@
 							<artifactItems>
 								<artifactItem>
 									<groupId>${project.groupId}</groupId>
-									<artifactId>org.jowidgets.useradmin.starter.webapp</artifactId>
+									<artifactId>org.jowidgets.useradmin.starter.webapp.oracle</artifactId>
 									<version>${project.version}</version>
 									<type>war</type>
 									<overWrite>true</overWrite>
-									<destFileName>useradmin.war</destFileName>
+									<destFileName>useradmin-oracle.war</destFileName>
 									<outputDirectory>${deploy.dir}</outputDirectory>
 								</artifactItem>
 
