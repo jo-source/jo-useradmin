@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, grossmann
+ * Copyright (c) 2012, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -26,14 +26,19 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.app.service;
+package org.jowidgets.useradmin.app.service.oracle.util;
 
-import org.jowidgets.service.tools.DefaultServiceProviderHolder;
+import javax.persistence.Persistence;
 
-public class UserAdminServiceProviderHolder extends DefaultServiceProviderHolder {
+import org.jowidgets.useradmin.service.data.DataGenerator;
+import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
 
-	public UserAdminServiceProviderHolder() {
-		super(new UserAdminServiceProviderBuilder());
+public final class AppDataGenerator {
+
+	private AppDataGenerator() {}
+
+	public static void main(final String[] args) {
+		new DataGenerator().dropAndCreateData(Persistence.createEntityManagerFactory(PersistenceUnitNames.USER_ADMIN));
 	}
 
 }
