@@ -12,7 +12,7 @@
 	</parent>
 	
 	<modules>
-		<module>../org.jowidgets.useradmin.starter.server</module>
+		<module>../org.jowidgets.useradmin.starter.server.oracle</module>
 		<module>../org.jowidgets.useradmin.starter.client.common</module>
 		<module>../org.jowidgets.useradmin.starter.client.swing</module>
 		<module>../org.jowidgets.useradmin.starter.client.swing.webstart</module>
