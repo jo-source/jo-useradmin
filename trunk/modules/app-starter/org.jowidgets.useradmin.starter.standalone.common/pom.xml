@@ -21,7 +21,7 @@
 
 		<dependency>
 			<groupId>org.jowidgets.useradmin</groupId>
-			<artifactId>org.jowidgets.useradmin.app.service</artifactId>
+			<artifactId>org.jowidgets.useradmin.app.service.oracle</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
