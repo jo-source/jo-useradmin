@@ -26,7 +26,7 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.starter.webapp.rwt;
+package org.jowidgets.useradmin.starter.webapp.oracle.rwt;
 
 import org.eclipse.rwt.branding.AbstractBranding;
 

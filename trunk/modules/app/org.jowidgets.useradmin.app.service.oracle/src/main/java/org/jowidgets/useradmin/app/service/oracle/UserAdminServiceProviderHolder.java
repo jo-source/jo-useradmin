@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, H.Westphal
+ * Copyright (c) 2011, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -26,15 +26,14 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.starter.server;
+package org.jowidgets.useradmin.app.service.oracle;
 
-import org.jowidgets.cap.tools.starter.server.CapServerStarter;
+import org.jowidgets.service.tools.DefaultServiceProviderHolder;
 
-public final class UserAdminStarterServer {
+public class UserAdminServiceProviderHolder extends DefaultServiceProviderHolder {
 
-	private UserAdminStarterServer() {}
-
-	public static void main(final String[] args) throws Exception {
-		CapServerStarter.startServer();
+	public UserAdminServiceProviderHolder() {
+		super(new UserAdminServiceProviderBuilder());
 	}
+
 }
