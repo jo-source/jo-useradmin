@@ -33,9 +33,9 @@ import javax.persistence.Persistence;
 import org.jowidgets.useradmin.service.data.DataGenerator;
 import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
 
-public final class AppDataGenerator {
+public final class AppDataGeneratorOracle {
 
-	private AppDataGenerator() {}
+	private AppDataGeneratorOracle() {}
 
 	public static void main(final String[] args) {
 		new DataGenerator().dropAndCreateData(Persistence.createEntityManagerFactory(PersistenceUnitNames.USER_ADMIN));
