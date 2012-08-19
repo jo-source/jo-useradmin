@@ -22,7 +22,7 @@
 		<module>../org.jowidgets.useradmin.starter.client.swt.gtk64</module>
 		<module>../org.jowidgets.useradmin.starter.client.swt.gtk64.webstart</module>
 		<module>../org.jowidgets.useradmin.starter.webapp.oracle</module>
-		<module>../org.jowidgets.useradmin.starter.webapp.rwt</module>
+		<module>../org.jowidgets.useradmin.starter.webapp.oracle.rwt</module>
 		<module>../org.jowidgets.useradmin.starter.standalone.common</module>
 		<module>../org.jowidgets.useradmin.starter.standalone.swing</module>
 		<module>../org.jowidgets.useradmin.starter.standalone.swing.webstart</module>
