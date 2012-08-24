@@ -68,9 +68,9 @@ public final class UserAdminPluginProviderBuilder extends PluginProviderBuilder 
 				EntityIds.PERSON,
 				EntityIds.LINKED_PERSONS_OF_ROLES);
 
-		addBeanTableMenuInterceptorPlugin(new PersonMenuInterceptorPlugin(), EntityIds.PERSON);
-		addBeanTableMenuInterceptorPlugin(new RoleMenuInterceptorPlugin(), EntityIds.ROLE);
-		addBeanTableMenuInterceptorPlugin(new AuthorizationMenuInterceptorPlugin(), EntityIds.AUTHORIZATION);
+		addBeanTableMenuInterceptorPlugin(new PersonMenuInterceptorPlugin(), IPerson.class);
+		addBeanTableMenuInterceptorPlugin(new RoleMenuInterceptorPlugin(), IRole.class);
+		addBeanTableMenuInterceptorPlugin(new AuthorizationMenuInterceptorPlugin(), IAuthorization.class);
 
 		addBeanFormPlugin(new PersonFormPlugin(), IPerson.class);
 
@@ -101,8 +101,8 @@ public final class UserAdminPluginProviderBuilder extends PluginProviderBuilder 
 				entityIds);
 	}
 
-	private void addBeanTableMenuInterceptorPlugin(final IBeanTableMenuInterceptorPlugin<?> plugin, final Object... entityIds) {
-		addPlugin(IBeanTableMenuInterceptorPlugin.ID, plugin, IBeanTableMenuInterceptorPlugin.ENTITIY_ID_PROPERTY_KEY, entityIds);
+	private void addBeanTableMenuInterceptorPlugin(final IBeanTableMenuInterceptorPlugin<?> plugin, final Class<?> beanType) {
+		addPlugin(IBeanTableMenuInterceptorPlugin.ID, plugin, IBeanTableMenuInterceptorPlugin.BEAN_TYPE_PROPERTY_KEY, beanType);
 	}
 
 	private void addBeanTableModelPlugin(final IBeanTableModelPlugin plugin, final Class<?> beanType) {
