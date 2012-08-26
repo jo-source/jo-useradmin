@@ -12,8 +12,8 @@
 		<java.version>1.6</java.version>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
-		<jowidgets.version>0.15.0-SNAPSHOT</jowidgets.version>
-		<jocap.version>0.13.0-SNAPSHOT</jocap.version>
+		<jowidgets.version>0.17.0-SNAPSHOT</jowidgets.version>
+		<jocap.version>0.14.0-SNAPSHOT</jocap.version>
 	</properties>
 
 	<scm>
