@@ -29,7 +29,6 @@
 package org.jowidgets.useradmin.ui.plugins.tree;
 
 import org.jowidgets.cap.common.api.bean.IBean;
-import org.jowidgets.cap.common.api.sort.Sort;
 import org.jowidgets.cap.ui.api.plugin.IBeanRelationTreeModelPlugin;
 import org.jowidgets.cap.ui.api.tree.IBeanRelationNodeModelBluePrint;
 import org.jowidgets.cap.ui.api.tree.IBeanRelationNodeModelConfigurator;
@@ -58,15 +57,12 @@ public final class RelationTreeModelPlugin implements IBeanRelationTreeModelPlug
 			final Class<CHILD_BEAN_TYPE> beanType = entityTypeId.getBeanType();
 
 			if (beanType == IPerson.class) {
-				bluePrint.setDefaultSort(Sort.create(IPerson.NAME_PROPERTY));
 				bluePrint.setIcon(UserAdminIcons.LINKED_PERSONS);
 			}
 			else if (beanType == IRole.class) {
-				bluePrint.setDefaultSort(Sort.create(IRole.NAME_PROPERTY));
 				bluePrint.setIcon(UserAdminIcons.LINKED_ROLES);
 			}
 			else if (beanType == IAuthorization.class) {
-				bluePrint.setDefaultSort(Sort.create(IAuthorization.KEY_PROPERTY));
 				bluePrint.setIcon(UserAdminIcons.LINKED_AUTHORIZATIONS);
 			}
 		}
