@@ -55,27 +55,6 @@
 			<scope>provided</scope>
 		</dependency>
 		
-		<dependency>
-			<groupId>org.jowidgets.useradmin</groupId>
-			<artifactId>org.jowidgets.useradmin.starter.standalone.swt.win.webstart</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-		
-		<dependency>
-            <groupId>org.jowidgets.useradmin</groupId>
-            <artifactId>org.jowidgets.useradmin.starter.standalone.swt.gtk64.webstart</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        
-		<dependency>
-			<groupId>org.jowidgets.useradmin</groupId>
-			<artifactId>org.jowidgets.useradmin.starter.standalone.swing.webstart</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-		
 	</dependencies>
 
 	<build>
@@ -109,24 +88,6 @@
 								<artifactItem>
 									<groupId>org.jowidgets.useradmin</groupId>
 									<artifactId>org.jowidgets.useradmin.starter.client.swing.webstart</artifactId>
-									<version>${project.version}</version>
-									<type>zip</type>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.jowidgets.useradmin</groupId>
-									<artifactId>org.jowidgets.useradmin.starter.standalone.swt.win.webstart</artifactId>
-									<version>${project.version}</version>
-									<type>zip</type>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.jowidgets.useradmin</groupId>
-									<artifactId>org.jowidgets.useradmin.starter.standalone.swt.gtk64.webstart</artifactId>
-									<version>${project.version}</version>
-									<type>zip</type>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.jowidgets.useradmin</groupId>
-									<artifactId>org.jowidgets.useradmin.starter.standalone.swing.webstart</artifactId>
 									<version>${project.version}</version>
 									<type>zip</type>
 								</artifactItem>

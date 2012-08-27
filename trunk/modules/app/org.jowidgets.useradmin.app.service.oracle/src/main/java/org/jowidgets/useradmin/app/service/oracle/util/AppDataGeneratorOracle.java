@@ -28,17 +28,14 @@
 
 package org.jowidgets.useradmin.app.service.oracle.util;
 
-import javax.persistence.Persistence;
-
 import org.jowidgets.useradmin.service.data.DataGenerator;
-import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
 
 public final class AppDataGeneratorOracle {
 
 	private AppDataGeneratorOracle() {}
 
 	public static void main(final String[] args) {
-		new DataGenerator().dropAndCreateData(Persistence.createEntityManagerFactory(PersistenceUnitNames.USER_ADMIN));
+		new DataGenerator().dropAndCreateData();
 	}
 
 }

@@ -28,7 +28,10 @@
 
 package org.jowidgets.useradmin.app.service.oracle;
 
+import org.jowidgets.cap.service.hibernate.oracle.api.HibernateOracleServiceToolkit;
+import org.jowidgets.cap.service.jpa.api.IJpaServicesDecoratorProviderBuilder;
 import org.jowidgets.service.tools.DefaultServiceProviderHolder;
+import org.jowidgets.useradmin.app.service.common.AbstractUserAdminServiceProviderBuilder;
 
 public class UserAdminServiceProviderHolder extends DefaultServiceProviderHolder {
 
@@ -36,4 +39,12 @@ public class UserAdminServiceProviderHolder extends DefaultServiceProviderHolder
 		super(new UserAdminServiceProviderBuilder());
 	}
 
+	private static final class UserAdminServiceProviderBuilder extends AbstractUserAdminServiceProviderBuilder {
+
+		@Override
+		protected void onCreateJpaServiceDecoratorProvider(final IJpaServicesDecoratorProviderBuilder builder) {
+			builder.addExceptionDecorator(HibernateOracleServiceToolkit.exceptionDecorator());
+		}
+
+	}
 }
