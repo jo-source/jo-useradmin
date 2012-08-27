@@ -43,6 +43,10 @@ import org.jowidgets.useradmin.service.persistence.bean.RoleAuthorizationLink;
 
 public final class DataGenerator {
 
+	public void dropAndCreateData() {
+		dropAndCreateData(Persistence.createEntityManagerFactory(PersistenceUnitNames.USER_ADMIN));
+	}
+
 	public void dropAndCreateData(final EntityManagerFactory entityManagerFactory) {
 		dropData(entityManagerFactory);
 		createData(entityManagerFactory);

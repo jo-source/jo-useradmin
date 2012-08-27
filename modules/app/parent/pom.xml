@@ -12,7 +12,9 @@
 	</parent>
 	
 	<modules>
+		<module>../org.jowidgets.useradmin.app.service.common</module>
 		<module>../org.jowidgets.useradmin.app.service.oracle</module>
+		<module>../org.jowidgets.useradmin.app.service.h2</module>
 		<module>../org.jowidgets.useradmin.app.ui</module>
 	</modules>
 

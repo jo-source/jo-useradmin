@@ -57,6 +57,27 @@
 						</goals>
 						<configuration>
 							<artifactItems>
+							
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>org.jowidgets.useradmin.starter.webapp.h2</artifactId>
+									<version>${project.version}</version>
+									<type>war</type>
+									<overWrite>true</overWrite>
+									<destFileName>useradmin-h2.war</destFileName>
+									<outputDirectory>${deploy.dir}</outputDirectory>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>org.jowidgets.useradmin.starter.webapp.rwt.h2</artifactId>
+									<version>${project.version}</version>
+									<type>war</type>
+									<overWrite>true</overWrite>
+									<destFileName>useradmin-h2-web.war</destFileName>
+									<outputDirectory>${deploy.dir}</outputDirectory>
+								</artifactItem>
+							
 								<artifactItem>
 									<groupId>${project.groupId}</groupId>
 									<artifactId>org.jowidgets.useradmin.starter.webapp.oracle</artifactId>
@@ -69,7 +90,7 @@
 
 								<artifactItem>
 									<groupId>${project.groupId}</groupId>
-									<artifactId>org.jowidgets.useradmin.starter.webapp.oracle.rwt</artifactId>
+									<artifactId>org.jowidgets.useradmin.starter.webapp.rwt.oracle</artifactId>
 									<version>${project.version}</version>
 									<type>war</type>
 									<overWrite>true</overWrite>

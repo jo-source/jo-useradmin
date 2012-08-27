@@ -13,6 +13,7 @@
 	
 	<modules>
 		<module>../org.jowidgets.useradmin.starter.server.oracle</module>
+		<module>../org.jowidgets.useradmin.starter.server.h2</module>
 		<module>../org.jowidgets.useradmin.starter.client.common</module>
 		<module>../org.jowidgets.useradmin.starter.client.swing</module>
 		<module>../org.jowidgets.useradmin.starter.client.swing.webstart</module>
@@ -22,7 +23,10 @@
 		<module>../org.jowidgets.useradmin.starter.client.swt.gtk64</module>
 		<module>../org.jowidgets.useradmin.starter.client.swt.gtk64.webstart</module>
 		<module>../org.jowidgets.useradmin.starter.webapp.oracle</module>
-		<module>../org.jowidgets.useradmin.starter.webapp.oracle.rwt</module>
+		<module>../org.jowidgets.useradmin.starter.webapp.h2</module>
+		<module>../org.jowidgets.useradmin.starter.webapp.rwt.common</module>
+		<module>../org.jowidgets.useradmin.starter.webapp.rwt.oracle</module>
+		<module>../org.jowidgets.useradmin.starter.webapp.rwt.h2</module>
 		<module>../org.jowidgets.useradmin.starter.standalone.common</module>
 		<module>../org.jowidgets.useradmin.starter.standalone.swing</module>
 		<module>../org.jowidgets.useradmin.starter.standalone.swing.webstart</module>
