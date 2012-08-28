@@ -20,6 +20,7 @@
 			
 			<property name="hibernate.connection.username" value="USERADMIN"></property>
 			<property name="hibernate.connection.password" value="useradmin"></property>
+			<property name="hibernate.connection.driver_class" value="org.h2.Driver"></property>		
 			<property name="hibernate.connection.url" value="jdbc:h2:file:~/.useradmin/useradmin"></property>
 			<property name="hibernate.connection.provider_class" value="org.hibernate.connection.C3P0ConnectionProvider" />		
 			<property name="hibernate.connection.release_mode" value="on_close" />
