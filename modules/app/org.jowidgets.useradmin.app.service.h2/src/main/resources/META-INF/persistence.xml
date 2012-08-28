@@ -14,27 +14,24 @@
 		<class>org.jowidgets.useradmin.service.persistence.bean.Role</class>
 		<class>org.jowidgets.useradmin.service.persistence.bean.RoleAuthorizationLink</class>
 		
-		<properties>
-		
+		<properties>	
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
-			
-			<property name="hibernate.connection.username" value="USERADMIN"></property>
-			<property name="hibernate.connection.password" value="useradmin"></property>
 			<property name="hibernate.connection.driver_class" value="org.h2.Driver"></property>		
 			<property name="hibernate.connection.url" value="jdbc:h2:file:~/.useradmin/useradmin"></property>
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			
+			<property name="hibernate.show_sql" value="false"></property>
+			<property name="hibernate.connection.username" value="USERADMIN"></property>
+			<property name="hibernate.connection.password" value="useradmin"></property>
 			<property name="hibernate.connection.provider_class" value="org.hibernate.connection.C3P0ConnectionProvider" />		
 			<property name="hibernate.connection.release_mode" value="on_close" />
-			
-			<property name="hibernate.hbm2ddl.auto" value="update" />
-			<property name="hibernate.show_sql" value="false"></property>
 				
 			<property name="hibernate.c3p0.max_size" value="100" />
 			<property name="hibernate.c3p0.min_size" value="5" />
 			<property name="hibernate.c3p0.acquire_increment" value="5" />
 			<property name="hibernate.c3p0.idle_test_period" value="0" />
 			<property name="hibernate.c3p0.max_statements" value="0" />
-			<property name="hibernate.c3p0.timeout" value="60" />
-			
+			<property name="hibernate.c3p0.timeout" value="60" />	
 		</properties>
 	</persistence-unit>
 </persistence>
