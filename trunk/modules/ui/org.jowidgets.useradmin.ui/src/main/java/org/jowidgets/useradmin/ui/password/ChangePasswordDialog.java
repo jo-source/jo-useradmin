@@ -29,6 +29,7 @@
 package org.jowidgets.useradmin.ui.password;
 
 import org.jowidgets.api.command.IExecutionContext;
+import org.jowidgets.api.controller.IDisposeListener;
 import org.jowidgets.api.toolkit.Toolkit;
 import org.jowidgets.api.widgets.IButton;
 import org.jowidgets.api.widgets.IComposite;
@@ -92,6 +93,12 @@ final class ChangePasswordDialog {
 		else {
 			dialog.setMinPackSize(new Dimension(350, 180));
 		}
+		dialog.addDisposeListener(new IDisposeListener() {
+			@Override
+			public void onDispose() {
+				bounds = dialog.getBounds();
+			}
+		});
 		createControlsAndShow(dialog);
 	}
 
@@ -103,7 +110,7 @@ final class ChangePasswordDialog {
 		this.progressBar = dialog.add(BPF.progressBar().setIndeterminate(true), "growx, w 0::, h 10!");
 		progressBar.setVisible(false);
 
-		content.setLayout(new MigLayoutDescriptor("[][grow, 160::]", "[20!]25[]10[][]15[]"));
+		content.setLayout(new MigLayoutDescriptor("[][grow, 160::]", "[20!]25[]10[][]15[grow]"));
 
 		this.validationResultLabel = content.add(BPF.validationResultLabel(), "span 2, growx, w 0::, wrap");
 
@@ -111,15 +118,15 @@ final class ChangePasswordDialog {
 		this.newPassword = addInputField(content, "Neues Passwort");
 		this.newPasswordRepeat = addInputField(content, "Passwort Wiederholung");
 
-		final IComposite buttonBar = content.add(BPF.composite(), "alignx r, span 2");
-		buttonBar.setLayout(new MigLayoutDescriptor("0[][]0", "[]"));
+		final IComposite buttonBar = content.add(BPF.composite(), "alignx r, aligny b, span 2");
+		buttonBar.setLayout(new MigLayoutDescriptor("0[][]0", "0[]0"));
 		this.okButton = buttonBar.add(BPF.buttonOk(), "sg bg");
 		this.cancelButton = buttonBar.add(BPF.buttonCancel(), "sg bg");
 
 		cancelButton.addActionListener(new IActionListener() {
 			@Override
 			public void actionPerformed() {
-				closeDialog(dialog);
+				dialog.dispose();
 			}
 		});
 
@@ -133,7 +140,7 @@ final class ChangePasswordDialog {
 		validate();
 
 		dialog.setVisible(true);
-		closeDialog(dialog);
+		dialog.dispose();
 	}
 
 	private void changePassword(final IFrame dialog) {
@@ -155,7 +162,7 @@ final class ChangePasswordDialog {
 			@Override
 			protected void finishedUi(final Void result) {
 				finishedCommon();
-				closeDialog(dialog);
+				dialog.dispose();
 			}
 
 			@Override
@@ -237,14 +244,6 @@ final class ChangePasswordDialog {
 		else {
 			return ValidationResult.ok();
 		}
-	}
-
-	private void closeDialog(final IFrame dialog) {
-		bounds = dialog.getBounds();
-		if (dialog.isVisible()) {
-			dialog.setVisible(false);
-		}
-		dialog.dispose();
 	}
 
 	private void onError(final Throwable exception) {
