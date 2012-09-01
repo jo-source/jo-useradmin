@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.OneToMany;
@@ -58,7 +59,7 @@ public class Role extends Bean implements IRole {
 	@OneToMany(mappedBy = "role")
 	private List<PersonRoleLink> personRoleLinks = new LinkedList<PersonRoleLink>();
 
-	@OneToMany(mappedBy = "role")
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "role")
 	private List<RoleAuthorizationLink> roleAuthorizationLinks = new LinkedList<RoleAuthorizationLink>();
 
 	@Override
