@@ -34,6 +34,7 @@ import org.jowidgets.useradmin.ui.defaults.UserAdminDefaultsInitializer;
 import org.jowidgets.useradmin.ui.defaults.UserAdminSilkIconsInitializer;
 import org.jowidgets.useradmin.ui.icons.UserAdminIcons;
 import org.jowidgets.useradmin.ui.messages.UserAdminMessages;
+import org.jowidgets.useradmin.ui.workbench.WorkbenchSettingsMenu;
 import org.jowidgets.workbench.api.IWorkbench;
 import org.jowidgets.workbench.api.IWorkbenchContext;
 import org.jowidgets.workbench.api.IWorkbenchFactory;
@@ -62,6 +63,7 @@ public class UserAdminWorkbench implements IWorkbenchFactory {
 		builder.addInitializeCallback(new IWorkbenchInitializeCallback() {
 			@Override
 			public void onContextInitialize(final IWorkbenchModel model, final IWorkbenchContext context) {
+				model.getMenuBar().addMenu(new WorkbenchSettingsMenu());
 				model.addApplication(UserAdminApplicationFactory.create());
 			}
 		});
