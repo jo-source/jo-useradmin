@@ -30,7 +30,6 @@ package org.jowidgets.useradmin.common.validation;
 
 import org.jowidgets.cap.common.tools.validation.AbstractSingleConcernBeanValidator;
 import org.jowidgets.useradmin.common.bean.IPerson;
-import org.jowidgets.util.EmptyCheck;
 import org.jowidgets.util.NullCompatibleEquivalence;
 import org.jowidgets.validation.IValidationResult;
 import org.jowidgets.validation.ValidationResult;
@@ -46,7 +45,8 @@ public final class PersonPasswordRepeatValidator extends AbstractSingleConcernBe
 	@Override
 	public IValidationResult validateBean(final IPerson bean) {
 		if (!NullCompatibleEquivalence.equals(bean.getPassword(), bean.getPasswordRepeat())) {
-			if (EmptyCheck.isEmpty(bean.getPasswordRepeat())) {
+			if (bean.getPasswordRepeat() == null
+				|| (bean.getPassword() != null && bean.getPassword().length() > bean.getPasswordRepeat().length())) {
 				return ValidationResult.infoError(Messages.getString("PersonPasswordRepeatValidator.retype"));
 			}
 			else {
