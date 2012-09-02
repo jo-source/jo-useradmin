@@ -29,6 +29,7 @@
 package org.jowidgets.useradmin.app.ui.workbench;
 
 import org.jowidgets.cap.ui.tools.workbench.CapWorkbenchModelBuilder;
+import org.jowidgets.useradmin.ui.action.UserAdminPasswordChangeAction;
 import org.jowidgets.useradmin.ui.application.UserAdminApplicationFactory;
 import org.jowidgets.useradmin.ui.defaults.UserAdminDefaultsInitializer;
 import org.jowidgets.useradmin.ui.defaults.UserAdminSilkIconsInitializer;
@@ -64,6 +65,8 @@ public class UserAdminWorkbench implements IWorkbenchFactory {
 			@Override
 			public void onContextInitialize(final IWorkbenchModel model, final IWorkbenchContext context) {
 				model.getMenuBar().addMenu(new WorkbenchSettingsMenu());
+				model.getToolBar().addSeparator();
+				model.getToolBar().addAction(new UserAdminPasswordChangeAction());
 				model.addApplication(UserAdminApplicationFactory.create());
 			}
 		});
