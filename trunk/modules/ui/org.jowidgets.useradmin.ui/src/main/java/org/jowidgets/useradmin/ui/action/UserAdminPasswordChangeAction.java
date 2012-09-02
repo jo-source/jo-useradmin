@@ -26,31 +26,26 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.common.exception;
+package org.jowidgets.useradmin.ui.action;
 
-import org.jowidgets.cap.common.api.exception.ServiceException;
-import org.jowidgets.util.Assert;
+import org.jowidgets.api.command.IAction;
+import org.jowidgets.cap.ui.api.command.IPasswordChangeActionBuilder;
+import org.jowidgets.cap.ui.api.command.PasswordChangeAction;
+import org.jowidgets.tools.command.ActionWrapper;
+import org.jowidgets.useradmin.common.validation.PasswordPropertyValidatorProvider;
+import org.jowidgets.useradmin.ui.icons.UserAdminIcons;
 
-public final class PasswordChangeServiceException extends ServiceException {
+public final class UserAdminPasswordChangeAction extends ActionWrapper {
 
-	private static final long serialVersionUID = 5840413176917622175L;
-
-	private final PasswordChangeExceptionDetail detail;
-
-	public PasswordChangeServiceException(final PasswordChangeExceptionDetail detail) {
-		Assert.paramNotNull(detail, "detail");
-		this.detail = detail;
+	public UserAdminPasswordChangeAction() {
+		super(create());
 	}
 
-	public PasswordChangeExceptionDetail getDetail() {
-		return detail;
-	}
-
-	public enum PasswordChangeExceptionDetail {
-		OLD_PASSWORD_INVALID,
-		NEW_PASSWORD_INVALID,
-		USER_NOT_FOUND,
-		MISSING_SECURITY_CONTEXT
+	public static IAction create() {
+		final IPasswordChangeActionBuilder builder = PasswordChangeAction.builder();
+		builder.setIcon(UserAdminIcons.LOCK);
+		builder.addPasswordValidator(PasswordPropertyValidatorProvider.get());
+		return builder.build();
 	}
 
 }
