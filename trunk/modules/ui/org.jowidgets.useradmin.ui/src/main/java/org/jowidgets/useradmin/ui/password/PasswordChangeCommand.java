@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, grossmann
+ * Copyright (c) 2012, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -28,24 +28,19 @@
 
 package org.jowidgets.useradmin.ui.password;
 
-import org.jowidgets.api.command.IAction;
-import org.jowidgets.api.command.IActionBuilder;
-import org.jowidgets.tools.command.ActionBuilder;
-import org.jowidgets.tools.command.ActionWrapper;
-import org.jowidgets.useradmin.ui.icons.UserAdminIcons;
+import org.jowidgets.api.command.ICommandExecutor;
+import org.jowidgets.api.command.IExecutionContext;
 
-public final class ChangePasswordAction extends ActionWrapper {
+final class PasswordChangeCommand implements ICommandExecutor {
 
-	public ChangePasswordAction() {
-		super(create());
+	private final PasswordChangeDialog dialog;
+
+	PasswordChangeCommand() {
+		this.dialog = new PasswordChangeDialog();
 	}
 
-	public static IAction create() {
-		final IActionBuilder builder = new ActionBuilder();
-		builder.setText("Passwort ändern ...");
-		builder.setToolTipText("Ändert das Passwort des angemeldeten Benutzers");
-		builder.setIcon(UserAdminIcons.LOCK);
-		builder.setCommand(new ChangePasswordCommand());
-		return builder.build();
+	@Override
+	public void execute(final IExecutionContext executionContext) throws Exception {
+		dialog.show(executionContext);
 	}
 }

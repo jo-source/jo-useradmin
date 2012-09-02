@@ -32,6 +32,7 @@ import javax.persistence.EntityManager;
 
 import org.jowidgets.cap.common.api.execution.IExecutionCallback;
 import org.jowidgets.cap.common.api.execution.IResultCallback;
+import org.jowidgets.cap.service.api.CapServiceToolkit;
 import org.jowidgets.cap.service.jpa.tools.entity.EntityManagerProvider;
 import org.jowidgets.security.tools.SecurityContext;
 import org.jowidgets.useradmin.common.exception.PasswordChangeServiceException;
@@ -49,7 +50,7 @@ public final class PasswordChangeServiceImpl implements IPasswordChangeService {
 		final String newPassword,
 		final IExecutionCallback executionCallback) {
 		try {
-			changePasswordSync(oldPassword, newPassword);
+			changePasswordSync(oldPassword, newPassword, executionCallback);
 			result.finished(null);
 		}
 		catch (final Exception exception) {
@@ -57,7 +58,8 @@ public final class PasswordChangeServiceImpl implements IPasswordChangeService {
 		}
 	}
 
-	private void changePasswordSync(final String oldPassword, final String newPassword) {
+	private void changePasswordSync(final String oldPassword, final String newPassword, final IExecutionCallback executionCallback) {
+		CapServiceToolkit.checkCanceled(executionCallback);
 		final String username = SecurityContext.getUsername();
 		if (username != null) {
 			final EntityManager entityManager = EntityManagerProvider.get();
@@ -65,6 +67,7 @@ public final class PasswordChangeServiceImpl implements IPasswordChangeService {
 			if (person != null) {
 				if (person.isAuthenticated(oldPassword)) {
 					person.setPassword(newPassword);
+					CapServiceToolkit.checkCanceled(executionCallback);
 					entityManager.persist(person);
 				}
 				else {
@@ -78,6 +81,5 @@ public final class PasswordChangeServiceImpl implements IPasswordChangeService {
 		else {
 			throw new PasswordChangeServiceException(PasswordChangeExceptionDetail.MISSING_SECURITY_CONTEXT);
 		}
-
 	}
 }

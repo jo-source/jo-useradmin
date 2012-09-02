@@ -76,6 +76,7 @@ public interface IPerson extends IBean {
 
 	void setLoginName(String loginName);
 
+	@Size(min = 2, max = 20)
 	String getPassword();
 
 	void setPassword(String password);
