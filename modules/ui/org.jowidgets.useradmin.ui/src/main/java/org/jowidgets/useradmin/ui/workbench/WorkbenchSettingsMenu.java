@@ -29,13 +29,13 @@
 package org.jowidgets.useradmin.ui.workbench;
 
 import org.jowidgets.tools.model.item.MenuModel;
-import org.jowidgets.useradmin.ui.password.ChangePasswordAction;
+import org.jowidgets.useradmin.ui.password.PasswordChangeAction;
 
 public final class WorkbenchSettingsMenu extends MenuModel {
 
 	public WorkbenchSettingsMenu() {
 		setText("Einstellungen");
-		addAction(new ChangePasswordAction());
+		addAction(new PasswordChangeAction());
 	}
 
 }
