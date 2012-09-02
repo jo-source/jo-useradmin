@@ -29,19 +29,32 @@
 package org.jowidgets.useradmin.service.password;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 
+import org.jowidgets.cap.common.api.exception.PasswordChangeServiceException;
+import org.jowidgets.cap.common.api.exception.PasswordChangeServiceException.PasswordChangeExceptionDetail;
+import org.jowidgets.cap.common.api.exception.ServiceException;
 import org.jowidgets.cap.common.api.execution.IExecutionCallback;
 import org.jowidgets.cap.common.api.execution.IResultCallback;
+import org.jowidgets.cap.common.api.service.IPasswordChangeService;
 import org.jowidgets.cap.service.api.CapServiceToolkit;
-import org.jowidgets.cap.service.jpa.tools.entity.EntityManagerProvider;
+import org.jowidgets.cap.service.jpa.api.EntityManagerFactoryProvider;
 import org.jowidgets.security.tools.SecurityContext;
-import org.jowidgets.useradmin.common.exception.PasswordChangeServiceException;
-import org.jowidgets.useradmin.common.exception.PasswordChangeServiceException.PasswordChangeExceptionDetail;
-import org.jowidgets.useradmin.common.service.IPasswordChangeService;
+import org.jowidgets.useradmin.common.validation.PasswordPropertyValidatorProvider;
+import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
 import org.jowidgets.useradmin.service.persistence.dao.PersonDAO;
+import org.jowidgets.util.EmptyCheck;
+import org.jowidgets.validation.IValidationResult;
 
 public final class PasswordChangeServiceImpl implements IPasswordChangeService {
+
+	private final EntityManagerFactory entityManagerFactory;
+
+	public PasswordChangeServiceImpl() {
+		this.entityManagerFactory = EntityManagerFactoryProvider.get(PersistenceUnitNames.USER_ADMIN);
+	}
 
 	@Override
 	public void changePassword(
@@ -54,21 +67,52 @@ public final class PasswordChangeServiceImpl implements IPasswordChangeService {
 			result.finished(null);
 		}
 		catch (final Exception exception) {
-			result.exception(exception);
+			if (exception instanceof PasswordChangeServiceException) {
+				result.exception(exception);
+			}
+			else {
+				result.exception(new ServiceException(exception));
+			}
 		}
 	}
 
-	private void changePasswordSync(final String oldPassword, final String newPassword, final IExecutionCallback executionCallback) {
-		CapServiceToolkit.checkCanceled(executionCallback);
+	private void changePasswordSync(final String oldPassword, final String newPassword, final IExecutionCallback executionCallback) throws Exception {
 		final String username = SecurityContext.getUsername();
-		if (username != null) {
-			final EntityManager entityManager = EntityManagerProvider.get();
+		if (!EmptyCheck.isEmpty(username)) {
+			validateNewPassword(newPassword);
+			changePasswordForUsername(username, oldPassword, newPassword, executionCallback);
+		}
+		else {
+			throw new PasswordChangeServiceException(PasswordChangeExceptionDetail.MISSING_SECURITY_CONTEXT);
+		}
+	}
+
+	private void validateNewPassword(final String newPassword) {
+		final IValidationResult validationResult = PasswordPropertyValidatorProvider.get().validate(newPassword);
+		if (!validationResult.isValid()) {
+			throw new PasswordChangeServiceException(PasswordChangeExceptionDetail.NEW_PASSWORD_INVALID);
+		}
+	}
+
+	private void changePasswordForUsername(
+		final String username,
+		final String oldPassword,
+		final String newPassword,
+		final IExecutionCallback executionCallback) throws Exception {
+
+		EntityManager entityManager = null;
+		EntityTransaction tx = null;
+		try {
+			entityManager = entityManagerFactory.createEntityManager();
+			tx = entityManager.getTransaction();
+			tx.begin();
 			final Person person = PersonDAO.findPersonByLogin(entityManager, username, true);
 			if (person != null) {
 				if (person.isAuthenticated(oldPassword)) {
 					person.setPassword(newPassword);
 					CapServiceToolkit.checkCanceled(executionCallback);
 					entityManager.persist(person);
+					tx.commit();
 				}
 				else {
 					throw new PasswordChangeServiceException(PasswordChangeExceptionDetail.OLD_PASSWORD_INVALID);
@@ -78,8 +122,17 @@ public final class PasswordChangeServiceImpl implements IPasswordChangeService {
 				throw new PasswordChangeServiceException(PasswordChangeExceptionDetail.USER_NOT_FOUND);
 			}
 		}
-		else {
-			throw new PasswordChangeServiceException(PasswordChangeExceptionDetail.MISSING_SECURITY_CONTEXT);
+		catch (final Exception e) {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+			throw e;
+		}
+		finally {
+			if (entityManager != null) {
+				entityManager.close();
+			}
 		}
 	}
+
 }

@@ -26,21 +26,34 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.ui.password;
+package org.jowidgets.useradmin.common.validation;
 
-import org.jowidgets.api.command.ICommandExecutor;
-import org.jowidgets.api.command.IExecutionContext;
+import org.jowidgets.cap.common.api.bean.IBeanDtoDescriptor;
+import org.jowidgets.cap.common.api.bean.IProperty;
+import org.jowidgets.cap.common.api.service.IEntityService;
+import org.jowidgets.service.api.ServiceProvider;
+import org.jowidgets.useradmin.common.bean.IPerson;
+import org.jowidgets.useradmin.common.entity.EntityIds;
+import org.jowidgets.validation.IValidator;
+import org.jowidgets.validation.Validator;
 
-final class PasswordChangeCommand implements ICommandExecutor {
+public final class PasswordPropertyValidatorProvider {
 
-	private final PasswordChangeDialog dialog;
+	private PasswordPropertyValidatorProvider() {}
 
-	PasswordChangeCommand() {
-		this.dialog = new PasswordChangeDialog();
-	}
-
-	@Override
-	public void execute(final IExecutionContext executionContext) throws Exception {
-		dialog.show(executionContext);
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	public static IValidator<String> get() {
+		final IEntityService entityService = ServiceProvider.getService(IEntityService.ID);
+		if (entityService != null) {
+			final IBeanDtoDescriptor personDescriptor = entityService.getDescriptor(EntityIds.PERSON);
+			if (personDescriptor != null) {
+				for (final IProperty property : personDescriptor.getProperties()) {
+					if (IPerson.PASSWORD_PROPERTY.equals(property.getName())) {
+						return (IValidator) property.getValidator();
+					}
+				}
+			}
+		}
+		return Validator.okValidator();
 	}
 }

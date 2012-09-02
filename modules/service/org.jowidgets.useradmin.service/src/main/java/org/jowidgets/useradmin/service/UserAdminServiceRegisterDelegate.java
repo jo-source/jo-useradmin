@@ -28,12 +28,10 @@
 
 package org.jowidgets.useradmin.service;
 
-import java.util.Collection;
-import java.util.Collections;
-
 import org.jowidgets.cap.common.api.bean.IBean;
 import org.jowidgets.cap.common.api.execution.IExecutableChecker;
 import org.jowidgets.cap.common.api.service.IExecutorService;
+import org.jowidgets.cap.common.api.service.IPasswordChangeService;
 import org.jowidgets.cap.service.api.bean.IBeanAccess;
 import org.jowidgets.cap.service.api.executor.IBeanExecutor;
 import org.jowidgets.cap.service.jpa.api.JpaServiceToolkit;
@@ -43,7 +41,6 @@ import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.useradmin.common.checker.PersonActivateExecutableChecker;
 import org.jowidgets.useradmin.common.checker.PersonDeactivateExecutableChecker;
 import org.jowidgets.useradmin.common.executor.ExecutorServices;
-import org.jowidgets.useradmin.common.service.IPasswordChangeService;
 import org.jowidgets.useradmin.service.executor.PersonActivateExecutor;
 import org.jowidgets.useradmin.service.executor.PersonDeactivateExecutor;
 import org.jowidgets.useradmin.service.password.PasswordChangeServiceImpl;
@@ -67,14 +64,6 @@ public final class UserAdminServiceRegisterDelegate {
 				new PersonDeactivateExecutableChecker());
 
 		builder.addService(IPasswordChangeService.ID, new PasswordChangeServiceImpl());
-	}
-
-	public static Collection<? extends Class<?>> getTransactionalServices() {
-		return Collections.singleton(IPasswordChangeService.class);
-	}
-
-	public static Collection<? extends Class<?>> getEntityManagerServices() {
-		return Collections.singleton(IPasswordChangeService.class);
 	}
 
 	private static <BEAN_TYPE extends IBean, PARAM_TYPE> void addPersonExecutorService(

@@ -56,12 +56,6 @@ public abstract class AbstractUserAdminServiceProviderBuilder extends CapService
 
 	private IServicesDecoratorProvider createJpaServiceDecoratorProvider() {
 		final IJpaServicesDecoratorProviderBuilder builder = JpaServiceToolkit.serviceDecoratorProviderBuilder(PersistenceUnitNames.USER_ADMIN);
-		for (final Class<?> service : UserAdminServiceRegisterDelegate.getEntityManagerServices()) {
-			builder.addEntityManagerServices(service);
-		}
-		for (final Class<?> service : UserAdminServiceRegisterDelegate.getTransactionalServices()) {
-			builder.addTransactionalServices(service);
-		}
 		builder.addExceptionDecorator(HibernateServiceToolkit.exceptionDecorator());
 		onCreateJpaServiceDecoratorProvider(builder);
 		return builder.build();
