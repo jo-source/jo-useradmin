@@ -28,6 +28,10 @@
 
 package org.jowidgets.useradmin.service.data;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -44,12 +48,22 @@ import org.jowidgets.useradmin.service.persistence.bean.RoleAuthorizationLink;
 public final class DataGenerator {
 
 	public void dropAndCreateData() {
-		dropAndCreateData(Persistence.createEntityManagerFactory(UseradminPersistenceUnitNames.USER_ADMIN));
+		final Set<String> authorizations = Collections.emptySet();
+		dropAndCreateData(authorizations);
+	}
+
+	public void dropAndCreateData(final Collection<String> authorizations) {
+		dropAndCreateData(Persistence.createEntityManagerFactory(UseradminPersistenceUnitNames.USER_ADMIN), authorizations);
 	}
 
 	public void dropAndCreateData(final EntityManagerFactory entityManagerFactory) {
+		final Set<String> authorizations = Collections.emptySet();
+		dropAndCreateData(entityManagerFactory, authorizations);
+	}
+
+	public void dropAndCreateData(final EntityManagerFactory entityManagerFactory, final Collection<String> authorizations) {
 		dropData(entityManagerFactory);
-		createData(entityManagerFactory);
+		createData(entityManagerFactory, authorizations);
 	}
 
 	public void dropData(final EntityManagerFactory entityManagerFactory) {
@@ -68,7 +82,7 @@ public final class DataGenerator {
 		//CHECKSTYLE:ON
 	}
 
-	public void createData(final EntityManagerFactory entityManagerFactory) {
+	public void createData(final EntityManagerFactory entityManagerFactory, final Collection<String> authorizations) {
 		final EntityManager em = entityManagerFactory.createEntityManager();
 		final EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -89,7 +103,19 @@ public final class DataGenerator {
 		personRoleLink.setRole(adminRole);
 		em.persist(personRoleLink);
 
-		for (final String authorizationKey : AuthKeys.ALL_AUTHORIZATIONS) {
+		createAuthorizations(em, adminRole, AuthKeys.ALL_AUTHORIZATIONS);
+		createAuthorizations(em, adminRole, authorizations);
+
+		tx.commit();
+		em.close();
+
+		//CHECKSTYLE:OFF
+		System.out.println("DATA CREATED");
+		//CHECKSTYLE:ON
+	}
+
+	private void createAuthorizations(final EntityManager em, final Role adminRole, final Collection<String> authorizations) {
+		for (final String authorizationKey : authorizations) {
 			final Authorization authorization = new Authorization();
 			authorization.setKey(authorizationKey);
 			em.persist(authorization);
@@ -99,13 +125,6 @@ public final class DataGenerator {
 			roleAuthorizationLink.setAuthorization(authorization);
 			em.persist(roleAuthorizationLink);
 		}
-
-		tx.commit();
-		em.close();
-
-		//CHECKSTYLE:OFF
-		System.out.println("DATA CREATED");
-		//CHECKSTYLE:ON
 	}
 
 	public static void main(final String[] args) {
