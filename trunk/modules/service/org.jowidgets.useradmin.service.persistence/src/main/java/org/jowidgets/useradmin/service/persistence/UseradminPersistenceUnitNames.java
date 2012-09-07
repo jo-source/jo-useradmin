@@ -28,10 +28,10 @@
 
 package org.jowidgets.useradmin.service.persistence;
 
-public final class PersistenceUnitNames {
+public final class UseradminPersistenceUnitNames {
 
 	public static final String USER_ADMIN = "userAdminPersistenceUnit";
 
-	private PersistenceUnitNames() {}
+	private UseradminPersistenceUnitNames() {}
 
 }

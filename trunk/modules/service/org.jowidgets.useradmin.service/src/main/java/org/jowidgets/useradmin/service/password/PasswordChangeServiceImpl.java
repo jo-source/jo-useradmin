@@ -42,7 +42,7 @@ import org.jowidgets.cap.service.api.CapServiceToolkit;
 import org.jowidgets.cap.service.jpa.api.EntityManagerFactoryProvider;
 import org.jowidgets.security.tools.SecurityContext;
 import org.jowidgets.useradmin.common.validation.PasswordPropertyValidatorProvider;
-import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
+import org.jowidgets.useradmin.service.persistence.UseradminPersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
 import org.jowidgets.useradmin.service.persistence.dao.PersonDAO;
 import org.jowidgets.util.EmptyCheck;
@@ -53,7 +53,7 @@ public final class PasswordChangeServiceImpl implements IPasswordChangeService {
 	private final EntityManagerFactory entityManagerFactory;
 
 	public PasswordChangeServiceImpl() {
-		this.entityManagerFactory = EntityManagerFactoryProvider.get(PersistenceUnitNames.USER_ADMIN);
+		this.entityManagerFactory = EntityManagerFactoryProvider.get(UseradminPersistenceUnitNames.USER_ADMIN);
 	}
 
 	@Override
