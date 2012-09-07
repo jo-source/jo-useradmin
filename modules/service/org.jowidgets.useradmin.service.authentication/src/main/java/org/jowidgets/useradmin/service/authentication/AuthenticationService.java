@@ -36,7 +36,7 @@ import org.jowidgets.security.api.IAuthenticationService;
 import org.jowidgets.security.api.ICredentials;
 import org.jowidgets.security.api.IPrincipal;
 import org.jowidgets.security.tools.DefaultPrincipal;
-import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
+import org.jowidgets.useradmin.service.persistence.UseradminPersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
 import org.jowidgets.useradmin.service.persistence.dao.PersonDAO;
 import org.slf4j.Logger;
@@ -49,7 +49,7 @@ public final class AuthenticationService implements IAuthenticationService<IPrin
 	private final EntityManagerFactory entityManagerFactory;
 
 	public AuthenticationService() {
-		this.entityManagerFactory = EntityManagerFactoryProvider.get(PersistenceUnitNames.USER_ADMIN);
+		this.entityManagerFactory = EntityManagerFactoryProvider.get(UseradminPersistenceUnitNames.USER_ADMIN);
 	}
 
 	@Override

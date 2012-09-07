@@ -38,7 +38,7 @@ import org.jowidgets.service.api.IServicesDecoratorProvider;
 import org.jowidgets.useradmin.common.security.AuthorizationProviderServiceId;
 import org.jowidgets.useradmin.service.UserAdminServiceRegisterDelegate;
 import org.jowidgets.useradmin.service.entity.UserAdminEntityServiceBuilder;
-import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
+import org.jowidgets.useradmin.service.persistence.UseradminPersistenceUnitNames;
 
 public abstract class AbstractUserAdminServiceProviderBuilder extends CapServiceProviderBuilder {
 
@@ -55,14 +55,14 @@ public abstract class AbstractUserAdminServiceProviderBuilder extends CapService
 	}
 
 	private IServicesDecoratorProvider createJpaServiceDecoratorProvider() {
-		final IJpaServicesDecoratorProviderBuilder builder = JpaServiceToolkit.serviceDecoratorProviderBuilder(PersistenceUnitNames.USER_ADMIN);
+		final IJpaServicesDecoratorProviderBuilder builder = JpaServiceToolkit.serviceDecoratorProviderBuilder(UseradminPersistenceUnitNames.USER_ADMIN);
 		builder.addExceptionDecorator(HibernateServiceToolkit.exceptionDecorator());
 		onCreateJpaServiceDecoratorProvider(builder);
 		return builder.build();
 	}
 
 	private IServicesDecoratorProvider createCancelServiceDecoratorProvider() {
-		return HibernateServiceToolkit.serviceDecoratorProviderBuilder(PersistenceUnitNames.USER_ADMIN).build();
+		return HibernateServiceToolkit.serviceDecoratorProviderBuilder(UseradminPersistenceUnitNames.USER_ADMIN).build();
 	}
 
 	protected void onCreateJpaServiceDecoratorProvider(final IJpaServicesDecoratorProviderBuilder builder) {}

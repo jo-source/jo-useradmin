@@ -38,7 +38,7 @@ import org.jowidgets.cap.service.jpa.api.EntityManagerFactoryProvider;
 import org.jowidgets.security.api.IAuthorizationService;
 import org.jowidgets.security.api.IPrincipal;
 import org.jowidgets.security.tools.DefaultPrincipal;
-import org.jowidgets.useradmin.service.persistence.PersistenceUnitNames;
+import org.jowidgets.useradmin.service.persistence.UseradminPersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
 import org.jowidgets.useradmin.service.persistence.dao.PersonDAO;
 import org.slf4j.Logger;
@@ -51,7 +51,7 @@ public final class AuthorizationService implements IAuthorizationService<IPrinci
 	private final EntityManagerFactory entityManagerFactory;
 
 	public AuthorizationService() {
-		this.entityManagerFactory = EntityManagerFactoryProvider.get(PersistenceUnitNames.USER_ADMIN);
+		this.entityManagerFactory = EntityManagerFactoryProvider.get(UseradminPersistenceUnitNames.USER_ADMIN);
 	}
 
 	@Override
