@@ -28,14 +28,14 @@
 
 package org.jowidgets.useradmin.app.service.oracle.util;
 
-import org.jowidgets.useradmin.service.data.DataGenerator;
+import org.jowidgets.useradmin.service.data.UserAdminDataGenerator;
 
 public final class AppDataGeneratorOracle {
 
 	private AppDataGeneratorOracle() {}
 
 	public static void main(final String[] args) {
-		new DataGenerator().dropAndCreateData();
+		new UserAdminDataGenerator().dropAndCreateData();
 	}
 
 }
