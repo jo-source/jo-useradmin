@@ -45,7 +45,7 @@ import org.jowidgets.useradmin.service.persistence.bean.PersonRoleLink;
 import org.jowidgets.useradmin.service.persistence.bean.Role;
 import org.jowidgets.useradmin.service.persistence.bean.RoleAuthorizationLink;
 
-public final class DataGenerator {
+public final class UserAdminDataGenerator {
 
 	public void dropAndCreateData() {
 		final Set<String> authorizations = Collections.emptySet();
@@ -128,7 +128,7 @@ public final class DataGenerator {
 	}
 
 	public static void main(final String[] args) {
-		new DataGenerator().dropAndCreateData(Persistence.createEntityManagerFactory(UseradminPersistenceUnitNames.USER_ADMIN));
+		new UserAdminDataGenerator().dropAndCreateData(Persistence.createEntityManagerFactory(UseradminPersistenceUnitNames.USER_ADMIN));
 	}
 
 }

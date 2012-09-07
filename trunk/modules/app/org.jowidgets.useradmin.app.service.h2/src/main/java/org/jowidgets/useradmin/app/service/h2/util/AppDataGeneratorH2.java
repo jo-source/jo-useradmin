@@ -28,14 +28,14 @@
 
 package org.jowidgets.useradmin.app.service.h2.util;
 
-import org.jowidgets.useradmin.service.data.DataGenerator;
+import org.jowidgets.useradmin.service.data.UserAdminDataGenerator;
 
 public final class AppDataGeneratorH2 {
 
 	private AppDataGeneratorH2() {}
 
 	public static void main(final String[] args) {
-		new DataGenerator().dropAndCreateData();
+		new UserAdminDataGenerator().dropAndCreateData();
 	}
 
 }
