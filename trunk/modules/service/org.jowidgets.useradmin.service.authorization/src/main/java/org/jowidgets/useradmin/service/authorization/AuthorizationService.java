@@ -30,17 +30,21 @@ package org.jowidgets.useradmin.service.authorization;
 
 import java.util.Collections;
 import java.util.Set;
+import java.util.concurrent.Callable;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
+import org.jowidgets.cap.service.jpa.api.EntityManagerContextTemplate;
 import org.jowidgets.cap.service.jpa.api.EntityManagerFactoryProvider;
+import org.jowidgets.cap.service.jpa.api.IEntityManagerContextTemplate;
+import org.jowidgets.cap.service.jpa.tools.entity.EntityManagerProvider;
 import org.jowidgets.security.api.IAuthorizationService;
 import org.jowidgets.security.api.IPrincipal;
 import org.jowidgets.security.tools.DefaultPrincipal;
 import org.jowidgets.useradmin.service.persistence.UseradminPersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
 import org.jowidgets.useradmin.service.persistence.dao.PersonDAO;
+import org.jowidgets.util.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,10 +52,15 @@ public final class AuthorizationService implements IAuthorizationService<IPrinci
 
 	private final Logger logger = LoggerFactory.getLogger(AuthorizationService.class);
 
-	private final EntityManagerFactory entityManagerFactory;
+	private final IEntityManagerContextTemplate emContextTemplate;
 
 	public AuthorizationService() {
-		this.entityManagerFactory = EntityManagerFactoryProvider.get(UseradminPersistenceUnitNames.USER_ADMIN);
+		this(UseradminPersistenceUnitNames.USER_ADMIN);
+	}
+
+	public AuthorizationService(final String persistenceUnitName) {
+		Assert.paramNotEmpty(persistenceUnitName, "persistenceUnitName");
+		this.emContextTemplate = EntityManagerContextTemplate.create(EntityManagerFactoryProvider.get(persistenceUnitName));
 	}
 
 	@Override
@@ -61,28 +70,23 @@ public final class AuthorizationService implements IAuthorizationService<IPrinci
 	}
 
 	private Set<String> getAuthorizations(final String username) {
-		EntityManager em = null;
 		if (username != null) {
-			try {
-				em = entityManagerFactory.createEntityManager();
-				final Person person = PersonDAO.findPersonByLogin(em, username, true);
-				if (person != null) {
-					return person.getAuthorizationNames();
-				}
-			}
-			catch (final Exception e) {
-				logger.error("Error on authorization", e);
-			}
-			finally {
-				if (em != null) {
+			return emContextTemplate.callInEntityManagerContext(new Callable<Set<String>>() {
+				@Override
+				public Set<String> call() throws Exception {
 					try {
-						em.close();
+						final EntityManager em = EntityManagerProvider.get();
+						final Person person = PersonDAO.findPersonByLogin(em, username, true);
+						if (person != null) {
+							return person.getAuthorizationNames();
+						}
 					}
 					catch (final Exception e) {
 						logger.error("Error on authorization", e);
 					}
+					return Collections.emptySet();
 				}
-			}
+			});
 		}
 		return Collections.emptySet();
 	}
