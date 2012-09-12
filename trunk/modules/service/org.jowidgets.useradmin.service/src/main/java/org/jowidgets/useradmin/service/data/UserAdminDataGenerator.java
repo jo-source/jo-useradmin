@@ -44,26 +44,37 @@ import org.jowidgets.useradmin.service.persistence.bean.Person;
 import org.jowidgets.useradmin.service.persistence.bean.PersonRoleLink;
 import org.jowidgets.useradmin.service.persistence.bean.Role;
 import org.jowidgets.useradmin.service.persistence.bean.RoleAuthorizationLink;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class UserAdminDataGenerator {
 
+	private final Logger logger = LoggerFactory.getLogger(UserAdminDataGenerator.class);
+
 	public void dropAndCreateData() {
 		final Set<String> authorizations = Collections.emptySet();
-		dropAndCreateData(authorizations);
+		dropAndCreateData(null, authorizations);
 	}
 
-	public void dropAndCreateData(final Collection<String> authorizations) {
-		dropAndCreateData(Persistence.createEntityManagerFactory(UseradminPersistenceUnitNames.USER_ADMIN), authorizations);
+	public void dropAndCreateData(final String persistenceUnitName, final String roleName, final Collection<String> authorizations) {
+		dropAndCreateData(Persistence.createEntityManagerFactory(persistenceUnitName), roleName, authorizations);
+	}
+
+	public void dropAndCreateData(final String roleName, final Collection<String> authorizations) {
+		dropAndCreateData(UseradminPersistenceUnitNames.USER_ADMIN, roleName, authorizations);
 	}
 
 	public void dropAndCreateData(final EntityManagerFactory entityManagerFactory) {
 		final Set<String> authorizations = Collections.emptySet();
-		dropAndCreateData(entityManagerFactory, authorizations);
+		dropAndCreateData(entityManagerFactory, null, authorizations);
 	}
 
-	public void dropAndCreateData(final EntityManagerFactory entityManagerFactory, final Collection<String> authorizations) {
+	public void dropAndCreateData(
+		final EntityManagerFactory entityManagerFactory,
+		final String roleName,
+		final Collection<String> authorizations) {
 		dropData(entityManagerFactory);
-		createData(entityManagerFactory, authorizations);
+		createData(entityManagerFactory, roleName, authorizations);
 	}
 
 	public void dropData(final EntityManagerFactory entityManagerFactory) {
@@ -77,12 +88,14 @@ public final class UserAdminDataGenerator {
 		em.createQuery("delete from Authorization").executeUpdate();
 		tx.commit();
 		em.close();
-		//CHECKSTYLE:OFF
-		System.out.println("DATA DROPPED");
-		//CHECKSTYLE:ON
+
+		logger.info("DATA DROPPED");
 	}
 
-	public void createData(final EntityManagerFactory entityManagerFactory, final Collection<String> authorizations) {
+	public void createData(
+		final EntityManagerFactory entityManagerFactory,
+		final String roleName,
+		final Collection<String> authorizations) {
 		final EntityManager em = entityManagerFactory.createEntityManager();
 		final EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -98,20 +111,30 @@ public final class UserAdminDataGenerator {
 		adminRole.setDescription("Holds all authorizations neccessary for the user administration");
 		em.persist(adminRole);
 
-		final PersonRoleLink personRoleLink = new PersonRoleLink();
+		PersonRoleLink personRoleLink = new PersonRoleLink();
 		personRoleLink.setPerson(admin);
 		personRoleLink.setRole(adminRole);
 		em.persist(personRoleLink);
 
 		createAuthorizations(em, adminRole, AuthKeys.ALL_AUTHORIZATIONS);
-		createAuthorizations(em, adminRole, authorizations);
+
+		if (roleName != null) {
+			final Role aditionalRole = new Role();
+			aditionalRole.setName(roleName);
+			em.persist(aditionalRole);
+
+			personRoleLink = new PersonRoleLink();
+			personRoleLink.setPerson(admin);
+			personRoleLink.setRole(aditionalRole);
+			em.persist(personRoleLink);
+
+			createAuthorizations(em, aditionalRole, authorizations);
+		}
 
 		tx.commit();
 		em.close();
 
-		//CHECKSTYLE:OFF
-		System.out.println("DATA CREATED");
-		//CHECKSTYLE:ON
+		logger.info("DATA CREATED");
 	}
 
 	private void createAuthorizations(final EntityManager em, final Role adminRole, final Collection<String> authorizations) {
