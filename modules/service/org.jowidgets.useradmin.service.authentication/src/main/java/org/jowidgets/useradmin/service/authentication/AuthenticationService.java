@@ -28,10 +28,14 @@
 
 package org.jowidgets.useradmin.service.authentication;
 
+import java.util.concurrent.Callable;
+
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
 import org.jowidgets.cap.service.jpa.api.EntityManagerFactoryProvider;
+import org.jowidgets.cap.service.jpa.api.IEntityManagerContextTemplate;
+import org.jowidgets.cap.service.jpa.api.EntityManagerContextTemplate;
+import org.jowidgets.cap.service.jpa.tools.entity.EntityManagerProvider;
 import org.jowidgets.security.api.IAuthenticationService;
 import org.jowidgets.security.api.ICredentials;
 import org.jowidgets.security.api.IPrincipal;
@@ -39,6 +43,7 @@ import org.jowidgets.security.tools.DefaultPrincipal;
 import org.jowidgets.useradmin.service.persistence.UseradminPersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
 import org.jowidgets.useradmin.service.persistence.dao.PersonDAO;
+import org.jowidgets.util.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,40 +51,41 @@ public final class AuthenticationService implements IAuthenticationService<IPrin
 
 	private final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
 
-	private final EntityManagerFactory entityManagerFactory;
+	private final IEntityManagerContextTemplate emContextTemplate;
 
 	public AuthenticationService() {
-		this.entityManagerFactory = EntityManagerFactoryProvider.get(UseradminPersistenceUnitNames.USER_ADMIN);
+		this(UseradminPersistenceUnitNames.USER_ADMIN);
+	}
+
+	public AuthenticationService(final String persistenceUnitName) {
+		Assert.paramNotEmpty(persistenceUnitName, "persistenceUnitName");
+		this.emContextTemplate = EntityManagerContextTemplate.create(EntityManagerFactoryProvider.get(persistenceUnitName));
 	}
 
 	@Override
 	public IPrincipal<String> authenticate(final ICredentials credentials) {
+		Assert.paramNotNull(credentials, "credentials");
 
 		final String username = credentials.getUsername();
 		final String password = credentials.getPassword();
 
-		EntityManager em = null;
 		if (username != null && password != null) {
-			try {
-				em = entityManagerFactory.createEntityManager();
-				final Person person = PersonDAO.findPersonByLogin(em, username, true);
-				if (person != null && person.isAuthenticated(password)) {
-					return new DefaultPrincipal(username);
-				}
-			}
-			catch (final Exception e) {
-				logger.error("Error on authentication", e);
-			}
-			finally {
-				if (em != null) {
+			return emContextTemplate.callInEntityManagerContext(new Callable<IPrincipal<String>>() {
+				@Override
+				public IPrincipal<String> call() throws Exception {
 					try {
-						em.close();
+						final EntityManager em = EntityManagerProvider.get();
+						final Person person = PersonDAO.findPersonByLogin(em, username, true);
+						if (person != null && person.isAuthenticated(password)) {
+							return new DefaultPrincipal(username);
+						}
 					}
 					catch (final Exception e) {
 						logger.error("Error on authentication", e);
 					}
+					return null;
 				}
-			}
+			});
 		}
 		return null;
 	}

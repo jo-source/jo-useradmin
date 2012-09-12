@@ -29,8 +29,6 @@
 package org.jowidgets.useradmin.service.password;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 
 import org.jowidgets.cap.common.api.exception.PasswordChangeServiceException;
 import org.jowidgets.cap.common.api.exception.PasswordChangeServiceException.PasswordChangeExceptionDetail;
@@ -39,21 +37,34 @@ import org.jowidgets.cap.common.api.execution.IExecutionCallback;
 import org.jowidgets.cap.common.api.execution.IResultCallback;
 import org.jowidgets.cap.common.api.service.IPasswordChangeService;
 import org.jowidgets.cap.service.api.CapServiceToolkit;
+import org.jowidgets.cap.service.api.transaction.ITransactionTemplate;
 import org.jowidgets.cap.service.jpa.api.EntityManagerFactoryProvider;
+import org.jowidgets.cap.service.jpa.api.JpaTransactionTemplate;
+import org.jowidgets.cap.service.jpa.tools.entity.EntityManagerProvider;
 import org.jowidgets.security.tools.SecurityContext;
 import org.jowidgets.useradmin.common.validation.PasswordPropertyValidatorProvider;
 import org.jowidgets.useradmin.service.persistence.UseradminPersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
 import org.jowidgets.useradmin.service.persistence.dao.PersonDAO;
+import org.jowidgets.util.Assert;
 import org.jowidgets.util.EmptyCheck;
 import org.jowidgets.validation.IValidationResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class PasswordChangeServiceImpl implements IPasswordChangeService {
 
-	private final EntityManagerFactory entityManagerFactory;
+	private final Logger logger = LoggerFactory.getLogger(PasswordChangeServiceImpl.class);
+
+	private final ITransactionTemplate txTemplate;
 
 	public PasswordChangeServiceImpl() {
-		this.entityManagerFactory = EntityManagerFactoryProvider.get(UseradminPersistenceUnitNames.USER_ADMIN);
+		this(UseradminPersistenceUnitNames.USER_ADMIN);
+	}
+
+	public PasswordChangeServiceImpl(final String persistenceUnitName) {
+		Assert.paramNotEmpty(persistenceUnitName, "persistenceUnitName");
+		this.txTemplate = JpaTransactionTemplate.create(EntityManagerFactoryProvider.get(persistenceUnitName));
 	}
 
 	@Override
@@ -67,6 +78,7 @@ public final class PasswordChangeServiceImpl implements IPasswordChangeService {
 			result.finished(null);
 		}
 		catch (final Exception exception) {
+			logger.error("Error on password change", exception);
 			if (exception instanceof PasswordChangeServiceException) {
 				result.exception(exception);
 			}
@@ -100,39 +112,26 @@ public final class PasswordChangeServiceImpl implements IPasswordChangeService {
 		final String newPassword,
 		final IExecutionCallback executionCallback) throws Exception {
 
-		EntityManager entityManager = null;
-		EntityTransaction tx = null;
-		try {
-			entityManager = entityManagerFactory.createEntityManager();
-			tx = entityManager.getTransaction();
-			tx.begin();
-			final Person person = PersonDAO.findPersonByLogin(entityManager, username, true);
-			if (person != null) {
-				if (person.isAuthenticated(oldPassword)) {
-					person.setPassword(newPassword);
-					CapServiceToolkit.checkCanceled(executionCallback);
-					entityManager.persist(person);
-					tx.commit();
+		txTemplate.doInTransaction(new Runnable() {
+			@Override
+			public void run() {
+				final EntityManager em = EntityManagerProvider.get();
+				final Person person = PersonDAO.findPersonByLogin(em, username, true);
+				if (person != null) {
+					if (person.isAuthenticated(oldPassword)) {
+						person.setPassword(newPassword);
+						CapServiceToolkit.checkCanceled(executionCallback);
+						em.persist(person);
+					}
+					else {
+						throw new PasswordChangeServiceException(PasswordChangeExceptionDetail.OLD_PASSWORD_INVALID);
+					}
 				}
 				else {
-					throw new PasswordChangeServiceException(PasswordChangeExceptionDetail.OLD_PASSWORD_INVALID);
+					throw new PasswordChangeServiceException(PasswordChangeExceptionDetail.USER_NOT_FOUND);
 				}
 			}
-			else {
-				throw new PasswordChangeServiceException(PasswordChangeExceptionDetail.USER_NOT_FOUND);
-			}
-		}
-		catch (final Exception e) {
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-			throw e;
-		}
-		finally {
-			if (entityManager != null) {
-				entityManager.close();
-			}
-		}
-	}
+		});
 
+	}
 }
