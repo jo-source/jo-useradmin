@@ -35,6 +35,7 @@ import org.jowidgets.i18n.api.MessageProvider;
 public final class UserAdminMessages {
 
 	public static IMessage USER_ADMINISTRATION_LABEL = getMessage("UserAdministration.label");
+	public static IMessage SETTINGS = getMessage("UserAdministration.settings");
 
 	private static IMessageProvider messageProvider;
 

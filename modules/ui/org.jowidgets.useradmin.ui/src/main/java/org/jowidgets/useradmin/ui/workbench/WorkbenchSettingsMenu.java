@@ -30,11 +30,12 @@ package org.jowidgets.useradmin.ui.workbench;
 
 import org.jowidgets.tools.model.item.MenuModel;
 import org.jowidgets.useradmin.ui.action.UserAdminPasswordChangeAction;
+import org.jowidgets.useradmin.ui.messages.UserAdminMessages;
 
 public final class WorkbenchSettingsMenu extends MenuModel {
 
 	public WorkbenchSettingsMenu() {
-		setText("Einstellungen");
+		setText(UserAdminMessages.SETTINGS.get());
 		addAction(new UserAdminPasswordChangeAction());
 	}
 
