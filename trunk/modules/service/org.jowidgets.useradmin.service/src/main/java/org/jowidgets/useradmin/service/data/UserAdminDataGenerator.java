@@ -112,7 +112,7 @@ public final class UserAdminDataGenerator {
 
 		if (EmptyCheck.isEmpty(em.createQuery(criteriaQuery).getResultList())) {
 			createData(entityManagerFactory, roleName, authorizations);
-			logger.info("#############################################################Data created for role: " + roleName);
+			logger.info("Data created for role: " + roleName);
 		}
 	}
 
