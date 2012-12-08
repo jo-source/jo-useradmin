@@ -36,6 +36,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Root;
 
 import org.jowidgets.useradmin.common.security.AuthKeys;
 import org.jowidgets.useradmin.service.persistence.UseradminPersistenceUnitNames;
@@ -44,6 +48,7 @@ import org.jowidgets.useradmin.service.persistence.bean.Person;
 import org.jowidgets.useradmin.service.persistence.bean.PersonRoleLink;
 import org.jowidgets.useradmin.service.persistence.bean.Role;
 import org.jowidgets.useradmin.service.persistence.bean.RoleAuthorizationLink;
+import org.jowidgets.util.EmptyCheck;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,6 +95,25 @@ public final class UserAdminDataGenerator {
 		em.close();
 
 		logger.info("DATA DROPPED");
+	}
+
+	public void createDataIfRoleNotExists(
+		final String persistenceUnitName,
+		final String roleName,
+		final Collection<String> authorizations) {
+		final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(persistenceUnitName);
+		final EntityManager em = entityManagerFactory.createEntityManager();
+
+		final CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		final CriteriaQuery<Role> criteriaQuery = criteriaBuilder.createQuery(Role.class);
+		final Root<Role> root = criteriaQuery.from(Role.class);
+		final Path<Object> path = root.get(Role.NAME_PROPERTY);
+		criteriaQuery.where(path.in(roleName));
+
+		if (EmptyCheck.isEmpty(em.createQuery(criteriaQuery).getResultList())) {
+			createData(entityManagerFactory, roleName, authorizations);
+			logger.info("#############################################################Data created for role: " + roleName);
+		}
 	}
 
 	public void createData(
