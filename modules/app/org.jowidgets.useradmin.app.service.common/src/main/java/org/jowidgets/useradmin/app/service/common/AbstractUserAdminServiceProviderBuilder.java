@@ -62,7 +62,7 @@ public abstract class AbstractUserAdminServiceProviderBuilder extends CapService
 	}
 
 	private IServicesDecoratorProvider createCancelServiceDecoratorProvider() {
-		return HibernateServiceToolkit.serviceDecoratorProviderBuilder(UseradminPersistenceUnitNames.USER_ADMIN).build();
+		return HibernateServiceToolkit.cancelServiceDecoratorProviderBuilder(UseradminPersistenceUnitNames.USER_ADMIN).build();
 	}
 
 	protected void onCreateJpaServiceDecoratorProvider(final IJpaServicesDecoratorProviderBuilder builder) {}
