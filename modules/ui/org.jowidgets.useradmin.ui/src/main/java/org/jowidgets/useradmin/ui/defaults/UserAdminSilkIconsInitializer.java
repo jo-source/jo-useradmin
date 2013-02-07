@@ -43,6 +43,7 @@ public final class UserAdminSilkIconsInitializer {
 		final IImageRegistry registry = Toolkit.getImageRegistry();
 
 		registry.registerImageConstant(IconsSmall.OK, SilkIcons.TICK);
+		registry.registerImageConstant(IconsSmall.OK_GREYED, SilkIcons.TICK_GREYED);
 		registry.registerImageConstant(IconsSmall.REFRESH, SilkIcons.ARROW_REFRESH);
 		registry.registerImageConstant(IconsSmall.UNDO, SilkIcons.ARROW_UNDO);
 
