@@ -21,7 +21,7 @@
 
 		<dependency>
 			<groupId>org.jowidgets</groupId>
-			<artifactId>org.jowidgets.cap.tools.starter.webapp.rwt</artifactId>
+			<artifactId>org.jowidgets.cap.tools.starter.webapp.rwt.legacy</artifactId>
 			<version>${jocap.version}</version>
 		</dependency>
 
