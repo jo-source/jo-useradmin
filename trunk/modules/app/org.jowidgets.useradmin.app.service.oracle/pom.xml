@@ -25,11 +25,11 @@
 			<version>${jocap.version}</version>
 		</dependency>
 
-		<dependency>
+		<!--dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc14</artifactId>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency-->
 
 	</dependencies>
 
