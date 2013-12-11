@@ -12,8 +12,8 @@
 		<java.version>1.6</java.version>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
-		<jowidgets.version>0.27.0</jowidgets.version>
-		<jocap.version>0.24.0</jocap.version>
+		<jowidgets.version>0.28.1</jowidgets.version>
+		<jocap.version>0.25.1</jocap.version>
 	</properties>
 
 	<scm>
@@ -131,6 +131,19 @@
 			</snapshots>
 		</repository>
 	</repositories>
+	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>jowidgets</id>
+			<url>http://jowidgets.org/maven2/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+    </pluginRepositories>
 
 	<build>
 		<extensions>
