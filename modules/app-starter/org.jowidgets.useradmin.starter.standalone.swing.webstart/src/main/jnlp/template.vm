@@ -3,8 +3,8 @@
 	codebase="$$context"
 	href="$$name">
 	<information>
-		<title>UserAdmin</title>
-		<vendor>jowidgets.org</vendor>
+		<title>User admin</title>
+		<vendor>org.jowidgets.useradmin</vendor>
 	</information>
 	<security>
 		<all-permissions />
@@ -12,7 +12,7 @@
 	<resources>
     	<j2se version="1.6+" />
 		$dependencies
-		<property name="server.url" value="$$context/remoting" />
+		<property name="jnlp.server.url" value="$$context/remoting" />
 	</resources>
 	<application-desc main-class="$mainClass" />
 </jnlp>
