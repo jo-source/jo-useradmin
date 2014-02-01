@@ -22,9 +22,9 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.codehaus.mojo.webstart</groupId>
+				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>webstart-maven-plugin</artifactId>
-				<version>1.0-beta-1</version>
+				<version>1.0-beta-6</version>
 				<executions>
 					<execution>
 						<goals>
@@ -34,19 +34,22 @@
 					</execution>
 				</executions>
 				<configuration>
+					<updateManifestEntries>
+						<Application-Name>jo-modeler</Application-Name>
+						<Permissions>all-permissions</Permissions>
+						<Codebase>*</Codebase>
+					</updateManifestEntries>
 					<sign>
-                        <keystore>${basedir}/keystore</keystore>
-                        <keypass>keystore</keypass>
-                        <storepass>keystore</storepass>
-                        <alias>key</alias>
-
-                        <verify>true</verify> 
-
-                        <keystoreConfig>
-                            <delete>false</delete> 
-                            <gen>false</gen>       
-                        </keystoreConfig>
-                    </sign>
+						<keystore>${basedir}/keystore</keystore>
+						<keypass>keystore</keypass>
+						<storepass>keystore</storepass>
+						<alias>key</alias>
+						<verify>true</verify>
+						<keystoreConfig>
+							<delete>false</delete>
+							<gen>false</gen>
+						</keystoreConfig>
+					</sign>
 					<jnlp>
 						<outputFile>useradmin_standalone_swing.jnlp</outputFile>
 						<mainClass>org.jowidgets.useradmin.starter.standalone.swing.UserAdminStarterStandaloneSwing</mainClass>
