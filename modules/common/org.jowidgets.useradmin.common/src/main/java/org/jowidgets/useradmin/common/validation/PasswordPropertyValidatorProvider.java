@@ -49,7 +49,10 @@ public final class PasswordPropertyValidatorProvider {
 			if (personDescriptor != null) {
 				for (final IProperty property : personDescriptor.getProperties()) {
 					if (IPerson.PASSWORD_PROPERTY.equals(property.getName())) {
-						return (IValidator) property.getValidator();
+						final IValidator<?> validator = property.getValidator();
+						if (validator != null) {
+							return (IValidator) validator;
+						}
 					}
 				}
 			}
