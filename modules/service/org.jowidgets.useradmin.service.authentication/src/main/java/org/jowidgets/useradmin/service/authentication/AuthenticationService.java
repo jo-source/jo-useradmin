@@ -32,14 +32,16 @@ import java.util.concurrent.Callable;
 
 import javax.persistence.EntityManager;
 
+import org.jowidgets.cap.service.jpa.api.EntityManagerContextTemplate;
 import org.jowidgets.cap.service.jpa.api.EntityManagerFactoryProvider;
 import org.jowidgets.cap.service.jpa.api.IEntityManagerContextTemplate;
-import org.jowidgets.cap.service.jpa.api.EntityManagerContextTemplate;
 import org.jowidgets.cap.service.jpa.tools.entity.EntityManagerProvider;
+import org.jowidgets.plugin.api.PluginProvider;
 import org.jowidgets.security.api.IAuthenticationService;
 import org.jowidgets.security.api.ICredentials;
 import org.jowidgets.security.api.IPrincipal;
 import org.jowidgets.security.tools.DefaultPrincipal;
+import org.jowidgets.useradmin.service.authentication.plugin.IUserAdminAutheticationPlugin;
 import org.jowidgets.useradmin.service.persistence.UseradminPersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
 import org.jowidgets.useradmin.service.persistence.dao.PersonDAO;
@@ -66,6 +68,8 @@ public final class AuthenticationService implements IAuthenticationService<IPrin
 	public IPrincipal<String> authenticate(final ICredentials credentials) {
 		Assert.paramNotNull(credentials, "credentials");
 
+		beforeAuthentication();
+
 		final String username = credentials.getUsername();
 		final String password = credentials.getPassword();
 
@@ -90,4 +94,9 @@ public final class AuthenticationService implements IAuthenticationService<IPrin
 		return null;
 	}
 
+	private void beforeAuthentication() {
+		for (final IUserAdminAutheticationPlugin plugin : PluginProvider.getPlugins(IUserAdminAutheticationPlugin.ID)) {
+			plugin.beforeAuthentication();
+		}
+	}
 }
