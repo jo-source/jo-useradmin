@@ -28,10 +28,11 @@
 
 package org.jowidgets.useradmin.ui.defaults;
 
+import org.jowidgets.api.toolkit.Toolkit;
 import org.jowidgets.api.widgets.blueprint.builder.ITableSetupBuilder;
 import org.jowidgets.api.widgets.blueprint.defaults.IDefaultInitializer;
+import org.jowidgets.api.widgets.blueprint.factory.IBluePrintProxyFactory;
 import org.jowidgets.cap.ui.api.widgets.IBeanFormBluePrint;
-import org.jowidgets.tools.widgets.blueprint.BPF;
 
 public final class UserAdminDefaultsInitializer {
 
@@ -39,14 +40,16 @@ public final class UserAdminDefaultsInitializer {
 
 	public static void initialize() {
 
-		BPF.addDefaultsInitializer(IBeanFormBluePrint.class, new IDefaultInitializer<IBeanFormBluePrint<?>>() {
+		final IBluePrintProxyFactory bppf = Toolkit.getBluePrintProxyFactory();
+
+		bppf.addDefaultsInitializer(IBeanFormBluePrint.class, new IDefaultInitializer<IBeanFormBluePrint<?>>() {
 			@Override
 			public void initialize(final IBeanFormBluePrint<?> builder) {
 				builder.setMaxWidthDefault(800);
 			}
 		});
 
-		BPF.addDefaultsInitializer(ITableSetupBuilder.class, new IDefaultInitializer<ITableSetupBuilder<?>>() {
+		bppf.addDefaultsInitializer(ITableSetupBuilder.class, new IDefaultInitializer<ITableSetupBuilder<?>>() {
 			@Override
 			public void initialize(final ITableSetupBuilder<?> setupBuilder) {
 				setupBuilder.setEditable(false);
