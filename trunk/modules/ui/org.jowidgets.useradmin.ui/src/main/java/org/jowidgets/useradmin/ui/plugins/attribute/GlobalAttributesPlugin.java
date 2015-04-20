@@ -28,116 +28,14 @@
 
 package org.jowidgets.useradmin.ui.plugins.attribute;
 
-import org.jowidgets.api.widgets.IComboBox;
-import org.jowidgets.api.widgets.IComposite;
-import org.jowidgets.api.widgets.IInputControl;
-import org.jowidgets.api.widgets.IInputField;
 import org.jowidgets.cap.ui.api.attribute.IAttributeCollectionModifierBuilder;
 import org.jowidgets.cap.ui.api.bean.IBeanProxy;
 import org.jowidgets.cap.ui.tools.plugin.AbstractAttributesPlugin;
-import org.jowidgets.common.color.IColorConstant;
-import org.jowidgets.common.widgets.controller.IInputListener;
-import org.jowidgets.common.widgets.factory.ICustomWidgetCreator;
-import org.jowidgets.common.widgets.factory.ICustomWidgetFactory;
-import org.jowidgets.common.widgets.layout.MigLayoutDescriptor;
-import org.jowidgets.tools.widgets.blueprint.BPF;
-import org.jowidgets.tools.widgets.wrapper.AbstractInputControl;
-import org.jowidgets.useradmin.common.bean.IPerson;
-import org.jowidgets.validation.IValidationConditionListener;
-import org.jowidgets.validation.IValidationResult;
 
 public class GlobalAttributesPlugin extends AbstractAttributesPlugin {
 
 	@Override
 	protected void modifyAttributes(final IAttributeCollectionModifierBuilder modifier) {
 		modifier.addModifier(IBeanProxy.META_PROPERTY_PROGRESS).setVisible(false);
-
-		modifier.addModifier(IPerson.NAME_PROPERTY).setControlPanel().setControlCreator(
-				new ICustomWidgetCreator<IInputControl<String>>() {
-
-					@Override
-					public IInputControl<String> create(final ICustomWidgetFactory widgetFactory) {
-						final IComposite container = widgetFactory.create(BPF.composite());
-						container.setLayout(new MigLayoutDescriptor("wrap", "0[grow]0", "0[]0[]0"));
-						final IComboBox<String> comboBox = container.add(BPF.comboBoxSelection("HALOO", "KUCKCK"), "growx");
-
-						final IInputField<String> inputField = container.add(BPF.inputFieldString(), "growx");
-
-						final AbstractInputControl<String> result = new AbstractInputControl<String>(container) {
-
-							{
-								inputField.addInputListener(new IInputListener() {
-									@Override
-									public void inputChanged() {
-										fireInputChanged();
-									}
-								});
-
-								inputField.addValidationConditionListener(new IValidationConditionListener() {
-									@Override
-									public void validationConditionsChanged() {
-										setValidationCacheDirty();
-									}
-								});
-							}
-
-							@Override
-							public boolean hasModifications() {
-								return inputField.hasModifications();
-							}
-
-							@Override
-							public void resetModificationState() {
-								inputField.resetModificationState();
-							}
-
-							@Override
-							public boolean isEditable() {
-								return inputField.isEditable();
-							}
-
-							@Override
-							public void setValue(final String value) {
-								inputField.setValue(value);
-
-							}
-
-							@Override
-							public String getValue() {
-								// TODO Auto-generated method stub
-								return inputField.getValue();
-							}
-
-							@Override
-							public void setEditable(final boolean editable) {
-								inputField.setEditable(editable);
-
-							}
-
-							@Override
-							public void setBackgroundColor(final IColorConstant colorValue) {
-								inputField.setBackgroundColor(colorValue);
-								super.setBackgroundColor(colorValue);
-							}
-
-							@Override
-							protected IValidationResult createValidationResult() {
-
-								return inputField.validate();
-							}
-
-						};
-
-						comboBox.addInputListener(new IInputListener() {
-
-							@Override
-							public void inputChanged() {
-								result.setValue(comboBox.getValue());
-							}
-						});
-
-						return result;
-					}
-				});
 	}
 }
