@@ -1,0 +1,1 @@
+A user administration application based on jo-client-platform
