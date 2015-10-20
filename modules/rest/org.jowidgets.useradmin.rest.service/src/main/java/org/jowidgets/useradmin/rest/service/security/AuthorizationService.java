@@ -40,7 +40,7 @@ import org.jowidgets.security.api.IAuthorizationService;
 import org.jowidgets.security.tools.DefaultPrincipal;
 import org.jowidgets.useradmin.rest.api.Principal;
 
-@Path("service/security/AuthorizationService")
+@Path("service/security/")
 public final class AuthorizationService {
 
 	private final IAuthorizationService<DefaultPrincipal> authorizationService;

@@ -40,7 +40,7 @@ import org.jowidgets.security.tools.DefaultPrincipal;
 import org.jowidgets.useradmin.rest.api.Credentials;
 import org.jowidgets.useradmin.rest.api.Principal;
 
-@Path("service/security/AuthenticationService")
+@Path("service/security")
 public final class AuthenticationService {
 
 	private final IAuthenticationService<DefaultPrincipal, DefaultCredentials> authenticationService;
@@ -50,10 +50,10 @@ public final class AuthenticationService {
 	}
 
 	@POST
-	@Path("authenticate")
+	@Path("verify-credentials")
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public Principal authenticate(final Credentials credentials) {
+	public Principal verifyCredentials(final Credentials credentials) {
 		if (credentials != null) {
 			final DefaultPrincipal principal = authenticationService.authenticate(new DefaultCredentials(
 				credentials.getUsername(),

@@ -45,11 +45,10 @@ public final class UseradminRestExampleClient {
 	private static final String PASSWORD = "admin";
 
 	private static final String SERVER_URL = "http://localhost:8081/";
-	private static final String AUTHENTICATION_SERVICE = SERVER_URL + "service/security/AuthenticationService/authenticate";
-	private static final String AUTHORIZATION_SERVICE = SERVER_URL + "service/security/AuthorizationService/authorize";
+	private static final String AUTHENTICATION_SERVICE = SERVER_URL + "service/security/verify-credentials";
+	private static final String AUTHORIZATION_SERVICE = SERVER_URL + "service/security/authorize";
 
-	private static final String PERSON_RESOURCE = SERVER_URL + "Person";
-	private static final String PERSON_BY_LOGIN_NAME = PERSON_RESOURCE + "/personByLoginName";
+	private static final String PERSON_RESOURCE = SERVER_URL + "persons";
 
 	private UseradminRestExampleClient() {}
 
@@ -72,9 +71,8 @@ public final class UseradminRestExampleClient {
 		System.out.println("After authorization: " + principal);
 		//CHECKSTYLE:ON
 
-		final WebTarget personResource = client.target(PERSON_BY_LOGIN_NAME);
-		final Person person = personResource.queryParam("loginName", LOGIN_NAME).request().accept(MediaType.APPLICATION_JSON).get(
-				Person.class);
+		final WebTarget personResource = client.target(PERSON_RESOURCE + "/" + LOGIN_NAME);
+		final Person person = personResource.request().accept(MediaType.APPLICATION_JSON).get(Person.class);
 		//CHECKSTYLE:OFF
 		System.out.println("Person: " + person);
 		//CHECKSTYLE:ON
