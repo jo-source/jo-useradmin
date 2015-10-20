@@ -64,7 +64,7 @@ public final class PersonResource {
 	@Path("{loginName}")
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Person getPersonByLoginName(@PathParam("loginName") final String loginName) {
-		//TODO use security context from rest request
+		//TODO use credentials from basic authentication to set in security context
 		SecurityContextHolder.setSecurityContext(new DefaultPrincipal("admin", Collections.singleton("READ_PERSON")));
 		try {
 			if (EmptyCheck.isEmpty(loginName)) {
