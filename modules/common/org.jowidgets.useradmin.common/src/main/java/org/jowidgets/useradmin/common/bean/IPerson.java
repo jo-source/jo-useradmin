@@ -51,6 +51,7 @@ public interface IPerson extends IBean {
 
 	String LOGIN_NAME_PROPERTY = "loginName";
 	String PASSWORD_PROPERTY = "password";
+	String PASSWORD_HASH_PROPERTY = "passwordHash";
 	String PASSWORD_REPEAT_PROPERTY = "passwordRepeat";
 	String NAME_PROPERTY = "name";
 	String ACTIVE_PROPERTY = "active";
@@ -62,6 +63,7 @@ public interface IPerson extends IBean {
 			add(LOGIN_NAME_PROPERTY);
 			add(NAME_PROPERTY);
 			add(PASSWORD_PROPERTY);
+			add(PASSWORD_HASH_PROPERTY);
 			add(PASSWORD_REPEAT_PROPERTY);
 			add(ROLE_NAMES_PROPERTY);
 			add(ACTIVE_PROPERTY);
@@ -84,6 +86,8 @@ public interface IPerson extends IBean {
 	String getPasswordRepeat();
 
 	void setPasswordRepeat(String passwordRepeat);
+
+	String getPasswordHash();
 
 	@NotNull
 	@Size(min = 2, max = 50)

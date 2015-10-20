@@ -80,6 +80,11 @@ public final class PersonDtoDescriptorBuilder extends AbstractDtoDescriptorBuild
 		propertyBp.setDescription(getMessage("passwordRepeat.description"));
 		propertyBp.setVisible(false);
 
+		propertyBp = addProperty(IPerson.PASSWORD_HASH_PROPERTY);
+		propertyBp.setLabel(getMessage("passwordHash.label"));
+		propertyBp.setDescription(getMessage("passwordHash.description"));
+		propertyBp.setVisible(false);
+
 		propertyBp = addProperty(IPerson.ACTIVE_PROPERTY);
 		propertyBp.setLabel(getMessage("active.label"));
 		propertyBp.setDescription(getMessage("active.description"));

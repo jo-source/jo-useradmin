@@ -174,7 +174,8 @@ public class Person extends Bean implements IPerson {
 		//nothing to do
 	}
 
-	private String getPasswordHash() {
+	@Override
+	public String getPasswordHash() {
 		return passwordHash;
 	}
 

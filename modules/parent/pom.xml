@@ -28,6 +28,7 @@
 		<module>../ui/parent/</module>
 		<module>../app/parent/</module>
 		<module>../app-starter/parent/</module>
+		<module>../rest/parent/</module>
 		<module>../deploy/</module>
 	</modules>
 
