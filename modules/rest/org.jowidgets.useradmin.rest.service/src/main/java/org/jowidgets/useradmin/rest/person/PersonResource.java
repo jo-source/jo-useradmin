@@ -33,8 +33,8 @@ import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.jowidgets.cap.common.api.bean.IBeanDto;
@@ -57,13 +57,13 @@ import org.jowidgets.useradmin.rest.api.Principal;
 import org.jowidgets.useradmin.rest.service.security.AuthorizationService;
 import org.jowidgets.util.EmptyCheck;
 
-@Path("Person")
+@Path("persons")
 public final class PersonResource {
 
 	@GET
-	@Path("personByLoginName")
+	@Path("{loginName}")
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public Person getPersonByLoginName(@QueryParam("loginName") final String loginName) {
+	public Person getPersonByLoginName(@PathParam("loginName") final String loginName) {
 		//TODO use security context from rest request
 		SecurityContextHolder.setSecurityContext(new DefaultPrincipal("admin", Collections.singleton("READ_PERSON")));
 		try {
