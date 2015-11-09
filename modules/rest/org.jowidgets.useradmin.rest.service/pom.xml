@@ -21,26 +21,8 @@
 		
 		<dependency>
 			<groupId>org.jowidgets.useradmin</groupId>
-			<artifactId>org.jowidgets.useradmin.common</artifactId>
+			<artifactId>org.jowidgets.useradmin.service.persistence</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.jowidgets</groupId>
-			<artifactId>org.jowidgets.service</artifactId>
-			<version>${jocap.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.jowidgets</groupId>
-			<artifactId>org.jowidgets.security</artifactId>
-			<version>${jocap.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.jowidgets</groupId>
-			<artifactId>org.jowidgets.cap.common</artifactId>
-			<version>${jocap.version}</version>
 		</dependency>
 
 		<dependency>
