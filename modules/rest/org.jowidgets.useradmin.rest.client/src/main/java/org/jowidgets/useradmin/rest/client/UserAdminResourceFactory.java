@@ -40,6 +40,8 @@ public final class UserAdminResourceFactory {
 	private static final String AUTHORIZATION_SERVICE = "service/security/authorize";
 
 	private static final String PERSONS_RESOURCE = "persons";
+	private static final String ROLES_RESOURCE = "roles";
+	private static final String AUTHORIZATIONS_RESOURCE = "authorizations";
 
 	private final String url;
 	private final Client client;
@@ -57,6 +59,30 @@ public final class UserAdminResourceFactory {
 	public WebTarget getPerson(final String login) {
 		Assert.paramNotEmpty(login, "login");
 		return client.target(url + PERSONS_RESOURCE + "/" + login);
+	}
+
+	public WebTarget getAuthorizations() {
+		return client.target(url + AUTHORIZATIONS_RESOURCE);
+	}
+
+	public WebTarget getAuthorization(final String key) {
+		Assert.paramNotEmpty(key, "key");
+		return client.target(url + AUTHORIZATIONS_RESOURCE + "/" + key);
+	}
+
+	public WebTarget getRoles() {
+		return client.target(url + ROLES_RESOURCE);
+	}
+
+	public WebTarget getRole(final String name) {
+		Assert.paramNotEmpty(name, "name");
+		return client.target(url + ROLES_RESOURCE + "/" + name);
+	}
+
+	public WebTarget getRoleAuthorization(final String roleName, final String authorizationKey) {
+		Assert.paramNotEmpty(roleName, "roleName");
+		Assert.paramNotEmpty(authorizationKey, "authorizationKey");
+		return client.target(url + ROLES_RESOURCE + "/" + roleName + "/" + authorizationKey);
 	}
 
 	public WebTarget getAuthenticationService() {

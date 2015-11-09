@@ -103,6 +103,50 @@ public class MarshallingTest {
 		Assert.assertEquals(person, person2);
 	}
 
+	@Test
+	public void testXmlMarschallingAuthorization() {
+		final Authorization authorization = createAuthorization();
+
+		final String xml = MarshallerHelper.marshallXml(authorization);
+		final Authorization authorization2 = MarshallerHelper.unmarshallXml(xml, Authorization.class);
+
+		Assert.assertFalse(authorization == authorization2);
+		Assert.assertEquals(authorization, authorization2);
+	}
+
+	@Test
+	public void testJsonMarschallingAuthorization() {
+		final Authorization authorization = createAuthorization();
+
+		final String json = MarshallerHelper.marshallJson(authorization);
+		final Authorization authorization2 = MarshallerHelper.unmarshallJson(json, Authorization.class);
+
+		Assert.assertFalse(authorization == authorization2);
+		Assert.assertEquals(authorization, authorization2);
+	}
+
+	@Test
+	public void testXmlMarschallingRole() {
+		final Role role = createRole();
+
+		final String xml = MarshallerHelper.marshallXml(role);
+		final Role role2 = MarshallerHelper.unmarshallXml(xml, Role.class);
+
+		Assert.assertFalse(role == role2);
+		Assert.assertEquals(role, role2);
+	}
+
+	@Test
+	public void testJsonMarschallingRole() {
+		final Role role = createRole();
+
+		final String json = MarshallerHelper.marshallJson(role);
+		final Role role2 = MarshallerHelper.unmarshallJson(json, Role.class);
+
+		Assert.assertFalse(role == role2);
+		Assert.assertEquals(role, role2);
+	}
+
 	private static Credentials createCredentials() {
 		final Credentials credentials = new Credentials();
 		credentials.setUsername("Foo");
@@ -125,6 +169,20 @@ public class MarshallingTest {
 		person.setActive(true);
 		person.setGrantedAuthorities(Arrays.asList("AUTHORITY_1", "AUTHORITY_2"));
 		return person;
+	}
+
+	private static final Authorization createAuthorization() {
+		final Authorization authorization = new Authorization();
+		authorization.setKey("FOO");
+		authorization.setDescription("DECRIPTION OF FOO");
+		return authorization;
+	}
+
+	private static final Role createRole() {
+		final Role role = new Role();
+		role.setName("FOO");
+		role.setDescription("DECRIPTION OF FOO");
+		return role;
 	}
 
 }
