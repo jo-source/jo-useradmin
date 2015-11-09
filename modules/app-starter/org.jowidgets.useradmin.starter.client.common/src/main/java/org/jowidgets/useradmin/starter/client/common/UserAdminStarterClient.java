@@ -28,15 +28,15 @@
 
 package org.jowidgets.useradmin.starter.client.common;
 
-import org.jowidgets.useradmin.app.ui.workbench.UserAdminWorkbench;
 import org.jowidgets.cap.tools.starter.client.CapClientWorkbenchRunner;
+import org.jowidgets.useradmin.app.ui.workbench.UserAdminWorkbench;
 
 public final class UserAdminStarterClient {
 
 	private UserAdminStarterClient() {}
 
 	public static void startClient() {
-		new CapClientWorkbenchRunner("http://localhost:8080/").run(new UserAdminWorkbench());
+		new CapClientWorkbenchRunner("http://localhost:8080/useradmin-h2-web/remoting/").run(new UserAdminWorkbench());
 	}
 
 }

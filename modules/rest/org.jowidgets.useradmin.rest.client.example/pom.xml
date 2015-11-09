@@ -14,6 +14,12 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>org.jowidgets</groupId>
+			<artifactId>org.jowidgets.util</artifactId>
+			<version>${jowidgets.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.jowidgets.useradmin</groupId>
 			<artifactId>org.jowidgets.useradmin.rest.api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -22,21 +28,23 @@
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-client</artifactId>
-			<version>${jersey.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-moxy</artifactId>
-			<version>${jersey.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.jaxrs</groupId>
 			<artifactId>jackson-jaxrs-json-provider</artifactId>
-			<version>2.1.4</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.5</version>
+		</dependency>
 
 	</dependencies>
 

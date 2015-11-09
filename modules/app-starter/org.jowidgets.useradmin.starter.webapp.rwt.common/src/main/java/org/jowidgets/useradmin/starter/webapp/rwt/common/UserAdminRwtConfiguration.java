@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, grossmann
+ * Copyright (c) 2013, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -26,46 +26,27 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.starter.server.rest.h2;
+package org.jowidgets.useradmin.starter.webapp.rwt.common;
 
-import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.server.ResourceConfig;
+import org.eclipse.rap.rwt.application.Application;
+import org.eclipse.rap.rwt.application.Application.OperationMode;
+import org.eclipse.rap.rwt.application.ApplicationConfiguration;
+import org.eclipse.rap.rwt.client.WebClient;
 
-public final class RestServerStarter {
+public final class UserAdminRwtConfiguration implements ApplicationConfiguration {
 
-	private RestServerStarter() {}
-
-	public static void start() {
-		start(true);
-	}
-
-	public static void start(final boolean join) {
-		start(
-				"http://localhost:8081/",
-				join,
-				"org.jowidgets.useradmin.rest.person",
-				"org.jowidgets.useradmin.rest.service.security");
-	}
-
-	public static void start(final String url, final boolean join, final String... packages) {
-		try {
-			final HttpServer server = GrizzlyHttpServerFactory.createHttpServer(new URI(url), new Application(packages));
-			server.start();
-			if (join) {
-				Thread.currentThread().join();
-			}
-		}
-		catch (final Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	private static final class Application extends ResourceConfig {
-		public Application(final String... packages) {
-			packages(packages);
-		}
+	@Override
+	public void configure(final Application application) {
+		application.setOperationMode(OperationMode.SWT_COMPATIBILITY);
+		application.addStyleSheet(
+				"org.jowidgets.spi.impl.rwt.themes.business",
+				"org/jowidgets/spi/impl/rwt/themes/business/business_less_insets.css");
+		final Map<String, String> properties = new HashMap<String, String>();
+		properties.put(WebClient.THEME_ID, "org.jowidgets.spi.impl.rwt.themes.business");
+		properties.put(WebClient.PAGE_TITLE, "UserAdmin");
+		application.addEntryPoint("/Useradmin", UserAdminRwtEntryPoint.class, properties);
 	}
 }

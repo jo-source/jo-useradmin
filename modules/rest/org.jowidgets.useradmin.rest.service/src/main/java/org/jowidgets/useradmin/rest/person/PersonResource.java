@@ -47,8 +47,6 @@ import org.jowidgets.cap.common.api.service.IEntityService;
 import org.jowidgets.cap.common.api.service.IReaderService;
 import org.jowidgets.cap.common.tools.execution.DummyExecutionCallback;
 import org.jowidgets.cap.common.tools.execution.SyncResultCallback;
-import org.jowidgets.security.api.SecurityContextHolder;
-import org.jowidgets.security.tools.DefaultPrincipal;
 import org.jowidgets.service.api.ServiceProvider;
 import org.jowidgets.useradmin.common.bean.IPerson;
 import org.jowidgets.useradmin.common.entity.EntityIds;
@@ -64,21 +62,14 @@ public final class PersonResource {
 	@Path("{loginName}")
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Person getPersonByLoginName(@PathParam("loginName") final String loginName) {
-		//TODO use credentials from basic authentication to set in security context
-		SecurityContextHolder.setSecurityContext(new DefaultPrincipal("admin", Collections.singleton("READ_PERSON")));
-		try {
-			if (EmptyCheck.isEmpty(loginName)) {
-				return null;
-			}
-			final IReaderService<Void> readerService = getReaderService();
-			if (readerService == null) {
-				return null;
-			}
-			return findPerson(readerService, loginName);
+		if (EmptyCheck.isEmpty(loginName)) {
+			return null;
 		}
-		finally {
-			SecurityContextHolder.clearSecurityContext();
+		final IReaderService<Void> readerService = getReaderService();
+		if (readerService == null) {
+			return null;
 		}
+		return findPerson(readerService, loginName);
 	}
 
 	private Person findPerson(final IReaderService<Void> readerService, final String loginName) {

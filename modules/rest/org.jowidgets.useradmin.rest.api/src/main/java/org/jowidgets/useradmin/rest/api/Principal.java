@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "Credentials")
+@XmlRootElement(name = "Principal")
 @XmlType(propOrder = {"username", "grantedAuthorities"})
 public final class Principal {
 

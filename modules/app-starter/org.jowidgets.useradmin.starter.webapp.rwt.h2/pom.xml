@@ -25,6 +25,12 @@
 			<artifactId>org.jowidgets.useradmin.app.service.h2</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.jowidgets</groupId>
+			<artifactId>org.jowidgets.security.impl.http.server</artifactId>
+			<version>${jocap.version}</version>
+		</dependency>
 
 	</dependencies>
 
