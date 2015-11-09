@@ -26,43 +26,14 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.rest.service.security;
+package org.jowidgets.useradmin.rest.client;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+public interface IUserAdminConfig {
 
-import org.jowidgets.security.api.IAuthenticationService;
-import org.jowidgets.security.tools.DefaultCredentials;
-import org.jowidgets.security.tools.DefaultPrincipal;
-import org.jowidgets.useradmin.rest.api.Credentials;
-import org.jowidgets.useradmin.rest.api.Principal;
+	String getUrl();
 
-@Path("service/security")
-public final class AuthenticationService {
+	String getLogin();
 
-	private final IAuthenticationService<DefaultPrincipal, DefaultCredentials> authenticationService;
-
-	public AuthenticationService() {
-		this.authenticationService = org.jowidgets.security.api.AuthenticationService.getAuthenticationService();
-	}
-
-	@POST
-	@Path("authenticate")
-	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public Principal authenticate(final Credentials credentials) {
-		if (credentials != null) {
-			final DefaultPrincipal principal = authenticationService.authenticate(new DefaultCredentials(
-				credentials.getUsername(),
-				credentials.getPassword()));
-			if (principal != null) {
-				return new Principal(principal.getUsername());
-			}
-		}
-		return null;
-	}
+	String getPwd();
 
 }

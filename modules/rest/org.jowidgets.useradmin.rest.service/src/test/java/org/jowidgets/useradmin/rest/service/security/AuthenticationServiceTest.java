@@ -42,9 +42,7 @@ public class AuthenticationServiceTest {
 	@Test
 	public void testAuthenticationService() {
 		final AuthenticationService authenticationService = new AuthenticationService();
-		final Principal principal = authenticationService.verifyCredentials(new Credentials(
-			Constants.USERNAME,
-			Constants.PASSWORD));
+		final Principal principal = authenticationService.authenticate(new Credentials(Constants.USERNAME, Constants.PASSWORD));
 		Assert.assertNotNull(principal);
 		Assert.assertEquals(Constants.USERNAME, principal.getUsername());
 	}

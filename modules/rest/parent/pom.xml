@@ -14,6 +14,7 @@
 	<modules>
 		<module>../org.jowidgets.useradmin.rest.api</module>
 		<module>../org.jowidgets.useradmin.rest.service</module>
+		<module>../org.jowidgets.useradmin.rest.client</module>
 		<module>../org.jowidgets.useradmin.rest.client.example</module>		
 	</modules>
 

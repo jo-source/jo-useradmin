@@ -29,10 +29,12 @@
 package org.jowidgets.useradmin.ui.defaults;
 
 import org.jowidgets.api.toolkit.Toolkit;
+import org.jowidgets.api.types.AutoPackPolicy;
 import org.jowidgets.api.widgets.blueprint.builder.ITableSetupBuilder;
 import org.jowidgets.api.widgets.blueprint.defaults.IDefaultInitializer;
 import org.jowidgets.api.widgets.blueprint.factory.IBluePrintProxyFactory;
 import org.jowidgets.cap.ui.api.widgets.IBeanFormBluePrint;
+import org.jowidgets.cap.ui.api.widgets.IBeanTableBluePrint;
 
 public final class UserAdminDefaultsInitializer {
 
@@ -42,6 +44,13 @@ public final class UserAdminDefaultsInitializer {
 
 		final IBluePrintProxyFactory bppf = Toolkit.getBluePrintProxyFactory();
 
+		bppf.addDefaultsInitializer(IBeanTableBluePrint.class, new IDefaultInitializer<IBeanTableBluePrint<?>>() {
+			@Override
+			public void initialize(final IBeanTableBluePrint<?> bluePrint) {
+				bluePrint.setAutoPackPolicy(AutoPackPolicy.ONCE);
+			}
+		});
+		
 		bppf.addDefaultsInitializer(IBeanFormBluePrint.class, new IDefaultInitializer<IBeanFormBluePrint<?>>() {
 			@Override
 			public void initialize(final IBeanFormBluePrint<?> builder) {

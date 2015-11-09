@@ -28,76 +28,78 @@
 
 package org.jowidgets.useradmin.rest.client.example;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.binary.StringUtils;
 import org.jowidgets.useradmin.rest.api.Credentials;
 import org.jowidgets.useradmin.rest.api.Person;
 import org.jowidgets.useradmin.rest.api.Principal;
+import org.jowidgets.useradmin.rest.client.BasicAuthenticationHelper;
+import org.jowidgets.useradmin.rest.client.UserAdminResourceFactory;
 import org.jowidgets.util.security.String2Hash;
 
 public final class UserAdminRestExampleClient {
 
-	private static final String REST_SERVICE_LOGIN_NAME = "admin";
-	private static final String REST_SERVICE_PASSWORD = "admin";
-
 	private static final String LOGIN_NAME = "admin";
 	private static final String PASSWORD = "admin";
-
-	private static final String SERVER_URL = "http://localhost:8080/useradmin-h2-web/rest/";
-	private static final String AUTHENTICATION_SERVICE = SERVER_URL + "service/security/verify-credentials";
-	private static final String AUTHORIZATION_SERVICE = SERVER_URL + "service/security/authorize";
-
-	private static final String PERSON_RESOURCE = SERVER_URL + "persons";
 
 	private UserAdminRestExampleClient() {}
 
 	public static void main(final String[] args) {
-		final Client client = ClientBuilder.newClient();
+		final Principal principal = requestAuthenticationService();
+		requestAuthorizationService(principal);
+		requestPersonResource();
+	}
 
-		final WebTarget personResource = client.target(PERSON_RESOURCE + "/" + LOGIN_NAME);
-		Builder requestBuilder = personResource.request();
-		setBasicAuthentication(requestBuilder);
-		final Person person = requestBuilder.accept(MediaType.APPLICATION_JSON).get(Person.class);
-		//CHECKSTYLE:OFF
-		System.out.println("Person: "
-			+ person
-			+ " Autheticated: "
-			+ String2Hash.encode(PASSWORD).equals(person.getPasswordHash()));
-		//CHECKSTYLE:ON
+	private static Principal requestAuthenticationService() {
+		final UserAdminResourceFactory resourceFactory = new UserAdminResourceFactory();
+		final BasicAuthenticationHelper authenticationHelper = new BasicAuthenticationHelper();
 
-		final WebTarget authenticationService = client.target(AUTHENTICATION_SERVICE);
-		final Credentials credentials = new Credentials(LOGIN_NAME, PASSWORD);
+		final WebTarget authenticationService = resourceFactory.getAuthenticationService();
+		final Builder requestBuilder = authenticationService.request().accept(MediaType.APPLICATION_JSON);
+		authenticationHelper.setBasicAuthentication(requestBuilder);
 
-		requestBuilder = authenticationService.request().accept(MediaType.APPLICATION_JSON);
-		setBasicAuthentication(requestBuilder);
-		Response response = requestBuilder.post(Entity.entity(credentials, MediaType.APPLICATION_JSON));
+		final Response response = requestBuilder.post(Entity.entity(
+				new Credentials(LOGIN_NAME, PASSWORD),
+				MediaType.APPLICATION_JSON));
 
-		Principal principal = response.readEntity(Principal.class);
+		final Principal principal = response.readEntity(Principal.class);
 		//CHECKSTYLE:OFF
 		System.out.println("After authentication: " + principal);
 		//CHECKSTYLE:ON
 
-		final WebTarget authorizationService = client.target(AUTHORIZATION_SERVICE);
-		requestBuilder = authorizationService.request();
-		setBasicAuthentication(requestBuilder);
-		response = requestBuilder.post(Entity.entity(principal, MediaType.APPLICATION_JSON));
+		return principal;
+	}
+
+	private static void requestAuthorizationService(Principal principal) {
+		final UserAdminResourceFactory resourceFactory = new UserAdminResourceFactory();
+		final BasicAuthenticationHelper authenticationHelper = new BasicAuthenticationHelper();
+
+		final WebTarget authorizationService = resourceFactory.getAuthorizationService();
+		final Builder requestBuilder = authorizationService.request();
+		authenticationHelper.setBasicAuthentication(requestBuilder);
+
+		final Response response = requestBuilder.post(Entity.entity(principal, MediaType.APPLICATION_JSON));
 		principal = response.readEntity(Principal.class);
 		//CHECKSTYLE:OFF
 		System.out.println("After authorization: " + principal);
 		//CHECKSTYLE:ON
 	}
 
-	private static void setBasicAuthentication(final Builder invocationBuilder) {
-		final String credentials = REST_SERVICE_LOGIN_NAME + ":" + REST_SERVICE_PASSWORD;
-		final String encodedCredentials = Base64.encodeBase64String(StringUtils.getBytesUtf8(credentials));
-		invocationBuilder.header("Authorization", "Basic " + encodedCredentials);
+	private static void requestPersonResource() {
+		final UserAdminResourceFactory resourceFactory = new UserAdminResourceFactory();
+		final BasicAuthenticationHelper authenticationHelper = new BasicAuthenticationHelper();
+
+		final WebTarget personResource = resourceFactory.getPerson(LOGIN_NAME);
+		final Builder requestBuilder = personResource.request();
+		authenticationHelper.setBasicAuthentication(requestBuilder);
+		final Person person = requestBuilder.accept(MediaType.APPLICATION_JSON).get(Person.class);
+		//CHECKSTYLE:OFF
+		System.out.println("Authenticated: " + String2Hash.encode(PASSWORD).equals(person.getPasswordHash()) + ", " + person);
+		//CHECKSTYLE:ON
 	}
+
 }

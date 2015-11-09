@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, grossmann
+ * Copyright (c) 2012, grossmann
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -26,43 +26,44 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.rest.service.security;
+package org.jowidgets.useradmin.rest.client;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
 
-import org.jowidgets.security.api.IAuthenticationService;
-import org.jowidgets.security.tools.DefaultCredentials;
-import org.jowidgets.security.tools.DefaultPrincipal;
-import org.jowidgets.useradmin.rest.api.Credentials;
-import org.jowidgets.useradmin.rest.api.Principal;
+import org.jowidgets.util.Assert;
 
-@Path("service/security")
-public final class AuthenticationService {
+public final class UserAdminResourceFactory {
 
-	private final IAuthenticationService<DefaultPrincipal, DefaultCredentials> authenticationService;
+	private static final String AUTHENTICATION_SERVICE = "service/security/authenticate";
+	private static final String AUTHORIZATION_SERVICE = "service/security/authorize";
 
-	public AuthenticationService() {
-		this.authenticationService = org.jowidgets.security.api.AuthenticationService.getAuthenticationService();
+	private static final String PERSONS_RESOURCE = "persons";
+
+	private final String url;
+	private final Client client;
+
+	public UserAdminResourceFactory() {
+		this(UserAdminConfig.getInstance());
 	}
 
-	@POST
-	@Path("authenticate")
-	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public Principal authenticate(final Credentials credentials) {
-		if (credentials != null) {
-			final DefaultPrincipal principal = authenticationService.authenticate(new DefaultCredentials(
-				credentials.getUsername(),
-				credentials.getPassword()));
-			if (principal != null) {
-				return new Principal(principal.getUsername());
-			}
-		}
-		return null;
+	public UserAdminResourceFactory(final IUserAdminConfig config) {
+		Assert.paramNotNull(config, "config");
+		this.url = config.getUrl();
+		this.client = ClientBuilder.newClient();
 	}
 
+	public WebTarget getPerson(final String login) {
+		Assert.paramNotEmpty(login, "login");
+		return client.target(url + PERSONS_RESOURCE + "/" + login);
+	}
+
+	public WebTarget getAuthenticationService() {
+		return client.target(url + AUTHENTICATION_SERVICE);
+	}
+
+	public WebTarget getAuthorizationService() {
+		return client.target(url + AUTHORIZATION_SERVICE);
+	}
 }
