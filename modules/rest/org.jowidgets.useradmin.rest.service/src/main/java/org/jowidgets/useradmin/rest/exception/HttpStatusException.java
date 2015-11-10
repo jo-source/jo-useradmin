@@ -26,20 +26,21 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.rest.filter;
+package org.jowidgets.useradmin.rest.exception;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
+public class HttpStatusException extends RuntimeException {
 
-import org.jowidgets.cap.common.api.exception.AuthorizationFailedException;
+	private static final long serialVersionUID = -1896287043377395399L;
 
-@Provider
-public final class AuthorizationFailedExceptionMapper implements ExceptionMapper<AuthorizationFailedException> {
+	private final int statusCode;
 
-	@Override
-	public Response toResponse(final AuthorizationFailedException exception) {
-		return Response.status(Response.Status.UNAUTHORIZED).entity(exception.getAuthorisation()).build();
+	public HttpStatusException(final int statusCode, final String message) {
+		super(message);
+		this.statusCode = statusCode;
+	}
+
+	public int getStatusCode() {
+		return statusCode;
 	}
 
 }

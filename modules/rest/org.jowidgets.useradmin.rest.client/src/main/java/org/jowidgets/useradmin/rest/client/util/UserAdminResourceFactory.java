@@ -26,18 +26,21 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.rest.client;
+package org.jowidgets.useradmin.rest.client.util;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
+import org.jowidgets.useradmin.rest.client.config.IUserAdminConfig;
+import org.jowidgets.useradmin.rest.client.config.UserAdminConfig;
 import org.jowidgets.util.Assert;
 
 public final class UserAdminResourceFactory {
 
 	private static final String AUTHENTICATION_SERVICE = "service/security/authenticate";
 	private static final String AUTHORIZATION_SERVICE = "service/security/authorize";
+	private static final String PASSWORD_CHANGE_SERVICE = "service/security/change-password";
 
 	private static final String PERSONS_RESOURCE = "persons";
 	private static final String ROLES_RESOURCE = "roles";
@@ -91,5 +94,9 @@ public final class UserAdminResourceFactory {
 
 	public WebTarget getAuthorizationService() {
 		return client.target(url + AUTHORIZATION_SERVICE);
+	}
+
+	public WebTarget getPasswordChangeService() {
+		return client.target(url + PASSWORD_CHANGE_SERVICE);
 	}
 }

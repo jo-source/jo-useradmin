@@ -32,14 +32,14 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import org.jowidgets.cap.common.api.exception.AuthorizationFailedException;
+import org.jowidgets.useradmin.rest.exception.HttpStatusException;
 
 @Provider
-public final class AuthorizationFailedExceptionMapper implements ExceptionMapper<AuthorizationFailedException> {
+public final class HttpStatusExceptionMapper implements ExceptionMapper<HttpStatusException> {
 
 	@Override
-	public Response toResponse(final AuthorizationFailedException exception) {
-		return Response.status(Response.Status.UNAUTHORIZED).entity(exception.getAuthorisation()).build();
+	public Response toResponse(final HttpStatusException exception) {
+		return Response.status(exception.getStatusCode()).entity(exception.getMessage()).build();
 	}
 
 }

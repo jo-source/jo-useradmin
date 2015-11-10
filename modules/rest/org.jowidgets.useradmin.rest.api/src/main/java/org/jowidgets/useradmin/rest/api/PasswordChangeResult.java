@@ -26,20 +26,18 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.rest.filter;
+package org.jowidgets.useradmin.rest.api;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlType;
 
-import org.jowidgets.cap.common.api.exception.AuthorizationFailedException;
+@XmlType(name = "PasswordChangeResult")
+@XmlEnum
+public enum PasswordChangeResult {
 
-@Provider
-public final class AuthorizationFailedExceptionMapper implements ExceptionMapper<AuthorizationFailedException> {
-
-	@Override
-	public Response toResponse(final AuthorizationFailedException exception) {
-		return Response.status(Response.Status.UNAUTHORIZED).entity(exception.getAuthorisation()).build();
-	}
+	OK,
+	OLD_PASSWORD_INVALID,
+	NEW_PASSWORD_INVALID,
+	USER_NOT_FOUND
 
 }

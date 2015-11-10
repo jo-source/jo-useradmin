@@ -33,6 +33,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Response;
 
 import org.jowidgets.cap.service.api.transaction.ITransactionTemplate;
 import org.jowidgets.cap.service.jpa.api.EntityManagerFactoryProvider;
@@ -40,6 +41,7 @@ import org.jowidgets.cap.service.jpa.api.JpaTransactionTemplate;
 import org.jowidgets.cap.service.jpa.tools.entity.EntityManagerProvider;
 import org.jowidgets.useradmin.common.security.AuthKeys;
 import org.jowidgets.useradmin.rest.authorization.AuthorizationChecker;
+import org.jowidgets.useradmin.rest.exception.HttpStatusException;
 import org.jowidgets.useradmin.service.persistence.UseradminPersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Authorization;
 import org.jowidgets.useradmin.service.persistence.dao.AuthorizationDAO;
@@ -59,7 +61,7 @@ public final class AuthorizationResource {
 		AuthorizationChecker.check(AuthKeys.CREATE_AUTHORIZATION);
 		AuthorizationChecker.check(AuthKeys.UPDATE_AUTHORIZATION);
 		if (authorization == null || EmptyCheck.isEmpty(authorization.getKey())) {
-			return;
+			throw new HttpStatusException(Response.Status.BAD_REQUEST.getStatusCode(), "Authorization key must not be empty");
 		}
 		transactionTemplate.doInTransaction(new Runnable() {
 			@Override
@@ -74,7 +76,7 @@ public final class AuthorizationResource {
 	public void delete(@PathParam("key") final String key) {
 		AuthorizationChecker.check(AuthKeys.DELETE_AUTHORIZATION);
 		if (EmptyCheck.isEmpty(key)) {
-			return;
+			throw new HttpStatusException(Response.Status.BAD_REQUEST.getStatusCode(), "Authorization key must not be empty");
 		}
 		transactionTemplate.doInTransaction(new Runnable() {
 			@Override

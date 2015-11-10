@@ -33,12 +33,14 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.jowidgets.security.api.IAuthenticationService;
 import org.jowidgets.security.tools.DefaultCredentials;
 import org.jowidgets.security.tools.DefaultPrincipal;
 import org.jowidgets.useradmin.rest.api.Credentials;
 import org.jowidgets.useradmin.rest.api.Principal;
+import org.jowidgets.useradmin.rest.exception.HttpStatusException;
 
 @Path("service/security")
 public final class AuthenticationService {
@@ -54,14 +56,17 @@ public final class AuthenticationService {
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Principal authenticate(final Credentials credentials) {
-		if (credentials != null) {
-			final DefaultPrincipal principal = authenticationService.authenticate(new DefaultCredentials(
-				credentials.getUsername(),
-				credentials.getPassword()));
-			if (principal != null) {
-				return new Principal(principal.getUsername());
-			}
+		if (credentials == null) {
+			throw new HttpStatusException(Response.Status.BAD_REQUEST.getStatusCode(), "Credentials must not be null");
 		}
+
+		final DefaultPrincipal principal = authenticationService.authenticate(new DefaultCredentials(
+			credentials.getUsername(),
+			credentials.getPassword()));
+		if (principal != null) {
+			return new Principal(principal.getUsername());
+		}
+
 		return null;
 	}
 

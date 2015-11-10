@@ -26,7 +26,7 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.rest.client;
+package org.jowidgets.useradmin.rest.client.config;
 
 public interface IUserAdminConfig {
 

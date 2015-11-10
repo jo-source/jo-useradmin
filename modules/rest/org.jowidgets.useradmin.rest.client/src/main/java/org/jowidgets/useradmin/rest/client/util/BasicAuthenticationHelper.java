@@ -26,12 +26,14 @@
  * DAMAGE.
  */
 
-package org.jowidgets.useradmin.rest.client;
+package org.jowidgets.useradmin.rest.client.util;
 
 import javax.ws.rs.client.Invocation;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
+import org.jowidgets.useradmin.rest.client.config.IUserAdminConfig;
+import org.jowidgets.useradmin.rest.client.config.UserAdminConfig;
 import org.jowidgets.util.Assert;
 
 public final class BasicAuthenticationHelper {

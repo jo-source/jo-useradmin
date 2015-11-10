@@ -37,6 +37,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.jowidgets.cap.service.jpa.api.EntityManagerContextTemplate;
 import org.jowidgets.cap.service.jpa.api.EntityManagerFactoryProvider;
@@ -44,6 +45,7 @@ import org.jowidgets.cap.service.jpa.api.IEntityManagerContextTemplate;
 import org.jowidgets.cap.service.jpa.tools.entity.EntityManagerProvider;
 import org.jowidgets.useradmin.common.security.AuthKeys;
 import org.jowidgets.useradmin.rest.authorization.AuthorizationChecker;
+import org.jowidgets.useradmin.rest.exception.HttpStatusException;
 import org.jowidgets.useradmin.service.persistence.UseradminPersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Person;
 import org.jowidgets.useradmin.service.persistence.dao.PersonDAO;
@@ -62,10 +64,13 @@ public final class PersonResource {
 	@Path("{loginName}")
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public org.jowidgets.useradmin.rest.api.Person getPersonByLoginName(@PathParam("loginName") final String loginName) {
-		AuthorizationChecker.check(AuthKeys.READ_PERSON);
+
 		if (EmptyCheck.isEmpty(loginName)) {
-			return null;
+			throw new HttpStatusException(Response.Status.BAD_REQUEST.getStatusCode(), "Login name must not be empty");
 		}
+
+		AuthorizationChecker.check(AuthKeys.READ_PERSON);
+
 		return findPerson(loginName);
 	}
 

@@ -43,7 +43,7 @@ public final class AuthenticationRequestFilter implements ContainerRequestFilter
 	@Override
 	public void filter(final ContainerRequestContext requestContext) throws IOException {
 		if (SecurityContextHolder.getSecurityContext() == null) {
-			requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
+			requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity("No security context set").build());
 		}
 	}
 

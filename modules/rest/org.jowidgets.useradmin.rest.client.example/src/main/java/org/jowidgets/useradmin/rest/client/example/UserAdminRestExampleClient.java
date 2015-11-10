@@ -36,17 +36,20 @@ import javax.ws.rs.core.Response;
 
 import org.jowidgets.useradmin.rest.api.Authorization;
 import org.jowidgets.useradmin.rest.api.Credentials;
+import org.jowidgets.useradmin.rest.api.PasswordChangeRequest;
+import org.jowidgets.useradmin.rest.api.PasswordChangeResult;
 import org.jowidgets.useradmin.rest.api.Person;
 import org.jowidgets.useradmin.rest.api.Principal;
 import org.jowidgets.useradmin.rest.api.Role;
-import org.jowidgets.useradmin.rest.client.BasicAuthenticationHelper;
-import org.jowidgets.useradmin.rest.client.UserAdminResourceFactory;
+import org.jowidgets.useradmin.rest.client.util.BasicAuthenticationHelper;
+import org.jowidgets.useradmin.rest.client.util.UserAdminResourceFactory;
 import org.jowidgets.util.security.String2Hash;
 
 public final class UserAdminRestExampleClient {
 
 	private static final String LOGIN_NAME = "admin";
 	private static final String PASSWORD = "admin";
+	private static final String PASSWORD_2 = "admin2";
 
 	private static final int AUTHORIZATION_COUNT = 10;
 
@@ -55,6 +58,11 @@ public final class UserAdminRestExampleClient {
 	public static void main(final String[] args) {
 		final Principal principal = requestAuthenticationService();
 		requestAuthorizationService(principal);
+
+		changePassword(PASSWORD, PASSWORD_2);
+
+		changePassword(PASSWORD_2, PASSWORD);
+
 		requestPersonResource();
 
 		createRole();
@@ -103,6 +111,25 @@ public final class UserAdminRestExampleClient {
 		principal = response.readEntity(Principal.class);
 		//CHECKSTYLE:OFF
 		System.out.println("After authorization: " + principal);
+		//CHECKSTYLE:ON
+	}
+
+	private static void changePassword(final String oldPassword, final String newPassword) {
+		final UserAdminResourceFactory resourceFactory = new UserAdminResourceFactory();
+		final BasicAuthenticationHelper authenticationHelper = new BasicAuthenticationHelper();
+
+		final WebTarget passwordChangeService = resourceFactory.getPasswordChangeService();
+		final Builder requestBuilder = passwordChangeService.request();
+
+		//password will be changed for authorized user, so use login and old password for authentication
+		authenticationHelper.setBasicAuthentication(requestBuilder, LOGIN_NAME, oldPassword);
+
+		final PasswordChangeRequest passwordChangeRequest = new PasswordChangeRequest(oldPassword, newPassword);
+		final Response response = requestBuilder.post(Entity.entity(passwordChangeRequest, MediaType.APPLICATION_JSON));
+
+		final PasswordChangeResult passwordChangeResult = response.readEntity(PasswordChangeResult.class);
+		//CHECKSTYLE:OFF
+		System.out.println("Password changed: " + passwordChangeResult);
 		//CHECKSTYLE:ON
 	}
 

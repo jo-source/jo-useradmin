@@ -35,10 +35,12 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.jowidgets.security.api.IAuthorizationService;
 import org.jowidgets.security.tools.DefaultPrincipal;
 import org.jowidgets.useradmin.rest.api.Principal;
+import org.jowidgets.useradmin.rest.exception.HttpStatusException;
 
 @Path("service/security/")
 public final class AuthorizationService {
@@ -54,14 +56,15 @@ public final class AuthorizationService {
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Principal authorize(final Principal principal) {
-		if (principal != null) {
-			final DefaultPrincipal resultPrincipal = authorizationService.authorize(new DefaultPrincipal(principal.getUsername()));
-			if (resultPrincipal != null) {
-				return new Principal(
-					resultPrincipal.getUsername(),
-					new ArrayList<String>(resultPrincipal.getGrantedAuthorities()));
-			}
+		if (principal == null) {
+			throw new HttpStatusException(Response.Status.BAD_REQUEST.getStatusCode(), "Credentials must not be null");
 		}
+
+		final DefaultPrincipal resultPrincipal = authorizationService.authorize(new DefaultPrincipal(principal.getUsername()));
+		if (resultPrincipal != null) {
+			return new Principal(resultPrincipal.getUsername(), new ArrayList<String>(resultPrincipal.getGrantedAuthorities()));
+		}
+
 		return null;
 	}
 

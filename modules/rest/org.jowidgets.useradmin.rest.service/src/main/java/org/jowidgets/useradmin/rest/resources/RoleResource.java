@@ -33,6 +33,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Response;
 
 import org.jowidgets.cap.service.api.transaction.ITransactionTemplate;
 import org.jowidgets.cap.service.jpa.api.EntityManagerFactoryProvider;
@@ -40,6 +41,7 @@ import org.jowidgets.cap.service.jpa.api.JpaTransactionTemplate;
 import org.jowidgets.cap.service.jpa.tools.entity.EntityManagerProvider;
 import org.jowidgets.useradmin.common.security.AuthKeys;
 import org.jowidgets.useradmin.rest.authorization.AuthorizationChecker;
+import org.jowidgets.useradmin.rest.exception.HttpStatusException;
 import org.jowidgets.useradmin.service.persistence.UseradminPersistenceUnitNames;
 import org.jowidgets.useradmin.service.persistence.bean.Authorization;
 import org.jowidgets.useradmin.service.persistence.bean.Role;
@@ -60,11 +62,14 @@ public final class RoleResource {
 
 	@PUT
 	public void addOrModify(final org.jowidgets.useradmin.rest.api.Role role) {
+
+		if (role == null || EmptyCheck.isEmpty(role.getName())) {
+			throw new HttpStatusException(Response.Status.BAD_REQUEST.getStatusCode(), "Role name must not be empty");
+		}
+
 		AuthorizationChecker.check(AuthKeys.CREATE_ROLE);
 		AuthorizationChecker.check(AuthKeys.UPDATE_ROLE);
-		if (role == null || EmptyCheck.isEmpty(role.getName())) {
-			return;
-		}
+
 		transactionTemplate.doInTransaction(new Runnable() {
 			@Override
 			public void run() {
@@ -74,16 +79,19 @@ public final class RoleResource {
 	}
 
 	@DELETE
-	@Path("{key}")
-	public void delete(@PathParam("key") final String key) {
-		AuthorizationChecker.check(AuthKeys.DELETE_ROLE);
-		if (EmptyCheck.isEmpty(key)) {
-			return;
+	@Path("{role-name}")
+	public void delete(@PathParam("role-name") final String roleName) {
+
+		if (EmptyCheck.isEmpty(roleName)) {
+			throw new HttpStatusException(Response.Status.BAD_REQUEST.getStatusCode(), "Role name must not be empty");
 		}
+
+		AuthorizationChecker.check(AuthKeys.DELETE_ROLE);
+
 		transactionTemplate.doInTransaction(new Runnable() {
 			@Override
 			public void run() {
-				deleteInTransaction(key);
+				deleteInTransaction(roleName);
 			}
 		});
 	}
@@ -93,11 +101,17 @@ public final class RoleResource {
 	public void addAuthorization(
 		@PathParam("role-name") final String roleName,
 		final org.jowidgets.useradmin.rest.api.Authorization authorization) {
+
+		if (EmptyCheck.isEmpty(roleName)) {
+			throw new HttpStatusException(Response.Status.BAD_REQUEST.getStatusCode(), "Role name must not be empty");
+		}
+		if (authorization == null || EmptyCheck.isEmpty(authorization.getKey())) {
+			throw new HttpStatusException(Response.Status.BAD_REQUEST.getStatusCode(), "Authorization key must not be empty");
+		}
+
 		AuthorizationChecker.check(AuthKeys.CREATE_AUTHORIZATION);
 		AuthorizationChecker.check(AuthKeys.CREATE_ROLE_AUTHORIZATION_LINK);
-		if (EmptyCheck.isEmpty(roleName) || authorization == null || EmptyCheck.isEmpty(authorization.getKey())) {
-			return;
-		}
+
 		transactionTemplate.doInTransaction(new Runnable() {
 			@Override
 			public void run() {
@@ -111,10 +125,16 @@ public final class RoleResource {
 	public void deleteAuthorization(
 		@PathParam("role-name") final String roleName,
 		@PathParam("authorization-key") final String authorizationKey) {
-		AuthorizationChecker.check(AuthKeys.DELETE_ROLE_AUTHORIZATION_LINK);
-		if (EmptyCheck.isEmpty(roleName) || EmptyCheck.isEmpty(authorizationKey)) {
-			return;
+
+		if (EmptyCheck.isEmpty(roleName)) {
+			throw new HttpStatusException(Response.Status.BAD_REQUEST.getStatusCode(), "Role name must not be empty");
 		}
+		if (EmptyCheck.isEmpty(authorizationKey)) {
+			throw new HttpStatusException(Response.Status.BAD_REQUEST.getStatusCode(), "Authorization key must not be empty");
+		}
+
+		AuthorizationChecker.check(AuthKeys.DELETE_ROLE_AUTHORIZATION_LINK);
+
 		transactionTemplate.doInTransaction(new Runnable() {
 			@Override
 			public void run() {
@@ -146,13 +166,13 @@ public final class RoleResource {
 	}
 
 	private void addAuthorizationInTransaction(
-		@PathParam("role-name") final String roleName,
+		final String roleName,
 		final org.jowidgets.useradmin.rest.api.Authorization authorization) {
 		final EntityManager em = EntityManagerProvider.get();
 
 		final Role role = findRole(roleName);
 		if (role == null) {
-			return;
+			throw new HttpStatusException(Response.Status.NOT_FOUND.getStatusCode(), "Role '" + roleName + "' not found");
 		}
 
 		Authorization authorizationToLink = findAuthorization(authorization.getKey());
@@ -174,9 +194,7 @@ public final class RoleResource {
 
 	}
 
-	private void deleteAuthorizationInTransaction(
-		@PathParam("role-name") final String roleName,
-		@PathParam("authorization-key") final String authorizationKey) {
+	private void deleteAuthorizationInTransaction(final String roleName, final String authorizationKey) {
 		final EntityManager em = EntityManagerProvider.get();
 
 		final Role role = findRole(roleName);
