@@ -28,7 +28,6 @@
 		<module>../org.jowidgets.useradmin.starter.standalone.swt.win</module>
 		<module>../org.jowidgets.useradmin.starter.standalone.swt.gtk64</module>
 		
-		<!--
 		<module>../org.jowidgets.useradmin.starter.client.swing.webstart</module>
 		<module>../org.jowidgets.useradmin.starter.client.swt.win.webstart</module>
 		<module>../org.jowidgets.useradmin.starter.client.swt.gtk64.webstart</module>
@@ -37,7 +36,7 @@
 		<module>../org.jowidgets.useradmin.starter.standalone.swt.gtk64.webstart</module>
 		<module>../org.jowidgets.useradmin.starter.webapp.oracle</module>
 		<module>../org.jowidgets.useradmin.starter.webapp.h2</module>
-		-->
+		
 	</modules>
 
 </project>
