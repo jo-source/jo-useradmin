@@ -61,9 +61,9 @@ public final class PersonResource {
 	}
 
 	@GET
-	@Path("{loginName}")
+	@Path("{login-name}")
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public org.jowidgets.useradmin.rest.api.Person getPersonByLoginName(@PathParam("loginName") final String loginName) {
+	public org.jowidgets.useradmin.rest.api.Person getPersonByLoginName(@PathParam("login-name") final String loginName) {
 
 		if (EmptyCheck.isEmpty(loginName)) {
 			throw new HttpStatusException(Response.Status.BAD_REQUEST.getStatusCode(), "Login name must not be empty");
