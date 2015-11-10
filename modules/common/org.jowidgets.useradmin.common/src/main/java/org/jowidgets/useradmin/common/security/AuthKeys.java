@@ -36,34 +36,34 @@ import java.util.List;
 public final class AuthKeys {
 
 	//Executor services
-	public static final String EXECUTOR_ACTIVATE_PERSON = "EXECUTOR_ACTIVATE_PERSON";
-	public static final String EXECUTOR_DEACTIVATE_PERSON = "EXECUTOR_DEACTIVATE_PERSON";
+	public static final String EXECUTOR_ACTIVATE_PERSON = "USERADMIN_EXECUTOR_ACTIVATE_PERSON";
+	public static final String EXECUTOR_DEACTIVATE_PERSON = "USERADMIN_EXECUTOR_DEACTIVATE_PERSON";
 
 	//CRUD services
-	public static final String CREATE_PERSON = "CREATE_PERSON";
-	public static final String READ_PERSON = "READ_PERSON";
-	public static final String UPDATE_PERSON = "UPDATE_PERSON";
-	public static final String DELETE_PERSON = "DELETE_PERSON";
+	public static final String CREATE_PERSON = "USERADMIN_CREATE_PERSON";
+	public static final String READ_PERSON = "USERADMIN_READ_PERSON";
+	public static final String UPDATE_PERSON = "USERADMIN_UPDATE_PERSON";
+	public static final String DELETE_PERSON = "USERADMIN_DELETE_PERSON";
 
-	public static final String CREATE_ROLE = "CREATE_ROLE";
-	public static final String READ_ROLE = "READ_ROLE";
-	public static final String UPDATE_ROLE = "UPDATE_ROLE";
-	public static final String DELETE_ROLE = "DELETE_ROLE";
+	public static final String CREATE_ROLE = "USERADMIN_CREATE_ROLE";
+	public static final String READ_ROLE = "USERADMIN_READ_ROLE";
+	public static final String UPDATE_ROLE = "USERADMIN_UPDATE_ROLE";
+	public static final String DELETE_ROLE = "USERADMIN_DELETE_ROLE";
 
-	public static final String CREATE_AUTHORIZATION = "CREATE_AUTHORIZATION";
-	public static final String READ_AUTHORIZATION = "READ_AUTHORIZATION";
-	public static final String UPDATE_AUTHORIZATION = "UPDATE_AUTHORIZATION";
-	public static final String DELETE_AUTHORIZATION = "DELETE_AUTHORIZATION";
+	public static final String CREATE_AUTHORIZATION = "USERADMIN_CREATE_AUTHORIZATION";
+	public static final String READ_AUTHORIZATION = "USERADMIN_READ_AUTHORIZATION";
+	public static final String UPDATE_AUTHORIZATION = "USERADMIN_UPDATE_AUTHORIZATION";
+	public static final String DELETE_AUTHORIZATION = "USERADMIN_DELETE_AUTHORIZATION";
 
-	public static final String CREATE_PERSON_ROLE_LINK = "CREATE_PERSON_ROLE_LINK";
-	public static final String READ_PERSON_ROLE_LINK = "READ_PERSON_ROLE_LINK";
-	public static final String UPDATE_PERSON_ROLE_LINK = "UPDATE_PERSON_ROLE_LINK";
-	public static final String DELETE_PERSON_ROLE_LINK = "DELETE_PERSON_ROLE_LINK";
+	public static final String CREATE_PERSON_ROLE_LINK = "USERADMIN_CREATE_PERSON_ROLE_LINK";
+	public static final String READ_PERSON_ROLE_LINK = "USERADMIN_READ_PERSON_ROLE_LINK";
+	public static final String UPDATE_PERSON_ROLE_LINK = "USERADMIN_UPDATE_PERSON_ROLE_LINK";
+	public static final String DELETE_PERSON_ROLE_LINK = "USERADMIN_DELETE_PERSON_ROLE_LINK";
 
-	public static final String CREATE_ROLE_AUTHORIZATION_LINK = "CREATE_ROLE_AUTHORIZATION_LINK";
-	public static final String READ_ROLE_AUTHORIZATION_LINK = "READ_ROLE_AUTHORIZATION_LINK";
-	public static final String UPDATE_ROLE_AUTHORIZATION_LINK = "UPDATE_ROLE_AUTHORIZATION_LINK";
-	public static final String DELETE_ROLE_AUTHORIZATION_LINK = "DELETE_ROLE_AUTHORIZATION_LINK";
+	public static final String CREATE_ROLE_AUTHORIZATION_LINK = "USERADMIN_CREATE_ROLE_AUTHORIZATION_LINK";
+	public static final String READ_ROLE_AUTHORIZATION_LINK = "USERADMIN_READ_ROLE_AUTHORIZATION_LINK";
+	public static final String UPDATE_ROLE_AUTHORIZATION_LINK = "USERADMIN_UPDATE_ROLE_AUTHORIZATION_LINK";
+	public static final String DELETE_ROLE_AUTHORIZATION_LINK = "USERADMIN_DELETE_ROLE_AUTHORIZATION_LINK";
 
 	//Authorizations collection
 	public static final Collection<String> ALL_AUTHORIZATIONS = createAuthorizations();

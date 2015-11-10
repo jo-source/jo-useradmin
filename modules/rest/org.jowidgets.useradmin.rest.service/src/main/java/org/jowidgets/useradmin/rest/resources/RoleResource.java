@@ -59,7 +59,6 @@ public final class RoleResource {
 	}
 
 	@PUT
-	@Path("")
 	public void addOrModify(final org.jowidgets.useradmin.rest.api.Role role) {
 		AuthorizationChecker.check(AuthKeys.CREATE_ROLE);
 		AuthorizationChecker.check(AuthKeys.UPDATE_ROLE);

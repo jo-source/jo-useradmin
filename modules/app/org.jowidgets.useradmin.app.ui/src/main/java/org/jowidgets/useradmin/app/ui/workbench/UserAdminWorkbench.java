@@ -47,6 +47,18 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 
 public class UserAdminWorkbench implements IWorkbenchFactory {
 
+	private final boolean rwt;
+	private final boolean autoCompletionCombos;
+
+	public UserAdminWorkbench() {
+		this(false, true);
+	}
+
+	public UserAdminWorkbench(final boolean rwt, final boolean autoCompletionCombos) {
+		this.rwt = rwt;
+		this.autoCompletionCombos = autoCompletionCombos;
+	}
+
 	@Override
 	public IWorkbench create() {
 
@@ -54,12 +66,14 @@ public class UserAdminWorkbench implements IWorkbenchFactory {
 		SLF4JBridgeHandler.install();
 
 		UserAdminSilkIconsInitializer.initialize();
-		UserAdminDefaultsInitializer.initialize();
+		UserAdminDefaultsInitializer.initialize(autoCompletionCombos);
 
 		final IWorkbenchModelBuilder builder = new CapWorkbenchModelBuilder();
 
 		builder.setIcon(UserAdminIcons.USER_ADMINISTRATION_ICON);
 		builder.setLabel(UserAdminMessages.USER_ADMINISTRATION_LABEL.get());
+		builder.setInitialMaximized(rwt);
+		builder.setDecorated(!rwt);
 
 		builder.addInitializeCallback(new IWorkbenchInitializeCallback() {
 			@Override

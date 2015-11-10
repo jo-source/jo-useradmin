@@ -55,7 +55,6 @@ public final class AuthorizationResource {
 	}
 
 	@PUT
-	@Path("")
 	public void addOrModify(final org.jowidgets.useradmin.rest.api.Authorization authorization) {
 		AuthorizationChecker.check(AuthKeys.CREATE_AUTHORIZATION);
 		AuthorizationChecker.check(AuthKeys.UPDATE_AUTHORIZATION);

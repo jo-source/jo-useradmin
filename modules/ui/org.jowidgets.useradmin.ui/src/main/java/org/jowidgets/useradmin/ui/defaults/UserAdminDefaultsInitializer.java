@@ -30,6 +30,7 @@ package org.jowidgets.useradmin.ui.defaults;
 
 import org.jowidgets.api.toolkit.Toolkit;
 import org.jowidgets.api.types.AutoPackPolicy;
+import org.jowidgets.api.widgets.blueprint.builder.IComboBoxSelectionSetupBuilder;
 import org.jowidgets.api.widgets.blueprint.builder.ITableSetupBuilder;
 import org.jowidgets.api.widgets.blueprint.defaults.IDefaultInitializer;
 import org.jowidgets.api.widgets.blueprint.factory.IBluePrintProxyFactory;
@@ -40,7 +41,7 @@ public final class UserAdminDefaultsInitializer {
 
 	private UserAdminDefaultsInitializer() {}
 
-	public static void initialize() {
+	public static void initialize(final boolean autoCompletionCombos) {
 
 		final IBluePrintProxyFactory bppf = Toolkit.getBluePrintProxyFactory();
 
@@ -50,7 +51,7 @@ public final class UserAdminDefaultsInitializer {
 				bluePrint.setAutoPackPolicy(AutoPackPolicy.ONCE);
 			}
 		});
-		
+
 		bppf.addDefaultsInitializer(IBeanFormBluePrint.class, new IDefaultInitializer<IBeanFormBluePrint<?>>() {
 			@Override
 			public void initialize(final IBeanFormBluePrint<?> builder) {
@@ -64,6 +65,15 @@ public final class UserAdminDefaultsInitializer {
 				setupBuilder.setEditable(false);
 			}
 		});
+
+		bppf.addDefaultsInitializer(
+				IComboBoxSelectionSetupBuilder.class,
+				new IDefaultInitializer<IComboBoxSelectionSetupBuilder<?, ?>>() {
+					@Override
+					public void initialize(final IComboBoxSelectionSetupBuilder<?, ?> setupBuilder) {
+						setupBuilder.setAutoCompletion(autoCompletionCombos);
+					}
+				});
 
 	}
 

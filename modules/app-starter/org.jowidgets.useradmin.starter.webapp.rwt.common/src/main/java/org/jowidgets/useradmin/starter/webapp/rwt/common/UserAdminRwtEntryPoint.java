@@ -35,7 +35,7 @@ public final class UserAdminRwtEntryPoint extends CapRwtEntryPoint {
 	//StartUrl: http://127.0.0.1:8080/useradmin-xxxx-web/Useradmin   
 	//where xxxx is the db, e.g. h2, oracle, ...
 	public UserAdminRwtEntryPoint() {
-		super(new UserAdminWorkbench());
+		super(new UserAdminWorkbench(true, false));
 	}
 
 }
