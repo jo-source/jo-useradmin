@@ -12,8 +12,8 @@
 		<java.version>1.7</java.version>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
-		<jowidgets.version>0.52.0</jowidgets.version>
-		<jocap.version>0.45.0</jocap.version>
+		<jowidgets.version>0.54.0</jowidgets.version>
+		<jocap.version>0.47.0</jocap.version>
 		<jersey.version>2.10.1</jersey.version>
 	</properties>
 
@@ -81,6 +81,12 @@
 			<dependency>
 				<groupId>org.eclipse</groupId>
 				<artifactId>swt-win32-win32-x86</artifactId>
+				<version>3.6.2</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.eclipse</groupId>
+				<artifactId>swt-win32-win32-x86_64</artifactId>
 				<version>3.6.2</version>
 			</dependency>
 
