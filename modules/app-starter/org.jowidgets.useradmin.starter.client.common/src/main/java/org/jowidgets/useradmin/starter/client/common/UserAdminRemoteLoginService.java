@@ -29,8 +29,10 @@
 package org.jowidgets.useradmin.starter.client.common;
 
 import org.jowidgets.cap.common.api.service.IAuthorizationProviderService;
+import org.jowidgets.cap.common.api.service.IEntityService;
 import org.jowidgets.cap.tools.starter.client.AbstractRemoteLoginService;
 import org.jowidgets.service.api.IServiceId;
+import org.jowidgets.service.api.ServiceProvider;
 import org.jowidgets.useradmin.common.security.AuthorizationProviderServiceId;
 import org.jowidgets.useradmin.ui.messages.UserAdminMessages;
 
@@ -43,6 +45,15 @@ public class UserAdminRemoteLoginService extends AbstractRemoteLoginService {
 	@Override
 	protected IServiceId<? extends IAuthorizationProviderService<?>> getAuthorizationProviderServiceId() {
 		return AuthorizationProviderServiceId.ID;
+	}
+
+	@Override
+	public void afterLoginSuccess() {
+		//Fill entity info cache after successful login in login thread
+		//to avoid entity service access later in the ui thread.
+		final IEntityService service = ServiceProvider.getService(IEntityService.ID);
+		service.clearCache();
+		service.getEntityInfos();
 	}
 
 }
