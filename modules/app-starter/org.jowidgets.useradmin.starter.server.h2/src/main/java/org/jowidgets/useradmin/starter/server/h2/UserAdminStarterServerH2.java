@@ -35,24 +35,18 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.jowidgets.cap.remoting.common.RemotingBrokerId;
 import org.jowidgets.cap.tools.starter.server.CapServerStarter;
-import org.jowidgets.message.api.IExceptionCallback;
-import org.jowidgets.message.api.MessageToolkit;
 import org.jowidgets.security.impl.http.server.BasicAuthenticationFilter;
 import org.jowidgets.security.impl.http.server.SecurityRemotingServlet;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 
 public final class UserAdminStarterServerH2 {
 
 	private UserAdminStarterServerH2() {}
 
 	public static void main(final String[] args) throws Exception {
-		MessageToolkit.addExceptionCallback(RemotingBrokerId.DEFAULT_BROKER_ID, new IExceptionCallback() {
-			@Override
-			public void exception(final Throwable throwable) {
-				//CHECKSTYLE:OFF
-				throwable.printStackTrace();
-				//CHECKSTYLE:ON
-			}
-		});
+		SLF4JBridgeHandler.removeHandlersForRootLogger();
+		SLF4JBridgeHandler.install();
+
 		final Server server = new Server(8080);
 		final ServletContextHandler root = new ServletContextHandler(null, "/useradmin-h2-web", ServletContextHandler.SESSIONS);
 		root.addServlet(new ServletHolder(new SecurityRemotingServlet(RemotingBrokerId.DEFAULT_BROKER_ID)), "/remoting/");

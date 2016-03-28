@@ -48,6 +48,12 @@
 			<artifactId>org.jowidgets.cap.service.hibernate</artifactId>
 			<version>${jocap.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.jowidgets</groupId>
+			<artifactId>org.jowidgets.addons.logging.slf4j</artifactId>
+			<version>${jowidgets.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>

@@ -24,6 +24,12 @@
 			<artifactId>org.jowidgets.cap.security.ui.plugin</artifactId>
 			<version>${jocap.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.jowidgets</groupId>
+			<artifactId>org.jowidgets.addons.logging.slf4j</artifactId>
+			<version>${jowidgets.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
