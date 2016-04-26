@@ -27,7 +27,7 @@
 
 		<dependency>
 			<groupId>org.jowidgets</groupId>
-			<artifactId>org.jowidgets.addons.logging.slf4j</artifactId>
+			<artifactId>org.jowidgets.addons.logging.slf4j161</artifactId>
 			<version>${jowidgets.version}</version>
 		</dependency>
 
