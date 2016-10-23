@@ -55,12 +55,8 @@ public final class PasswordFilterSupportFactory {
 
 		final IFilterToolkit filterToolkit = CapUiToolkit.filterToolkit();
 		final IFilterSupportBuilder<String> builder = filterToolkit.filterSupportBuilder();
-		builder.addFilterPanelProvider(filterToolkit.arithmeticFilterPanel(
-				propertyName,
-				String.class,
-				new EmptyOperatorProvider(),
-				null,
-				null));
+		builder.addFilterPanelProvider(
+				filterToolkit.arithmeticFilterPanel(propertyName, String.class, new EmptyOperatorProvider(), null, null));
 		builder.setIncludingFilterFactory(new PasswordIncludingFilterFactory(propertyName));
 		return builder.build();
 	}
@@ -89,7 +85,7 @@ public final class PasswordFilterSupportFactory {
 
 		private final String propertyName;
 
-		public PasswordIncludingFilterFactory(final String propertyName) {
+		PasswordIncludingFilterFactory(final String propertyName) {
 			this.propertyName = propertyName;
 		}
 
