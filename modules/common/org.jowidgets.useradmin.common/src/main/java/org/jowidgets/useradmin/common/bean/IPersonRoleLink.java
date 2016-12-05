@@ -62,5 +62,5 @@ public interface IPersonRoleLink extends IBean {
 
 	Long getRoleId();
 
-	void setRoleId(final Long id);
+	void setRoleId(Long id);
 }

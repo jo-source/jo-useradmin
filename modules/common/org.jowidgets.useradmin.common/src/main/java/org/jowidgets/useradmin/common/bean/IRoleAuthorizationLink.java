@@ -58,7 +58,7 @@ public interface IRoleAuthorizationLink extends IBean {
 
 	Long getRoleId();
 
-	void setRoleId(final Long id);
+	void setRoleId(Long id);
 
 	Long getAuthorizationId();
 
